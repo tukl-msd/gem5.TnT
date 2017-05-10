@@ -153,11 +153,9 @@ function getgem5stuff {
 
 	# Clone repos
 	hgrepos=(
-	#"$rootdir,http://repo.gem5.org/gem5"
 	"$rootdir,http://repo.gem5.org/linux-patches"
 	"$rootdir,http://repo.gem5.org/tutorial"
 	"$rootdir,http://repo.gem5.org/m5threads"
-	"$benchmarksdir,ssh://hg@bitbucket.org/yongbing_huang/asimbench"
 	)
 
 	for repo in "${hgrepos[@]}"; do
@@ -167,8 +165,8 @@ function getgem5stuff {
 	done
 
 	gitrepos=(
-	"$rootdir:git@github.com:gem5/gem5.git"
-	"$rootdir:git@github.com:gem5/linux-arm-gem5.git"
+	"$rootdir:https://github.com/gem5/linux-arm-gem5.git"
+	"$rootdir:https://gem5.googlesource.com/public/gem5"
 	)
 
 	for repo in "${gitrepos[@]}"; do
@@ -230,15 +228,16 @@ function getgem5stuff {
 	wget http://www.gem5.org/dist/current/arm/arm-system-2011-08.tar.bz2 && tar -xvjf arm-system-2011-08.tar.bz2
 	# Old Full System Files -- Older pre-compiled Linux kernel, and file system.
 	wget http://www.m5sim.org/dist/current/arm/arm-system.tar.bz2 && tar -xvjf arm-system.tar.bz2
+	# Recent images
+	cd $fsstuffdirarm && mkdir 20170421 && cd 20170421
+	wget http://www.gem5.org/dist/current/arm/aarch-system-20170421.tar.xz && tar -xvJf aarch-system-20170421.tar.xz
+
 	# X86
 	cd $fsstuffdirx86
 	# The kernel used for regressions, an SMP version of it, and a disk image
 	wget http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2 && tar -xvjf x86-system.tar.bz2
 	# Config files for both of the above kernels, 2.6.25.1 and 2.6.28.4
 	wget http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2 && tar -xvjf config-x86.tar.bz2
-
-	cd $fsstuffdirarm && mkdir 20170421 && cd 20170421
-	wget http://www.gem5.org/dist/current/arm/aarch-system-20170421.tar.xz && tar -xvJf aarch-system-20170421.tar.xz
 }
 
 archdetect

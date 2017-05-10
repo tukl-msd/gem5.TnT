@@ -1,7 +1,7 @@
 #! /bin/bash
 
 #
-# Copyright (c) 2016, Éder F. Zulian
+# Copyright (c) 2016, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without

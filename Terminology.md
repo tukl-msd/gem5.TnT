@@ -14,7 +14,9 @@
 
 * **ar** is a utility for creating, modifying and extracting from archives.
 
-* **nlmconv** converts object code into an NLM. • nm lists symbols from object files.
+* **nlmconv** converts object code into an NLM.
+
+* **nm** lists symbols from object files.
 
 * **ranlib** generates an index to the contents of an archive.
 

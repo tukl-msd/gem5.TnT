@@ -1,6 +1,5 @@
 ## Dependencies
-* hg or git: 
-	* ```sudo apt-get install mercurial```
+* git: 
 	* ```sudo apt-get install git```
 
 * gcc 4.6+:
@@ -28,11 +27,6 @@
 * m4: ```sudo apt-get install m4```
 
 ## Getting Source Codes
-```
-hg clone http://repo.gem5.org/gem5
-```
-OR
-
 ```
 git clone https://gem5.googlesource.com/public/gem5
 ```
@@ -122,6 +116,13 @@ build/<arch>/gem5.<binary> config/example/fs.py --kernel=kernal_file --disk-imag
 **NOTE**:
 
 If you do not want to specify kernel & disk image files in the commands OR you got error stating that some files cannot be found in the path, you can create symlinks poiting to your desired files with the name harded code in ```config/common/FSConfig.py``` and ```config/common/Benchmarks.py```. Browse in to that files and find functions named make\<arch>System and check for harded code file name.
+
+As the gem5 running Full-system Simulation, telnet into shell sesstion of the virtual running machine in gem5 as normal machine
+
+```bash
+telnet localhost 3456
+```
+3456 is the port indicated in the console output. Use different number for your running
 
 ### Running pre-provided System-Call Emulation config script
 TODO

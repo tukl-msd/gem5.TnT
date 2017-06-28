@@ -133,6 +133,7 @@ function getgem5stuff {
 	local fsstuffdir=$rootdir/full_system_stuff
 	local fsstuffdirarm=$fsstuffdir/arm
 	local fsstuffdirx86=$fsstuffdir/x86
+	local fsstuffdirxalpha=$fsstuffdir/alpha
 	local benchmarksdir=$rootdir/benchmarks
 
 	local dirtree="
@@ -144,6 +145,7 @@ function getgem5stuff {
 	$fsstuffdir
 	$fsstuffdirarm
 	$fsstuffdirx86
+	$fsstuffdirxalpha
 	$benchmarksdir
 	"
 	for n in $dirtree; do
@@ -238,6 +240,13 @@ function getgem5stuff {
 	wget http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2 && tar -xvjf x86-system.tar.bz2
 	# Config files for both of the above kernels, 2.6.25.1 and 2.6.28.4
 	wget http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2 && tar -xvjf config-x86.tar.bz2
+
+	# ALPHA
+	cd $fsstuffdirxalpha
+	# Pre-compiled Linux kernels, PALcode/Console code, and a filesystem
+	wget http://www.m5sim.org/dist/current/m5_system_2.0b3.tar.bz2
+	# Everything you need to create your own disk image and compile everything in it from scratch
+	wget http://www.m5sim.org/dist/current/linux-dist.tgz
 }
 
 archdetect

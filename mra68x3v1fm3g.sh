@@ -169,6 +169,7 @@ function getgem5stuff {
 	gitrepos=(
 	"$rootdir:https://github.com/gem5/linux-arm-gem5.git"
 	"$rootdir:https://gem5.googlesource.com/public/gem5"
+	"$rootdir:git@github.com:powerjg/learning_gem5.git"
 	)
 
 	for repo in "${gitrepos[@]}"; do

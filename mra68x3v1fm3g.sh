@@ -182,6 +182,7 @@ function getgem5stuff {
 	# Benchmarks
 	"$benchmarksdir:http://www.gem5.org/dist/m5_benchmarks/v1-splash-alpha.tgz"
 	"$benchmarksdir:http://downloads.sourceforge.net/project/dacapobench/9.12-bach/dacapo-9.12-bach.jar"
+	"$benchmarksdir:http://parsec.cs.princeton.edu/download/3.0/parsec-3.0.tar.gz"
 	# Documentation
 	"$docdir:http://gem5.org/wiki/images/5/53/2015_ws_04_ISCA_2015_NoMali.pdf"
 	"$docdir:http://gem5.org/wiki/images/f/f7/2015_ws_02_hansson_gem5_workshop_2015.pdf"

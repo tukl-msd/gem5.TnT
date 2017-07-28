@@ -48,10 +48,12 @@ function rctest {
 }
 
 function cmdtest {
-	hash $@ 2>/dev/null || { echo >&2 "\"$@\" could not be found."; abort; }
+	hash $@ 2>/dev/null || { echo >&2 "\"$@\" could not be found. Please install it and try again."; abort; }
 }
 
 function archdetect {
+	cmdtest uname
+	cmdtest notify-send
 	local arch=$(uname -m)
 	if [ "$arch" = "i686" ]; then
 		notify-send "Architecture is 32-bit"
@@ -62,10 +64,12 @@ function archdetect {
 }
 
 function chessit {
+	nr=1
+	nc=80
 	echo ""
-	for (( r = 0; r < 28; r++ ))
+	for (( r = 0; r < $nr; r++ ))
 	do
-		for (( c = 0 ; c < 80; c++ ))
+		for (( c = 0 ; c < $nc; c++ ))
 		do
 			local sqrs=`expr $r + $c`
 			local odd=`expr $sqrs % 2`
@@ -84,7 +88,6 @@ function greetings {
 	echo ""
 	echo -e -n "Greetings $USER!" && echo ""
 	echo -e -n "You're currently on $HOSTNAME. Your home folder is $HOME." && echo ""
-	echo -e -n "This will take some time. It's a good opportunity to get some coffee." && echo ""
 	echo ""
 }
 
@@ -254,6 +257,6 @@ function getgem5stuff {
 archdetect
 chessit
 greetings
-instdep
+#instdep
 getgem5stuff
 

@@ -1,7 +1,9 @@
-# gem5_util
-## Utilities to make your life easier when dealing with gem5
+# gem5 Tips & Tricks
+## Tips and tricks to make your life easier when dealing with gem5
 
-**mra68x3v1fm3g.sh** downloads gem5 documentation, videos, tutorials, patches, etc.
+The Researcher's Guide to Gem5
 
-It is a bash script, but with small changes should work in your favorite OS or distribution.
+This repository contains tips and tricks about gem5. It is intended to accumulate and share useful hints about gem5, so that the learning process is accelerated.
+
+**mra68x3v1fm3g.sh** downloads gem5 documentation, videos, tutorials, patches, etc. Right now it is a bash script, but with small changes should work in your favorite OS or distribution.
 

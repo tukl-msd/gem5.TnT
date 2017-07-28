@@ -1,4 +1,4 @@
-# gem5 Tips & Tricks
+## gem5 Tips & Tricks
 ### **Tips and tricks to make your life easier when dealing with gem5**
 
 The Researcher's Guide to Gem5

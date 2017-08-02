@@ -8,3 +8,4 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 * **mra68x3v1fm3g.sh**: script that downloads gem5 documentation, videos, tutorials, patches, etc. Right now it is a bash script, but with small changes should work in your favorite OS or distribution.
 * **depinstall.sh**: script that installs known dependencies.
 
+If you decide to use resources from this repository, please give credit.

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Copyright (c) 2016, University of Kaiserslautern
+# Copyright (c) 2017, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -34,70 +34,25 @@
 
 source ./util.sh
 
-function getgem5stuff {
-	cmdtest hg
-	cmdtest git
-	cmdtest wget
-	cmdtest tar
-
+function getdoc {
 	local rootdir=$HOME/gem5_simulator
 	local docdir=$rootdir/doc
 	local tutorialsdir=$rootdir/doc/tutorials
 	local tutorialsdir1=$tutorialsdir/hipeac2012
 	local tutorialsdir2=$tutorialsdir/video
-	local fsstuffdir=$rootdir/full_system_stuff
-	local fsstuffdirarm=$fsstuffdir/arm
-	local fsstuffdirx86=$fsstuffdir/x86
-	local fsstuffdirxalpha=$fsstuffdir/alpha
-	local benchmarksdir=$rootdir/benchmarks
-
 	local dirtree="
 	$rootdir
 	$docdir
 	$tutorialsdir
 	$tutorialsdir1
 	$tutorialsdir2
-	$fsstuffdir
-	$fsstuffdirarm
-	$fsstuffdirx86
-	$fsstuffdirxalpha
-	$benchmarksdir
 	"
 	for n in $dirtree; do
-		local c="mkdir $n"
+		local c="mkdir -p $n"
 		rctest $c
 	done
 
-	# Clone repos
-	hgrepos=(
-	"$rootdir,http://repo.gem5.org/linux-patches"
-	"$rootdir,http://repo.gem5.org/tutorial"
-	"$rootdir,http://repo.gem5.org/m5threads"
-	)
-
-	for repo in "${hgrepos[@]}"; do
-		cd ${repo%%,*}
-		hg clone ${repo#*,}
-		printf "%s cloned into %s.\n" "${repo#*,}" "${repo%%,*}"
-	done
-
-	gitrepos=(
-	"$rootdir:https://github.com/gem5/linux-arm-gem5.git"
-	"$rootdir:https://gem5.googlesource.com/public/gem5"
-	"$rootdir:git@github.com:powerjg/learning_gem5.git"
-	)
-
-	for repo in "${gitrepos[@]}"; do
-		cd ${repo%%:*}
-		git clone --recursive ${repo#*:}
-		printf "%s cloned into %s.\n" "${repo#*,}" "${repo%%,*}"
-	done
-
 	wgethis=(
-	# Benchmarks
-	"$benchmarksdir:http://www.gem5.org/dist/m5_benchmarks/v1-splash-alpha.tgz"
-	"$benchmarksdir:http://downloads.sourceforge.net/project/dacapobench/9.12-bach/dacapo-9.12-bach.jar"
-	"$benchmarksdir:http://parsec.cs.princeton.edu/download/3.0/parsec-3.0.tar.gz"
 	# Documentation
 	"$docdir:http://gem5.org/wiki/images/5/53/2015_ws_04_ISCA_2015_NoMali.pdf"
 	"$docdir:http://gem5.org/wiki/images/f/f7/2015_ws_02_hansson_gem5_workshop_2015.pdf"
@@ -110,6 +65,7 @@ function getgem5stuff {
 	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/isca_hand.pdf"
 	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/tutorial.ppt"
 	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/tutorial.pdf"
+	# HiPEAC - European Network on High Performance and Embedded Architecture and Compilation
 	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/gem5_hipeac.pdf"
 	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/01.overview.m4v"
 	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/02.introduction.m4v"
@@ -121,6 +77,7 @@ function getgem5stuff {
 	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/08.common_tasks.m4v"
 	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/09.configuration.m4v"
 	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/10.conclusions.m4v"
+	# Videos
 	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/introduction.mov"
 	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/running.mov"
 	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/fullsystem.mov"
@@ -128,43 +85,13 @@ function getgem5stuff {
 	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/extending.mov"
 	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/debugging.mov"
 	)
+	cmdtest wget
 	for g in "${wgethis[@]}"; do
 		cd ${g%%:*}
-		wget ${g#*:}
-		printf "%s wget into %s.\n" "${g#*:}" "${g%%:*}"
+		wget -nc ${g#*:}
+		printf "%s downloaded into %s.\n\n" "${g#*:}" "${g%%:*}"
 	done
-
-	# Full system stuff
-	# ARM
-	cd $fsstuffdirarm && mkdir 20141001 && cd 20141001
-	wget http://www.gem5.org/dist/current/arm/aarch-system-2014-10.tar.xz && tar -xvJf aarch-system-2014-10.tar.xz
-	cd $fsstuffdirarm && mkdir legacy && cd legacy
-	# ARMv8 Full-System Files -- Pre-compiled kernel and disk image for the 64 bit ARMv8 ISA.
-	wget http://www.gem5.org/dist/current/arm/arm64-system-02-2014.tgz && tar -xvzf arm64-system-02-2014.tgz
-	# VExpress_EMM kernel w/PCI support and config - Pre-compiled Linux 3.3 VExpress_EMM kernel that includes support for PCIe devices, a patch to add gem5 PCIe support to the revision of the vexpress kernel tree and a config file. This kernel is needed if you want to simulated more than 256MB of RAM or networking. Pass kernel=/path/to/vmlinux-3.3-arm-vexpress-emm-pcie machine-type=VExpress_EMM on the command line. You'll still need the file systems below. This kernel supports a maximum of 2047MB (one MB less than 2GB) of memory.
-	wget http://www.gem5.org/dist/current/arm/vmlinux-emm-pcie-3.3.tar.bz2 && tar xvjf vmlinux-emm-pcie-3.3.tar.bz2
-	# New Full System Files -- Pre-compiled Linux kernel, and file systems, and kernel config files. This includes both a cut-down linux and a full ubuntu linux.
-	wget http://www.gem5.org/dist/current/arm/arm-system-2011-08.tar.bz2 && tar -xvjf arm-system-2011-08.tar.bz2
-	# Old Full System Files -- Older pre-compiled Linux kernel, and file system.
-	wget http://www.m5sim.org/dist/current/arm/arm-system.tar.bz2 && tar -xvjf arm-system.tar.bz2
-	# Recent images
-	cd $fsstuffdirarm && mkdir 20170421 && cd 20170421
-	wget http://www.gem5.org/dist/current/arm/aarch-system-20170421.tar.xz && tar -xvJf aarch-system-20170421.tar.xz
-
-	# X86
-	cd $fsstuffdirx86
-	# The kernel used for regressions, an SMP version of it, and a disk image
-	wget http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2 && tar -xvjf x86-system.tar.bz2
-	# Config files for both of the above kernels, 2.6.25.1 and 2.6.28.4
-	wget http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2 && tar -xvjf config-x86.tar.bz2
-
-	# ALPHA
-	cd $fsstuffdirxalpha
-	# Pre-compiled Linux kernels, PALcode/Console code, and a filesystem
-	wget http://www.m5sim.org/dist/current/m5_system_2.0b3.tar.bz2
-	# Everything you need to create your own disk image and compile everything in it from scratch
-	wget http://www.m5sim.org/dist/current/linux-dist.tgz
 }
 
 greetings
-#getgem5stuff
+getdoc

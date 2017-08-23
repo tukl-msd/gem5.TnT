@@ -32,14 +32,13 @@
 #
 # Author: Éder F. Zulian
 
-source ./util.sh
+source ./defaults.in
+source ./util.in
 
 function getbenchmarks {
-	local rootdir=$HOME/gem5_simulator
-	local benchmarksdir=$rootdir/benchmarks
 	local dirtree="
-	$rootdir
-	$benchmarksdir
+	$ROOTDIR
+	$BENCHMARKSDIR
 	"
 	for n in $dirtree; do
 		local c="mkdir -p $n"
@@ -47,10 +46,10 @@ function getbenchmarks {
 	done
 
 	wgethis=(
-	"$benchmarksdir:http://www.gem5.org/dist/m5_benchmarks/v1-splash-alpha.tgz"
-	"$benchmarksdir:http://downloads.sourceforge.net/project/dacapobench/9.12-bach/dacapo-9.12-bach.jar"
+	"$BENCHMARKSDIR:http://www.gem5.org/dist/m5_benchmarks/v1-splash-alpha.tgz"
+	"$BENCHMARKSDIR:http://downloads.sourceforge.net/project/dacapobench/9.12-bach/dacapo-9.12-bach.jar"
 	# PARSEC 3.0 (http://parsec.cs.princeton.edu/parsec3-doc.htm#report)
-	"$benchmarksdir:http://parsec.cs.princeton.edu/download/3.0/parsec-3.0.tar.gz"
+	"$BENCHMARKSDIR:http://parsec.cs.princeton.edu/download/3.0/parsec-3.0.tar.gz"
 	)
 	cmdtest wget
 	for g in "${wgethis[@]}"; do

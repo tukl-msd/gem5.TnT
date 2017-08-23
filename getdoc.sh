@@ -32,20 +32,16 @@
 #
 # Author: Éder F. Zulian
 
-source ./util.sh
+source ./defaults.in
+source ./util.in
 
 function getdoc {
-	local rootdir=$HOME/gem5_simulator
-	local docdir=$rootdir/doc
-	local tutorialsdir=$rootdir/doc/tutorials
-	local tutorialsdir1=$tutorialsdir/hipeac2012
-	local tutorialsdir2=$tutorialsdir/video
 	local dirtree="
-	$rootdir
-	$docdir
-	$tutorialsdir
-	$tutorialsdir1
-	$tutorialsdir2
+	$ROOTDIR
+	$DOCDIR
+	$TUTURIALSDIR
+	$TUTURIALSDIR1
+	$TUTURIALSDIR2
 	"
 	for n in $dirtree; do
 		local c="mkdir -p $n"
@@ -54,36 +50,36 @@ function getdoc {
 
 	wgethis=(
 	# Documentation
-	"$docdir:http://gem5.org/wiki/images/5/53/2015_ws_04_ISCA_2015_NoMali.pdf"
-	"$docdir:http://gem5.org/wiki/images/f/f7/2015_ws_02_hansson_gem5_workshop_2015.pdf"
-	"$docdir:http://gem5.org/wiki/images/4/4c/2015_ws_09_2015-06-14_Gem5_ISCA.pptx"
+	"$DOCDIR:http://gem5.org/wiki/images/5/53/2015_ws_04_ISCA_2015_NoMali.pdf"
+	"$DOCDIR:http://gem5.org/wiki/images/f/f7/2015_ws_02_hansson_gem5_workshop_2015.pdf"
+	"$DOCDIR:http://gem5.org/wiki/images/4/4c/2015_ws_09_2015-06-14_Gem5_ISCA.pptx"
 	# Tutorials
-	"$tutorialsdir:http://www.gem5.org/dist/tutorials/isca_pres_2011.pdf"
-	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/asplos_pres.pdf"
-	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/asplos_hand.pdf"
-	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/isca_pres.pdf"
-	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/isca_hand.pdf"
-	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/tutorial.ppt"
-	"$tutorialsdir:http://www.m5sim.org/dist/tutorials/tutorial.pdf"
+	"$TUTURIALSDIR:http://www.gem5.org/dist/tutorials/isca_pres_2011.pdf"
+	"$TUTURIALSDIR:http://www.m5sim.org/dist/tutorials/asplos_pres.pdf"
+	"$TUTURIALSDIR:http://www.m5sim.org/dist/tutorials/asplos_hand.pdf"
+	"$TUTURIALSDIR:http://www.m5sim.org/dist/tutorials/isca_pres.pdf"
+	"$TUTURIALSDIR:http://www.m5sim.org/dist/tutorials/isca_hand.pdf"
+	"$TUTURIALSDIR:http://www.m5sim.org/dist/tutorials/tutorial.ppt"
+	"$TUTURIALSDIR:http://www.m5sim.org/dist/tutorials/tutorial.pdf"
 	# HiPEAC - European Network on High Performance and Embedded Architecture and Compilation
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/gem5_hipeac.pdf"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/01.overview.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/02.introduction.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/03.basics.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/04.running_experiment.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/05.debugging.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/06.memory.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/07.cpu_models.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/08.common_tasks.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/09.configuration.m4v"
-	"$tutorialsdir1:http://gem5.org/dist/tutorials/hipeac2012/10.conclusions.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/gem5_hipeac.pdf"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/01.overview.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/02.introduction.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/03.basics.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/04.running_experiment.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/05.debugging.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/06.memory.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/07.cpu_models.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/08.common_tasks.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/09.configuration.m4v"
+	"$TUTURIALSDIR1:http://gem5.org/dist/tutorials/hipeac2012/10.conclusions.m4v"
 	# Videos
-	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/introduction.mov"
-	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/running.mov"
-	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/fullsystem.mov"
-	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/objects.mov"
-	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/extending.mov"
-	"$tutorialsdir2:http://www.m5sim.org/dist/tutorials/debugging.mov"
+	"$TUTURIALSDIR2:http://www.m5sim.org/dist/tutorials/introduction.mov"
+	"$TUTURIALSDIR2:http://www.m5sim.org/dist/tutorials/running.mov"
+	"$TUTURIALSDIR2:http://www.m5sim.org/dist/tutorials/fullsystem.mov"
+	"$TUTURIALSDIR2:http://www.m5sim.org/dist/tutorials/objects.mov"
+	"$TUTURIALSDIR2:http://www.m5sim.org/dist/tutorials/extending.mov"
+	"$TUTURIALSDIR2:http://www.m5sim.org/dist/tutorials/debugging.mov"
 	)
 	cmdtest wget
 	for g in "${wgethis[@]}"; do

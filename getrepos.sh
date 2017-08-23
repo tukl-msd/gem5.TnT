@@ -32,12 +32,12 @@
 #
 # Author: Éder F. Zulian
 
-source ./util.sh
+source ./defaults.in
+source ./util.in
 
 function getrepos {
-	local rootdir=$HOME/gem5_simulator
 	local dirtree="
-	$rootdir
+	$ROOTDIR
 	"
 	for n in $dirtree; do
 		local c="mkdir -p $n"
@@ -46,9 +46,9 @@ function getrepos {
 
 	# Mercurial repositories
 	hgrepos=(
-	"$rootdir,http://repo.gem5.org/linux-patches"
-	"$rootdir,http://repo.gem5.org/tutorial"
-	"$rootdir,http://repo.gem5.org/m5threads"
+	"$ROOTDIR,http://repo.gem5.org/linux-patches"
+	"$ROOTDIR,http://repo.gem5.org/tutorial"
+	"$ROOTDIR,http://repo.gem5.org/m5threads"
 	)
 	cmdtest hg
 	for repo in "${hgrepos[@]}"; do
@@ -59,9 +59,9 @@ function getrepos {
 
 	# git repositories
 	gitrepos=(
-	"$rootdir:https://github.com/gem5/linux-arm-gem5.git"
-	"$rootdir:https://gem5.googlesource.com/public/gem5"
-	"$rootdir:git@github.com:powerjg/learning_gem5.git"
+	"$ROOTDIR:https://github.com/gem5/linux-arm-gem5.git"
+	"$ROOTDIR:https://gem5.googlesource.com/public/gem5"
+	"$ROOTDIR:git@github.com:powerjg/learning_gem5.git"
 	)
 	cmdtest git
 	for repo in "${gitrepos[@]}"; do

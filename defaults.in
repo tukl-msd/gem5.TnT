@@ -35,6 +35,7 @@
 readonly ROOTDIR=$HOME/gem5_simulator
 
 readonly BENCHMARKSDIR=$ROOTDIR/benchmarks
+readonly BBENCHANDROIDARMDIR=$BENCHMARKSDIR/bbench_android_arm
 
 readonly DOCDIR=$ROOTDIR/doc
 readonly TUTURIALSDIR=$ROOTDIR/doc/tutorials

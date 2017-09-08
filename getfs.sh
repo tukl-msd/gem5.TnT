@@ -52,6 +52,10 @@ function getfsfiles {
 	"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-2014-10.tar.xz"
 	"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170421.tar.xz"
 	"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170616.tar.xz"
+	"$FSDIRARM:http://www.gem5.org/dist/current/bbench/Gingerbread_disk_image.tgz"
+	"$FSDIRARM:http://www.gem5.org/dist/current/bbench/Gingerbread_disk_image_clean.tgz"
+	"$FSDIRARM:http://www.gem5.org/dist/current/bbench/ICS_disk_image.tgz"
+	"$FSDIRARM:http://www.gem5.org/dist/current/bbench/ICS_disk_image_clean.tgz"
 	# ARM legacy files
 	# ARMv8 Full-System Files -- Pre-compiled kernel and disk image for the 64 bit ARMv8 ISA.
 	"$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/arm64-system-02-2014.tgz"

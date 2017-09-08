@@ -50,6 +50,7 @@ function getrepos {
 	"$ROOTDIR,http://repo.gem5.org/tutorial"
 	"$ROOTDIR,http://repo.gem5.org/m5threads"
 	"$ROOTDIR,https://bitbucket.org/yongbing_huang/asimbench"
+	"$ROOTDIR,https://bitbucket.org/atgutier/bbench"
 	)
 	cmdtest hg
 	for repo in "${hgrepos[@]}"; do

@@ -54,7 +54,11 @@ function rctest {
 
 function archdetect {
 	arch=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
-	rctest notify-send "Architecture is ${arch}-bit"
+	hash notify-send 2> /dev/null
+	if [[ $? -eq 0 ]]; then
+		notify-send "Architecture is ${arch}-bit"
+	fi
+	echo -e "Architecture is ${arch}-bit"
 }
 
 function chessit {
@@ -84,8 +88,13 @@ function greetings {
 	rctest date
 	if [ "$EUID" -ne 0 ]; then
 		msg="Greetings $USER!"
-		cmd="cowsay -f tux $msg"
-		rctest $cmd
+		hash cowsay 2> /dev/null
+		if [[ $? -eq 0 ]]; then
+			cmd="cowsay -f tux $msg"
+			rctest $cmd
+		else
+			echo -e "$msg"
+		fi
 	fi
 	echo ""
 	echo -e -n "You're currently on $HOSTNAME" && echo ""

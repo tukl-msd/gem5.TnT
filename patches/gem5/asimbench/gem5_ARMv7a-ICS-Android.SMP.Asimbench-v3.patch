@@ -1,0 +1,34 @@
+diff --git a/configs/common/FSConfig.py b/configs/common/FSConfig.py
+index c08353a..f3a96c3 100644
+--- a/configs/common/FSConfig.py
++++ b/configs/common/FSConfig.py
+@@ -216,7 +216,7 @@ def makeArmSystem(mem_mode, machine_type, num_cpus=1, mdesc=None,
+ 
+     default_kernels = {
+         "RealViewEB": "vmlinux.arm.smp.fb.2.6.38.8",
+-        "RealViewPBX": "vmlinux.arm.smp.fb.2.6.38.8",
++        #"RealViewPBX": "vmlinux.arm.smp.fb.2.6.38.8",
+         "VExpress_EMM": "vmlinux.aarch32.ll_20131205.0-gem5",
+         "VExpress_EMM64": "vmlinux.aarch64.20140821",
+     }
+@@ -266,14 +266,18 @@ def makeArmSystem(mem_mode, machine_type, num_cpus=1, mdesc=None,
+     self.realview.attachPciDevices()
+ 
+     self.cf0 = CowIdeDisk(driveID='master')
++    self.cf2 = CowIdeDisk(driveID='master')
+     self.cf0.childImage(mdesc.disk())
++    self.cf2.childImage(disk("sdcard-1g-mxplayer.img"))
+     # Old platforms have a built-in IDE or CF controller. Default to
+     # the IDE controller if both exist. New platforms expect the
+     # storage controller to be added from the config script.
+     if hasattr(self.realview, "ide"):
+-        self.realview.ide.disks = [self.cf0]
++        # self.realview.ide.disks = [self.cf0]
++        self.realview.ide.disks = [self.cf0, self.cf2]
+     elif hasattr(self.realview, "cf_ctrl"):
+-        self.realview.cf_ctrl.disks = [self.cf0]
++        # self.realview.cf_ctrl.disks = [self.cf0]
++        self.realview.cf_ctrl.disks = [self.cf0, self.cf2]
+     else:
+         self.pci_ide = IdeController(disks=[self.cf0])
+         pci_devices.append(self.pci_ide)

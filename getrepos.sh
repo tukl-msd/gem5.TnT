@@ -35,43 +35,22 @@
 source ./defaults.in
 source ./util.in
 
-function getrepos {
-	local dirtree="
-	$ROOTDIR
-	"
-	for n in $dirtree; do
-		local c="mkdir -p $n"
-		rctest $c
-	done
+# Mercurial repositories
+hgrepos=(
+"$ROOTDIR,http://repo.gem5.org/linux-patches"
+"$ROOTDIR,http://repo.gem5.org/tutorial"
+"$ROOTDIR,http://repo.gem5.org/m5threads"
+"$ROOTDIR,https://bitbucket.org/yongbing_huang/asimbench"
+"$ROOTDIR,https://bitbucket.org/atgutier/bbench"
+)
 
-	# Mercurial repositories
-	hgrepos=(
-	"$ROOTDIR,http://repo.gem5.org/linux-patches"
-	"$ROOTDIR,http://repo.gem5.org/tutorial"
-	"$ROOTDIR,http://repo.gem5.org/m5threads"
-	"$ROOTDIR,https://bitbucket.org/yongbing_huang/asimbench"
-	"$ROOTDIR,https://bitbucket.org/atgutier/bbench"
-	)
-	cmdtest hg
-	for repo in "${hgrepos[@]}"; do
-		cd ${repo%%,*}
-		hg clone ${repo#*,}
-		printf "%s cloned into %s.\n\n" "${repo#*,}" "${repo%%,*}"
-	done
-
-	# git repositories
-	gitrepos=(
-	"$ROOTDIR:https://github.com/gem5/linux-arm-gem5.git"
-	"$ROOTDIR:https://gem5.googlesource.com/public/gem5"
-	"$ROOTDIR:git@github.com:powerjg/learning_gem5.git"
-	)
-	cmdtest git
-	for repo in "${gitrepos[@]}"; do
-		cd ${repo%%:*}
-		git clone --recursive ${repo#*:}
-		printf "%s cloned into %s.\n\n" "${repo#*,}" "${repo%%,*}"
-	done
-}
+# git repositories
+gitrepos=(
+"$ROOTDIR:https://github.com/gem5/linux-arm-gem5.git"
+"$ROOTDIR:https://gem5.googlesource.com/public/gem5"
+"$ROOTDIR:git@github.com:powerjg/learning_gem5.git"
+)
 
 greetings
-getrepos
+hgcloneintodir hgrepos[@]
+gitcloneintodir gitrepos[@]

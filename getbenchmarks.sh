@@ -47,4 +47,4 @@ wgethis=(
 )
 
 greetings
-wgettodir wgethis[@]
+wgetintodir wgethis[@]

@@ -113,13 +113,36 @@ function checkprivledges {
 	fi
 }
 
-function wgettodir {
+function wgetintodir {
 	cmdtest wget
 	declare -a argarray=("${!1}")
 	for e in "${argarray[@]}"; do
 		c="mkdir -p ${e%%:*}"
 		rctest $c
 		wget -N ${e#*:} -P ${e%%:*}
-		echo -e -n "${e#*:} downloaded to ${e%%:*}" && echo ""
+	done
+}
+
+function hgcloneintodir {
+	cmdtest hg
+	declare -a argarray=("${!1}")
+	for e in "${argarray[@]}"; do
+		c="mkdir -p ${e%%,*}"
+		rctest $c
+		cd ${e%%,*}
+		hg clone ${e#*,}
+		echo -e -n "${e#*,} cloned into ${e%%,*}" && echo ""
+	done
+}
+
+function gitcloneintodir {
+	cmdtest git
+	declare -a argarray=("${!1}")
+	for e in "${argarray[@]}"; do
+		c="mkdir -p ${e%%:*}"
+		rctest $c
+		cd ${e%%:*}
+		git clone --recursive ${e#*:}
+		echo -e -n "${e#*:} cloned into ${e%%:*}" && echo ""
 	done
 }

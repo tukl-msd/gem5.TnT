@@ -68,4 +68,4 @@ cd $FSDIRALPHA
 )
 
 greetings
-wgettodir wgethis[@]
+wgetintodir wgethis[@]

@@ -27,7 +27,7 @@ export DISK="--disk=ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 export OUT_DIR="--outdir=android_asimbench_output"
 ```
 
-or you can use a clean android disk image without any benchmark program.
+Or you can use a clean android disk image without any benchmark program.
 
 ```bash
 export BENCHMARK_OPTIONS=""
@@ -55,6 +55,8 @@ Connect with **vncviewer**.
 vncviewer localhost:5901
 ```
 
-References:
+#### References:
 
+https://bitbucket.org/yongbing_huang/asimbench
 
+http://www.gem5.org/BBench-gem5

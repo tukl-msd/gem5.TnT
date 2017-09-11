@@ -35,35 +35,16 @@
 source ./defaults.in
 source ./util.in
 
-function getbenchmarks {
-	local dirtree="
-	$ROOTDIR
-	$BENCHMARKSDIR
-	$BBENCHANDROIDARMDIR
-	"
-	for n in $dirtree; do
-		local c="mkdir -p $n"
-		rctest $c
-	done
-
-	wgethis=(
-	"$BENCHMARKSDIR:http://www.gem5.org/dist/m5_benchmarks/v1-splash-alpha.tgz"
-	"$BENCHMARKSDIR:http://downloads.sourceforge.net/project/dacapobench/9.12-bach/dacapo-9.12-bach.jar"
-	# PARSEC 3.0 (http://parsec.cs.princeton.edu/parsec3-doc.htm#report)
-	"$BENCHMARKSDIR:http://parsec.cs.princeton.edu/download/3.0/parsec-3.0.tar.gz"
-	"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/bbench_2.0.tgz"
-	"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/bbench_3.0.tgz"
-	"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/Gingerbread_disk_image.tgz"
-	"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/ICS_disk_image.tgz"
-	"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/vmlinux_and_config_arm.tgz"
-	)
-	cmdtest wget
-	for g in "${wgethis[@]}"; do
-		cd ${g%%:*}
-		wget -N ${g#*:}
-		printf "%s downloaded into %s.\n\n" "${g#*:}" "${g%%:*}"
-	done
-}
+wgethis=(
+"$BENCHMARKSDIR:http://www.gem5.org/dist/m5_benchmarks/v1-splash-alpha.tgz"
+"$BENCHMARKSDIR:http://downloads.sourceforge.net/project/dacapobench/9.12-bach/dacapo-9.12-bach.jar"
+"$BENCHMARKSDIR:http://parsec.cs.princeton.edu/download/3.0/parsec-3.0.tar.gz"
+"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/bbench_2.0.tgz"
+"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/bbench_3.0.tgz"
+"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/Gingerbread_disk_image.tgz"
+"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/ICS_disk_image.tgz"
+"$BBENCHANDROIDARMDIR:http://bbench.eecs.umich.edu/bbench/vmlinux_and_config_arm.tgz"
+)
 
 greetings
-getbenchmarks
+wgettodir wgethis[@]

@@ -35,56 +35,37 @@
 source ./defaults.in
 source ./util.in
 
-function getfsfiles {
-	local dirtree="
-	$FSDIRARM
-	$FSDIRARMLEGACY
-	$FSDIRX86
-	$FSDIRALPHA
-	"
-	for n in $dirtree; do
-		local c="mkdir -p $n"
-		rctest $c
-	done
-
-	wgethis=(
-	# ARM full system files
-	"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-2014-10.tar.xz"
-	"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170421.tar.xz"
-	"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170616.tar.xz"
-	"$FSDIRARM:http://www.gem5.org/dist/current/bbench/Gingerbread_disk_image.tgz"
-	"$FSDIRARM:http://www.gem5.org/dist/current/bbench/Gingerbread_disk_image_clean.tgz"
-	"$FSDIRARM:http://www.gem5.org/dist/current/bbench/ICS_disk_image.tgz"
-	"$FSDIRARM:http://www.gem5.org/dist/current/bbench/ICS_disk_image_clean.tgz"
-	# ARM legacy files
-	# ARMv8 Full-System Files -- Pre-compiled kernel and disk image for the 64 bit ARMv8 ISA.
-	"$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/arm64-system-02-2014.tgz"
-	# VExpress_EMM kernel w/PCI support and config - Pre-compiled Linux 3.3 VExpress_EMM kernel that includes support for PCIe devices, a patch to add gem5 PCIe support to the revision of the vexpress kernel tree and a config file. This kernel is needed if you want to simulated more than 256MB of RAM or networking. Pass kernel=/path/to/vmlinux-3.3-arm-vexpress-emm-pcie machine-type=VExpress_EMM on the command line. You'll still need the file systems below. This kernel supports a maximum of 2047MB (one MB less than 2GB) of memory.
-	"$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/vmlinux-emm-pcie-3.3.tar.bz2"
-	# New Full System Files -- Pre-compiled Linux kernel, and file systems, and kernel config files. This includes both a cut-down linux and a full ubuntu linux.
-	"$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/arm-system-2011-08.tar.bz2"
-	# Old Full System Files -- Older pre-compiled Linux kernel, and file system.
-	"$FSDIRARMLEGACY:http://www.m5sim.org/dist/current/arm/arm-system.tar.bz2"
-	# X86 full system files
-	$FSDIRX86
-	# The kernel used for regressions, an SMP version of it, and a disk image
-	"$FSDIRX86:http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2"
-	# Config files for both of the above kernels, 2.6.25.1 and 2.6.28.4
-	"$FSDIRX86:http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2"
-	# ALPHA full system files
-	cd $FSDIRALPHA
-	# Pre-compiled Linux kernels, PALcode/Console code, and a filesystem
-	"$FSDIRALPHA:http://www.m5sim.org/dist/current/m5_system_2.0b3.tar.bz2"
-	# Everything you need to create your own disk image and compile everything in it from scratch
-	"$FSDIRALPHA:http://www.m5sim.org/dist/current/linux-dist.tgz"
-	)
-	cmdtest wget
-	for g in "${wgethis[@]}"; do
-		cd ${g%%:*}
-		wget -N ${g#*:}
-		printf "%s downloaded into %s.\n\n" "${g#*:}" "${g%%:*}"
-	done
-}
+wgethis=(
+# ARM full system files
+"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-2014-10.tar.xz"
+"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170421.tar.xz"
+"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170616.tar.xz"
+"$FSDIRARM:http://www.gem5.org/dist/current/bbench/Gingerbread_disk_image.tgz"
+"$FSDIRARM:http://www.gem5.org/dist/current/bbench/Gingerbread_disk_image_clean.tgz"
+"$FSDIRARM:http://www.gem5.org/dist/current/bbench/ICS_disk_image.tgz"
+"$FSDIRARM:http://www.gem5.org/dist/current/bbench/ICS_disk_image_clean.tgz"
+# ARM legacy files
+# ARMv8 Full-System Files -- Pre-compiled kernel and disk image for the 64 bit ARMv8 ISA.
+"$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/arm64-system-02-2014.tgz"
+# VExpress_EMM kernel w/PCI support and config - Pre-compiled Linux 3.3 VExpress_EMM kernel that includes support for PCIe devices, a patch to add gem5 PCIe support to the revision of the vexpress kernel tree and a config file. This kernel is needed if you want to simulated more than 256MB of RAM or networking. Pass kernel=/path/to/vmlinux-3.3-arm-vexpress-emm-pcie machine-type=VExpress_EMM on the command line. You'll still need the file systems below. This kernel supports a maximum of 2047MB (one MB less than 2GB) of memory.
+"$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/vmlinux-emm-pcie-3.3.tar.bz2"
+# New Full System Files -- Pre-compiled Linux kernel, and file systems, and kernel config files. This includes both a cut-down linux and a full ubuntu linux.
+"$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/arm-system-2011-08.tar.bz2"
+# Old Full System Files -- Older pre-compiled Linux kernel, and file system.
+"$FSDIRARMLEGACY:http://www.m5sim.org/dist/current/arm/arm-system.tar.bz2"
+# X86 full system files
+$FSDIRX86
+# The kernel used for regressions, an SMP version of it, and a disk image
+"$FSDIRX86:http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2"
+# Config files for both of the above kernels, 2.6.25.1 and 2.6.28.4
+"$FSDIRX86:http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2"
+# ALPHA full system files
+cd $FSDIRALPHA
+# Pre-compiled Linux kernels, PALcode/Console code, and a filesystem
+"$FSDIRALPHA:http://www.m5sim.org/dist/current/m5_system_2.0b3.tar.bz2"
+# Everything you need to create your own disk image and compile everything in it from scratch
+"$FSDIRALPHA:http://www.m5sim.org/dist/current/linux-dist.tgz"
+)
 
 greetings
-getfsfiles
+wgettodir wgethis[@]

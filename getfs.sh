@@ -81,7 +81,7 @@ function getfsfiles {
 	cmdtest wget
 	for g in "${wgethis[@]}"; do
 		cd ${g%%:*}
-		wget -nc ${g#*:}
+		wget -N ${g#*:}
 		printf "%s downloaded into %s.\n\n" "${g#*:}" "${g%%:*}"
 	done
 }

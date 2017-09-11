@@ -44,6 +44,10 @@ wgethis=(
 "$FSDIRARM:http://www.gem5.org/dist/current/bbench/Gingerbread_disk_image_clean.tgz"
 "$FSDIRARM:http://www.gem5.org/dist/current/bbench/ICS_disk_image.tgz"
 "$FSDIRARM:http://www.gem5.org/dist/current/bbench/ICS_disk_image_clean.tgz"
+# BBench android disk images and vmlinux for arm
+"$FSDIRARMBBENCH:http://bbench.eecs.umich.edu/bbench/Gingerbread_disk_image.tgz"
+"$FSDIRARMBBENCH:http://bbench.eecs.umich.edu/bbench/ICS_disk_image.tgz"
+"$FSDIRARMBBENCH:http://bbench.eecs.umich.edu/bbench/vmlinux_and_config_arm.tgz"
 # ARM legacy files
 # ARMv8 Full-System Files -- Pre-compiled kernel and disk image for the 64 bit ARMv8 ISA.
 "$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/arm64-system-02-2014.tgz"
@@ -67,5 +71,12 @@ cd $FSDIRALPHA
 "$FSDIRALPHA:http://www.m5sim.org/dist/current/linux-dist.tgz"
 )
 
+# Mercurial repositories
+hgrepos=(
+# Asimbench android disk images and vmlinux for arm
+"$FSDIRARMASIMBENCH,https://bitbucket.org/yongbing_huang/asimbench"
+)
+
 greetings
 wgetintodir wgethis[@]
+hgcloneintodir hgrepos[@]

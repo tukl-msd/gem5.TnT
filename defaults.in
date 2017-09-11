@@ -32,18 +32,19 @@
 #
 # Author: Éder F. Zulian
 
-readonly ROOTDIR=$HOME/gem5_simulator
+readonly ROOTDIR=$HOME/gem5_tnt_files
 
 readonly BENCHMARKSDIR=$ROOTDIR/benchmarks
-readonly BBENCHANDROIDARMDIR=$BENCHMARKSDIR/bbench_android_arm
 
-readonly DOCDIR=$ROOTDIR/doc
-readonly TUTURIALSDIR=$ROOTDIR/doc/tutorials
-readonly TUTURIALSDIR1=$TUTURIALSDIR/hipeac2012
-readonly TUTURIALSDIR2=$TUTURIALSDIR/video
+readonly DOCDIR=$ROOTDIR/Documentation
+readonly TUTORIALSDIR=$DOCDIR/tutorials
+readonly TUTORIALSDIR1=$TUTORIALSDIR/hipeac2012
+readonly TUTORIALSDIR2=$TUTORIALSDIR/video
 
 readonly FSDIR=$ROOTDIR/full_system_files
 readonly FSDIRARM=$FSDIR/arm
+readonly FSDIRARMBBENCH=$FSDIRARM/bbench
+readonly FSDIRARMASIMBENCH=$FSDIRARM/asimbench
 readonly FSDIRARMLEGACY=$FSDIRARM/legacy
 readonly FSDIRX86=$FSDIR/x86
 readonly FSDIRALPHA=$FSDIR/alpha

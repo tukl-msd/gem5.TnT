@@ -37,18 +37,13 @@ source ./util.in
 
 # Mercurial repositories
 hgrepos=(
-"$ROOTDIR,http://repo.gem5.org/linux-patches"
-"$ROOTDIR,http://repo.gem5.org/tutorial"
 "$ROOTDIR,http://repo.gem5.org/m5threads"
-"$ROOTDIR,https://bitbucket.org/yongbing_huang/asimbench"
-"$ROOTDIR,https://bitbucket.org/atgutier/bbench"
 )
 
 # git repositories
 gitrepos=(
 "$ROOTDIR:https://github.com/gem5/linux-arm-gem5.git"
 "$ROOTDIR:https://gem5.googlesource.com/public/gem5"
-"$ROOTDIR:git@github.com:powerjg/learning_gem5.git"
 )
 
 greetings

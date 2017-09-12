@@ -11,4 +11,7 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 * **getdoc.sh**: script that downloads documentation and tutorials.
 * **getbenchmarks.sh**: script that downloads benchmarks.
 
-If you decide to use resources from this repository, please give credit.
+
+#### **The Arm Research Starter Kit: System Modeling using gem5**
+
+The amazing [**Arm Research Starter Kit**](https://github.com/arm-university/arm-gem5-rsk) will guide you through Arm-based system modeling using the gem5 simulator.

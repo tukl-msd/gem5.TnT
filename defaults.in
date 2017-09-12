@@ -44,7 +44,6 @@ readonly TUTORIALSDIR2=$TUTORIALSDIR/video
 readonly FSDIR=$ROOTDIR/full_system_files
 readonly FSDIRARM=$FSDIR/arm
 readonly FSDIRARMBBENCH=$FSDIRARM/bbench
-readonly FSDIRARMASIMBENCH=$FSDIRARM/asimbench
 readonly FSDIRARMLEGACY=$FSDIRARM/legacy
 readonly FSDIRX86=$FSDIR/x86
 readonly FSDIRALPHA=$FSDIR/alpha

@@ -32,7 +32,7 @@
 #
 # Author: Éder F. Zulian
 
-readonly ROOTDIR=$HOME/gem5_tnt_files
+readonly ROOTDIR=$HOME/gem5_tnt
 
 readonly BENCHMARKSDIR=$ROOTDIR/benchmarks
 

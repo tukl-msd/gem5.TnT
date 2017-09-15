@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # Copyright (c) 2016, University of Kaiserslautern
 # All rights reserved.

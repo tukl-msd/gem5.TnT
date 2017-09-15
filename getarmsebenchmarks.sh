@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # Copyright (c) 2017, University of Kaiserslautern
 # All rights reserved.
@@ -32,21 +32,45 @@
 #
 # Author: Éder F. Zulian
 
-readonly ROOTDIR=$HOME/gem5_tnt
+source ./defaults.in
+source ./util.in
 
-readonly BENCHMARKSDIR=$ROOTDIR/benchmarks
+toolchain=gcc-linaro-5.4.1-2017.05-i686_arm-linux-gnueabihf
+toolchaintarball=$toolchain.tar.xz
 
-readonly DOCDIR=$ROOTDIR/Documentation
-readonly TUTORIALSDIR=$DOCDIR/tutorials
-readonly TUTORIALSDIR1=$TUTORIALSDIR/hipeac2012
-readonly TUTORIALSDIR2=$TUTORIALSDIR/video
+wgethis=(
+"$TOOLCHAINSDIR_ARM:https://releases.linaro.org/components/toolchain/binaries/latest-5/arm-linux-gnueabihf/$toolchaintarball"
+)
 
-readonly FSDIR=$ROOTDIR/full_system_files
-readonly FSDIRARM=$FSDIR/arm
-readonly FSDIRARMBBENCH=$FSDIRARM/bbench
-readonly FSDIRARMLEGACY=$FSDIRARM/legacy
-readonly FSDIRX86=$FSDIR/x86
-readonly FSDIRALPHA=$FSDIR/alpha
+gitrepos=(
+"$BENCHMARKSDIR:http://llvm.org/git/test-suite.git"
+)
 
-readonly TOOLCHAINSDIR=$ROOTDIR/toolchains
-readonly TOOLCHAINSDIR_ARM=$TOOLCHAINSDIR/arm
+greetings
+wgetintodir wgethis[@]
+gitcloneintodir gitrepos[@]
+
+toolchaindir=$TOOLCHAINSDIR_ARM/$toolchain
+if [[ ! -d $toolchaindir ]]; then
+	tar -xaf $TOOLCHAINSDIR_ARM/$toolchaintarball -C $TOOLCHAINSDIR_ARM
+fi
+
+cd $BENCHMARKSDIR/test-suite
+git checkout release_50
+cd SingleSource/Benchmarks/Stanford
+
+printf "
+sysroot=$toolchaindir/bin/../arm-linux-gnueabihf/libc\n
+cc=$toolchaindir/bin/arm-linux-gnueabihf-gcc\n
+sources = \$(wildcard *.c)\n
+objects = \$(sources:.c=.o)\n
+bins = \$(patsubst %%.c,%%,\$(sources))\n\n
+all: \$(bins)\n
+\t@echo Compilation finished\n\n
+clean:\n
+\trm -rf \$(objects) \$(bins)\n\n
+%%: %%.c\n
+\t\$(cc) --sysroot=\$(sysroot) --static \$< -o \$@\n
+" > Makefile
+nprocs=$(cat /proc/cpuinfo | grep processor | wc -l)
+make -j$nprocs

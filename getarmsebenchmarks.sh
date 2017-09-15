@@ -60,17 +60,16 @@ git checkout release_50
 cd SingleSource/Benchmarks/Stanford
 
 printf "
-sysroot=$toolchaindir/bin/../arm-linux-gnueabihf/libc\n
-cc=$toolchaindir/bin/arm-linux-gnueabihf-gcc\n
-sources = \$(wildcard *.c)\n
-objects = \$(sources:.c=.o)\n
-bins = \$(patsubst %%.c,%%,\$(sources))\n\n
-all: \$(bins)\n
-\t@echo Compilation finished\n\n
-clean:\n
-\trm -rf \$(objects) \$(bins)\n\n
-%%: %%.c\n
-\t\$(cc) --sysroot=\$(sysroot) --static \$< -o \$@\n
+sysroot=$toolchaindir/bin/../arm-linux-gnueabihf/libc
+cc=$toolchaindir/bin/arm-linux-gnueabihf-gcc
+sources = \$(wildcard *.c)
+bins = \$(patsubst %%.c,%%,\$(sources))\n
+all: \$(bins)
+\t@echo Compilation finished\n
+clean:
+\trm -rf \$(bins)\n
+%%: %%.c
+\t\$(cc) --sysroot=\$(sysroot) --static \$< -o \$@
 " > Makefile
 nprocs=$(cat /proc/cpuinfo | grep processor | wc -l)
 make -j$nprocs

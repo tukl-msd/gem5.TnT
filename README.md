@@ -11,7 +11,7 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 * **getdoc.sh**: downloads documentation and tutorials.
 * **getbenchmarks.sh**: downloads some benchmarks.
 * **getarmsebenchmarks.sh**: generates SE benchmark programs for arm (the ones used by arm-gem5-rsk with a toolchain that is compatible with the current kernel emulated/syscalls implementation).
-* **runarmsebenchmarks.sh**: builds gem5 and runs the above-mentioned benchmarks.
+* **runarmsebenchmarks.sh**: builds gem5 and runs some of the above-mentioned benchmarks.
 
 #### **The Arm Research Starter Kit: System Modeling using gem5**
 

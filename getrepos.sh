@@ -44,6 +44,7 @@ hgrepos=(
 gitrepos=(
 "$ROOTDIR:https://github.com/gem5/linux-arm-gem5.git"
 "$ROOTDIR:https://gem5.googlesource.com/public/gem5"
+"$ROOTDIR:https://github.com/arm-university/arm-gem5-rsk.git"
 )
 
 greetings

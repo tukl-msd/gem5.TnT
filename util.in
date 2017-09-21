@@ -146,3 +146,13 @@ function gitcloneintodir {
 		echo -e -n "${e#*:} cloned into ${e%%:*}" && echo ""
 	done
 }
+
+function getnumprocs {
+	local __retvar=$1;
+	local __nprocs=$(cat /proc/cpuinfo | grep processor | wc -l)
+	if [[ "$__retvar" ]]; then
+		eval $__retvar="'$__nprocs'"
+	else
+		echo "$__nprocs"
+	fi
+}

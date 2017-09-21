@@ -38,8 +38,9 @@ source ./util.in
 gem5_elf="build/ARM/gem5.opt"
 
 cd $ROOTDIR/gem5
-nprocs=$(cat /proc/cpuinfo | grep processor | wc -l)
-scons $gem5_elf -j$nprocs
+getnumprocs np
+echo $nprocs
+scons $gem5_elf -j$np
 
 benchmark_progs_path="$BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford"
 benchmark_progs="
@@ -59,6 +60,6 @@ cpu_options="--cpu=hpi"
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 output_rootdir="se_results_$currtime"
 for b in $benchmark_progs; do
-    output_dir="$output_rootdir/$b"
-    $gem5_elf -d $output_dir $config_script $benchmark_progs_path/$b
+	output_dir="$output_rootdir/$b"
+	$gem5_elf -d $output_dir $config_script $benchmark_progs_path/$b
 done

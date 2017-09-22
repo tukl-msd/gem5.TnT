@@ -71,5 +71,5 @@ clean:
 %%: %%.c
 \t\$(cc) --sysroot=\$(sysroot) --static \$< -o \$@
 " > Makefile
-nprocs=$(cat /proc/cpuinfo | grep processor | wc -l)
-make -j$nprocs
+getnumprocs np
+make -j$np

@@ -38,8 +38,8 @@ source ./util.in
 gem5_elf="build/ARM/gem5.opt"
 
 cd $ROOTDIR/gem5
+git pull
 getnumprocs np
-echo $nprocs
 scons $gem5_elf -j$np
 
 benchmark_progs_path="$BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford"

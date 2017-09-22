@@ -37,14 +37,14 @@ source ./util.in
 
 # Mercurial repositories
 hgrepos=(
-"$ROOTDIR,http://repo.gem5.org/m5threads"
+"$MISCREPOS,http://repo.gem5.org/m5threads"
 )
 
 # git repositories
 gitrepos=(
-"$ROOTDIR:https://github.com/gem5/linux-arm-gem5.git"
 "$ROOTDIR:https://gem5.googlesource.com/public/gem5"
-"$ROOTDIR:https://github.com/arm-university/arm-gem5-rsk.git"
+"$MISCREPOS:https://github.com/gem5/linux-arm-gem5.git"
+"$MISCREPOS:https://github.com/arm-university/arm-gem5-rsk.git"
 )
 
 greetings

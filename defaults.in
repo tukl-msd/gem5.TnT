@@ -34,6 +34,8 @@
 
 readonly ROOTDIR=$HOME/gem5_tnt
 
+readonly MISCREPOS=$ROOTDIR/misc_repos
+
 readonly BENCHMARKSDIR=$ROOTDIR/benchmarks
 
 readonly DOCDIR=$ROOTDIR/Documentation
@@ -41,7 +43,7 @@ readonly TUTORIALSDIR=$DOCDIR/tutorials
 readonly TUTORIALSDIR1=$TUTORIALSDIR/hipeac2012
 readonly TUTORIALSDIR2=$TUTORIALSDIR/video
 
-readonly FSDIR=$ROOTDIR/full_system_files
+readonly FSDIR=$ROOTDIR/full_system
 readonly FSDIRARM=$FSDIR/arm
 readonly FSDIRARMBBENCH=$FSDIRARM/bbench
 readonly FSDIRARMLEGACY=$FSDIRARM/legacy

@@ -12,6 +12,7 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 * **getbenchmarks.sh**: downloads some benchmarks.
 * **getarmsebenchmarks.sh**: generates SE benchmark programs for arm (the ones used by arm-gem5-rsk with a toolchain that is compatible with the current kernel emulated/syscalls implementation).
 * **runarmsebenchmarks.sh**: builds gem5 and runs some of the above-mentioned benchmarks.
+* **getarmfsbenchmarks.sh**: generates FS benchmark programs from the parsec suite for arm.
 
 ### **Compiling gem5**
 

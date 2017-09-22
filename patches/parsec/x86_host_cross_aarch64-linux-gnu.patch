@@ -1,0 +1,388 @@
+diff --git a/pkgs/apps/blackscholes/parsec/gcc-pthreads.bldconf b/pkgs/apps/blackscholes/parsec/gcc-pthreads.bldconf
+index 184bb76..f6d8f7d 100644
+--- a/pkgs/apps/blackscholes/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/blackscholes/parsec/gcc-pthreads.bldconf
+@@ -27,4 +27,4 @@ build_env="version=pthreads"
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/apps/bodytrack/parsec/gcc-pthreads.bldconf b/pkgs/apps/bodytrack/parsec/gcc-pthreads.bldconf
+index 1066920..1c22bab 100644
+--- a/pkgs/apps/bodytrack/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/bodytrack/parsec/gcc-pthreads.bldconf
+@@ -27,5 +27,4 @@ build_env="CXXFLAGS=\"${CXXFLAGS} -fexceptions\""
+ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf="--enable-threads --disable-openmp --disable-tbb"
+-
++build_conf="--enable-threads --disable-openmp --disable-tbb --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/apps/bodytrack/src/TrackingBenchmark/Makefile.in b/pkgs/apps/bodytrack/src/TrackingBenchmark/Makefile.in
+index 97e2ea1..808eb26 100644
+--- a/pkgs/apps/bodytrack/src/TrackingBenchmark/Makefile.in
++++ b/pkgs/apps/bodytrack/src/TrackingBenchmark/Makefile.in
+@@ -105,7 +105,7 @@ LTCXXCOMPILE = $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) \
+ 	$(AM_CXXFLAGS) $(CXXFLAGS)
+ CXXLD = $(CXX)
+ CXXLINK = $(LIBTOOL) --tag=CXX --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+-	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
++	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -all-static -o $@
+ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+ 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+ LTCOMPILE = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) \
+diff --git a/pkgs/apps/facesim/parsec/gcc-pthreads.bldconf b/pkgs/apps/facesim/parsec/gcc-pthreads.bldconf
+index 123c25c..2d69b0c 100644
+--- a/pkgs/apps/facesim/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/facesim/parsec/gcc-pthreads.bldconf
+@@ -27,5 +27,5 @@ build_env="version=pthreads PHYSBAM=${PARSECDIR}/pkgs/apps/facesim/obj/${PARSECP
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/apps/ferret/parsec/gcc-pthreads.bldconf b/pkgs/apps/ferret/parsec/gcc-pthreads.bldconf
+index d0d9248..e0380d0 100644
+--- a/pkgs/apps/ferret/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/ferret/parsec/gcc-pthreads.bldconf
+@@ -30,4 +30,4 @@ build_env="version=\"pthreads\" ${ferret_flags}"
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/apps/fluidanimate/parsec/gcc-pthreads.bldconf b/pkgs/apps/fluidanimate/parsec/gcc-pthreads.bldconf
+index d7c340b..1e3bd00 100644
+--- a/pkgs/apps/fluidanimate/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/fluidanimate/parsec/gcc-pthreads.bldconf
+@@ -27,4 +27,4 @@ build_env="version=pthreads"
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/apps/raytrace/parsec/gcc-pthreads.bldconf b/pkgs/apps/raytrace/parsec/gcc-pthreads.bldconf
+index 5588181..5c46141 100644
+--- a/pkgs/apps/raytrace/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/raytrace/parsec/gcc-pthreads.bldconf
+@@ -30,4 +30,4 @@ build_env="version=pthreads CXXFLAGS=\"-I${PARSECDIR}/pkgs/libs/mesa/inst/${PARS
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+\ No newline at end of file
+diff --git a/pkgs/apps/swaptions/parsec/gcc-pthreads.bldconf b/pkgs/apps/swaptions/parsec/gcc-pthreads.bldconf
+index d7c340b..1e3bd00 100644
+--- a/pkgs/apps/swaptions/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/swaptions/parsec/gcc-pthreads.bldconf
+@@ -27,4 +27,4 @@ build_env="version=pthreads"
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/apps/swaptions/parsec/gcc.bldconf b/pkgs/apps/swaptions/parsec/gcc.bldconf
+index b76144d..c7d9c4a 100644
+--- a/pkgs/apps/swaptions/parsec/gcc.bldconf
++++ b/pkgs/apps/swaptions/parsec/gcc.bldconf
+@@ -3,5 +3,5 @@
+ # gcc.bldconf - configuration file for PARSEC
+ 
+ # Default parallelization is pthreads
+-source ${PARSECDIR}/pkgs/apps/swaptions/parsec/gcc-tbb.bldconf
++source ${PARSECDIR}/pkgs/apps/swaptions/parsec/gcc-pthreads.bldconf
+ 
+diff --git a/pkgs/apps/vips/parsec/gcc-pthreads.bldconf b/pkgs/apps/vips/parsec/gcc-pthreads.bldconf
+index 3ba7bcf..229f90a 100644
+--- a/pkgs/apps/vips/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/vips/parsec/gcc-pthreads.bldconf
+@@ -28,4 +28,4 @@ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+ vips_basic_conf="--disable-shared --disable-cxx --without-fftw3 --without-magick --without-liboil --without-lcms --without-OpenEXR --without-matio --without-pangoft2 --without-tiff --without-jpeg --without-zip --without-png --without-libexif --without-python --without-x --without-perl --without-v4l --without-cimg"
+-build_conf="${vips_basic_conf} --enable-threads"
++build_conf="${vips_basic_conf} --enable-threads --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/apps/vips/src/tools/iofuncs/Makefile.in b/pkgs/apps/vips/src/tools/iofuncs/Makefile.in
+index 87d8b33..109ecb0 100644
+--- a/pkgs/apps/vips/src/tools/iofuncs/Makefile.in
++++ b/pkgs/apps/vips/src/tools/iofuncs/Makefile.in
+@@ -83,7 +83,7 @@ LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+ CCLD = $(CC)
+ LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+ 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+-	$(LDFLAGS) -o $@
++	$(LDFLAGS) -all-static -o $@
+ SOURCES = $(edvips_SOURCES) $(header_SOURCES) $(vips_SOURCES) \
+ 	$(vipsthumbnail_SOURCES)
+ DIST_SOURCES = $(edvips_SOURCES) $(header_SOURCES) $(vips_SOURCES) \
+diff --git a/pkgs/apps/x264/parsec/gcc-pthreads.bldconf b/pkgs/apps/x264/parsec/gcc-pthreads.bldconf
+index 7bf67b0..4b3d030 100644
+--- a/pkgs/apps/x264/parsec/gcc-pthreads.bldconf
++++ b/pkgs/apps/x264/parsec/gcc-pthreads.bldconf
+@@ -35,5 +35,5 @@ build_env="PATH=\"${PARSECDIR}/pkgs/tools/yasm/inst/${PARSECPLAT}/bin:${PATH}\""
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf="--enable-pthread --extra-asflags=\"${ASFLAGS}\" --extra-cflags=\"${CFLAGS}\" --extra-ldflags=\"${LDFLAGS} ${LIBS}\""
++build_conf="--enable-pthread --extra-asflags=\"${ASFLAGS}\" --extra-cflags=\"${CFLAGS}\" --extra-ldflags=\"${LDFLAGS} ${LIBS}\" --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/kernels/canneal/parsec/gcc-pthreads.bldconf b/pkgs/kernels/canneal/parsec/gcc-pthreads.bldconf
+index d7c340b..1e3bd00 100644
+--- a/pkgs/kernels/canneal/parsec/gcc-pthreads.bldconf
++++ b/pkgs/kernels/canneal/parsec/gcc-pthreads.bldconf
+@@ -27,4 +27,4 @@ build_env="version=pthreads"
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/kernels/canneal/src/atomic/atomic.h b/pkgs/kernels/canneal/src/atomic/atomic.h
+index 73daad9..c440de5 100644
+--- a/pkgs/kernels/canneal/src/atomic/atomic.h
++++ b/pkgs/kernels/canneal/src/atomic/atomic.h
+@@ -34,6 +34,8 @@
+ #  include "ia64/atomic.h"
+ #elif defined(__alpha__) || defined(__alpha) || defined(alpha) || defined(__ALPHA__)
+ #  include "alpha/atomic.h"
++#elif defined(__aarch64__) || defined(__aarch64) || defined(aarch64) || defined(__AARCH64__)
++#  include "aarch64/atomic.h"
+ #else
+ #  error Architecture not supported by atomic.h
+ #endif
+diff --git a/pkgs/kernels/dedup/parsec/gcc-pthreads.bldconf b/pkgs/kernels/dedup/parsec/gcc-pthreads.bldconf
+index 28c3c33..4aa956d 100644
+--- a/pkgs/kernels/dedup/parsec/gcc-pthreads.bldconf
++++ b/pkgs/kernels/dedup/parsec/gcc-pthreads.bldconf
+@@ -27,4 +27,4 @@ build_env="version=pthreads CFLAGS=\"-I${PARSECDIR}/pkgs/libs/ssl/inst/${PARSECP
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/kernels/streamcluster/parsec/gcc-pthreads.bldconf b/pkgs/kernels/streamcluster/parsec/gcc-pthreads.bldconf
+index d7c340b..1e3bd00 100644
+--- a/pkgs/kernels/streamcluster/parsec/gcc-pthreads.bldconf
++++ b/pkgs/kernels/streamcluster/parsec/gcc-pthreads.bldconf
+@@ -27,4 +27,4 @@ build_env="version=pthreads"
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/libs/glib/parsec/gcc.bldconf b/pkgs/libs/glib/parsec/gcc.bldconf
+index 34a7a11..2ce68c1 100644
+--- a/pkgs/libs/glib/parsec/gcc.bldconf
++++ b/pkgs/libs/glib/parsec/gcc.bldconf
+@@ -26,5 +26,5 @@ build_env="CFLAGS=\"-I${PARSECDIR}/pkgs/libs/zlib/inst/${PARSECPLAT}/include ${C
+ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf="--disable-shared --enable-threads --with-threads=posix"
++build_conf="--disable-shared --enable-threads --with-threads=posix --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/libs/gsl/parsec/gcc.bldconf b/pkgs/libs/gsl/parsec/gcc.bldconf
+index 5f38c67..814080d 100644
+--- a/pkgs/libs/gsl/parsec/gcc.bldconf
++++ b/pkgs/libs/gsl/parsec/gcc.bldconf
+@@ -27,4 +27,4 @@ build_env="LIBS=\"${LIBS} -lm\""
+ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf="--disable-shared"
++build_conf="--disable-shared --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/libs/hooks/parsec/gcc.bldconf b/pkgs/libs/hooks/parsec/gcc.bldconf
+index b1259ae..de7b8cc 100644
+--- a/pkgs/libs/hooks/parsec/gcc.bldconf
++++ b/pkgs/libs/hooks/parsec/gcc.bldconf
+@@ -26,5 +26,5 @@ build_env=""
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/libs/hooks/src/hooks.c b/pkgs/libs/hooks/src/hooks.c
+index 9658425..6227e4a 100644
+--- a/pkgs/libs/hooks/src/hooks.c
++++ b/pkgs/libs/hooks/src/hooks.c
+@@ -42,6 +42,7 @@
+ #include "include/hooks.h"
+ #include "config.h"
+ 
++#include <stdint.h>
+ #include <stdio.h>
+ #include <assert.h>
+ 
+@@ -84,6 +85,30 @@ static int num_roi_ends = 0;
+ static int num_bench_ends = 0;
+ #endif
+ 
++//These functions allow to create checkpoints in the hooks during simulations with gem5
++static void m5_checkpoint(uint64_t x, uint64_t y) {
++        register uint64_t x0 asm("x0") = x;
++        register uint64_t x1 asm("x1") = y;
++        asm volatile (".inst 0xff430110;":: "r" (x0), "r" (x1));
++};
++static __attribute__((optimize("O0"))) void m5_exit(uint64_t x)
++{
++        register uint64_t x0 asm("x0") = x;
++        asm volatile (".inst 0xff210110;":: "r" (x0));
++};
++static __attribute__((optimize("O0"))) void m5_reset_stats(uint64_t x, uint64_t y)
++{
++        register uint64_t x0 asm("x0") = x;
++        register uint64_t x1 asm("x1") = y;
++        asm volatile (".inst 0xff400110;":: "r" (x0), "r" (x1));
++};
++static __attribute__((optimize("O0"))) void m5_dump_stats(uint64_t x, uint64_t y)
++{
++        register uint64_t x0 asm("x0") = x;
++        register uint64_t x1 asm("x1") = y;
++        asm volatile (".inst 0xff410110;":: "r" (x0), "r" (x1));
++};
++
+ /** \brief Variable for unique identifier of workload.
+  *
+  * This variable stores the unique identifier of the current benchmark program.
+@@ -195,6 +220,10 @@ void __parsec_roi_begin() {
+   #if ENABLE_PTLSIM_TRIGGER
+   ptlcall_switch_to_sim();
+   #endif //ENABLE_PTLSIM_TRIGGER
++
++  printf("[GEM5]  Beginning of ROI\n");
++  m5_checkpoint(0,0);
++  m5_reset_stats(0,0);
+ }
+ 
+ 
+@@ -221,6 +250,10 @@ void __parsec_roi_end() {
+   time_end = (double)t.tv_sec+(double)t.tv_usec*1e-6;
+   #endif //ENABLE_TIMING
+ 
++  m5_dump_stats(0,0);
++  printf("[GEM5] Stats dumped.\n");
++  printf("[GEM5] Total time spent in ROI: %.3fs\n", time_end-time_begin);
++  
+   printf(HOOKS_PREFIX" Leaving ROI\n");
+   fflush(NULL);
+ }
+diff --git a/pkgs/libs/libjpeg/parsec/gcc.bldconf b/pkgs/libs/libjpeg/parsec/gcc.bldconf
+index af0ce90..12cef56 100644
+--- a/pkgs/libs/libjpeg/parsec/gcc.bldconf
++++ b/pkgs/libs/libjpeg/parsec/gcc.bldconf
+@@ -27,4 +27,4 @@ build_env=""
+ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf="--disable-shared"
++build_conf="--disable-shared --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/libs/libxml2/parsec/gcc.bldconf b/pkgs/libs/libxml2/parsec/gcc.bldconf
+index aea5ee6..8e609c9 100644
+--- a/pkgs/libs/libxml2/parsec/gcc.bldconf
++++ b/pkgs/libs/libxml2/parsec/gcc.bldconf
+@@ -26,4 +26,4 @@ build_env="CFLAGS=\"-I${PARSECDIR}/pkgs/libs/zlib/inst/${PARSECPLAT}/include ${C
+ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf="--disable-shared --with-threads"
++build_conf="--disable-shared --with-threads --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/libs/mesa/parsec/gcc.bldconf b/pkgs/libs/mesa/parsec/gcc.bldconf
+index ead8a7b..d97084b 100644
+--- a/pkgs/libs/mesa/parsec/gcc.bldconf
++++ b/pkgs/libs/mesa/parsec/gcc.bldconf
+@@ -26,5 +26,5 @@ build_env=""
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf="--with-driver=xlib --enable-glut --enable-static --disable-shared"
++build_conf="--with-driver=xlib --enable-glut --enable-static --disable-shared --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/libs/parmacs/parsec/gcc.bldconf b/pkgs/libs/parmacs/parsec/gcc.bldconf
+index 9ad5b15..32dfa49 100644
+--- a/pkgs/libs/parmacs/parsec/gcc.bldconf
++++ b/pkgs/libs/parmacs/parsec/gcc.bldconf
+@@ -26,5 +26,5 @@ build_env=""
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/libs/ssl/parsec/gcc.bldconf b/pkgs/libs/ssl/parsec/gcc.bldconf
+index a82cb1c..abdd6b5 100644
+--- a/pkgs/libs/ssl/parsec/gcc.bldconf
++++ b/pkgs/libs/ssl/parsec/gcc.bldconf
+@@ -26,5 +26,5 @@ build_env="PATH=\"${CC_HOME}/bin:${PATH}\""
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf="threads no-zlib no-shared"
++build_conf="threads no-zlib no-shared --build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/libs/tbblib/parsec/gcc.bldconf b/pkgs/libs/tbblib/parsec/gcc.bldconf
+index 1a41795..739254b 100644
+--- a/pkgs/libs/tbblib/parsec/gcc.bldconf
++++ b/pkgs/libs/tbblib/parsec/gcc.bldconf
+@@ -26,5 +26,5 @@ build_env="compiler=gcc PATH=\"${CC_HOME}/bin:${PATH}\" CXXFLAGS=\"${CXXFLAGS} -
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/libs/uptcpip/parsec/gcc.bldconf b/pkgs/libs/uptcpip/parsec/gcc.bldconf
+index 4234310..8e53b72 100644
+--- a/pkgs/libs/uptcpip/parsec/gcc.bldconf
++++ b/pkgs/libs/uptcpip/parsec/gcc.bldconf
+@@ -26,5 +26,5 @@ build_env=""
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/libs/zlib/parsec/gcc.bldconf b/pkgs/libs/zlib/parsec/gcc.bldconf
+index 67fbe4e..dacc66f 100644
+--- a/pkgs/libs/zlib/parsec/gcc.bldconf
++++ b/pkgs/libs/zlib/parsec/gcc.bldconf
+@@ -26,5 +26,5 @@ build_env=""
+ build_inplace="TRUE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/tools/cmake/parsec/gcc.bldconf b/pkgs/tools/cmake/parsec/gcc.bldconf
+index 1998449..056cdab 100644
+--- a/pkgs/tools/cmake/parsec/gcc.bldconf
++++ b/pkgs/tools/cmake/parsec/gcc.bldconf
+@@ -26,4 +26,4 @@ build_env="CXXFLAGS=\"${CXXFLAGS} -fexceptions\""
+ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+diff --git a/pkgs/tools/libtool/parsec/gcc.bldconf b/pkgs/tools/libtool/parsec/gcc.bldconf
+index 5aab2b5..c4714b5 100644
+--- a/pkgs/tools/libtool/parsec/gcc.bldconf
++++ b/pkgs/tools/libtool/parsec/gcc.bldconf
+@@ -27,5 +27,5 @@ build_env="LIBS=\"\""
+ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"
+ 
+diff --git a/pkgs/tools/yasm/parsec/gcc.bldconf b/pkgs/tools/yasm/parsec/gcc.bldconf
+index d2a1b9a..f1a3672 100644
+--- a/pkgs/tools/yasm/parsec/gcc.bldconf
++++ b/pkgs/tools/yasm/parsec/gcc.bldconf
+@@ -27,4 +27,4 @@ build_env="LIBS=\"${LDFLAGS} ${LIBS}\""
+ build_inplace="FALSE"
+ 
+ # Arguments to pass to the configure script, if it exists
+-build_conf=""
++build_conf="--build=x86_64-linux-gnu --host=aarch64-linux-gnu"

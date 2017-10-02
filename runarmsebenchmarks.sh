@@ -36,11 +36,11 @@ source ./defaults.in
 source ./util.in
 
 gem5_elf="build/ARM/gem5.opt"
-
 cd $ROOTDIR/gem5
-git pull
-getnumprocs np
-scons $gem5_elf -j$np
+if [[ ! -e $gem5_elf ]]; then
+	getnumprocs np
+	scons $gem5_elf -j$np
+fi
 
 benchmark_progs_path="$BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford"
 benchmark_progs="

@@ -58,8 +58,8 @@ Treesort
 config_script="configs/example/arm/starter_se.py"
 cpu_options="--cpu=hpi"
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
-output_rootdir="se_results_$currtime"
+output_rootdir="se_output_$currtime"
 for b in $benchmark_progs; do
 	output_dir="$output_rootdir/$b"
-	$gem5_elf -d $output_dir $config_script $benchmark_progs_path/$b
+	$gem5_elf -d $output_dir $config_script $cpu_options $benchmark_progs_path/$b
 done

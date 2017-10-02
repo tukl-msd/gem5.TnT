@@ -32,8 +32,6 @@
 #
 # Author: Éder F. Zulian
 
-set -x
-
 source ./defaults.in
 source ./util.in
 

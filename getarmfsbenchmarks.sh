@@ -105,6 +105,6 @@ done
 
 basepath="$BENCHMARKSDIR/$parsecdir/pkgs/apps"
 for b in $benchmarks; do
-    elf=$basepath/$b/inst/aarch64-linux.gcc-hooks/bin/$b
-    file $elf
+	elf=$basepath/$b/inst/aarch64-linux.gcc-hooks/bin/$b
+	file $elf
 done

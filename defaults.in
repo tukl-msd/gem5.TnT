@@ -32,8 +32,7 @@
 #
 # Author: Éder F. Zulian
 
-#readonly ROOTDIR=$HOME/gem5_tnt
-readonly ROOTDIR=/media/disk2/gem5_tnt
+readonly ROOTDIR=$HOME/gem5_tnt
 
 readonly MISCREPOS=$ROOTDIR/misc_repos
 

@@ -35,7 +35,7 @@
 source ../../defaults.in
 source ../.../util.in
 
-basedir="$PWD"
+basedir="$PWD/../.."
 
 toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
 toolchaintarball=$toolchain.tar.xz

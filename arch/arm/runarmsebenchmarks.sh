@@ -32,8 +32,8 @@
 #
 # Author: Éder F. Zulian
 
-source ./defaults.in
-source ./util.in
+source ../../defaults.in
+source ../../util.in
 
 gem5_elf="build/ARM/gem5.opt"
 cd $ROOTDIR/gem5

@@ -9,6 +9,9 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 * [**getdoc.sh**](getdoc.sh): downloads documentation and tutorials.
 * [**getbenchmarks.sh**](getbenchmarks.sh): downloads some benchmarks.
 
+* [**HERE**](arch/arm/README.md) you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
+* [**HERE**](patches/gem5/asimbench/README.md) you'll find how you can run android on your gem5!
+
 ### **Compiling gem5**
 
 ```bash

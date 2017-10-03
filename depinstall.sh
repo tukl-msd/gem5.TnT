@@ -42,6 +42,7 @@ function instdep {
 	scons
 	python
 	python-dev
+	python-pydot
 	gcc
 	g++
 	libgoogle-perftools-dev

@@ -5,10 +5,10 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 
 This folder contains tips and tricks for the arm archtecture.
 
-* **getarmsebenchmarks.sh**: generates SE benchmark programs for arm (the ones used by arm-gem5-rsk with a toolchain that is compatible with the current kernel emulated/syscalls implementation).
-* **runarmsebenchmarks.sh**: builds gem5 and runs some of the above-mentioned benchmarks.
-* **getarmfsbenchmarks.sh**: generates FS benchmark programs from the parsec suite for arm.
-* **runarmfsbenchmarks.sh**: builds gem5 and runs some of the above-mentioned benchmarks (full-system simulation).
+* [**getarmsebenchmarks.sh**](getarmsebenchmarks.sh): builds SE benchmark programs from the LLVM test-suite for arm.
+* [**runarmsebenchmarks.sh**](runarmsebenchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (system call emulation).
+* [**getarmfsbenchmarks.sh**](getarmfsbenchmarks.sh): builds FS benchmark programs from the parsec suite for arm.
+* [**runarmfsbenchmarks.sh**](runarmfsbenchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (full-system simulation).
 
 #### ARM architecture names
 

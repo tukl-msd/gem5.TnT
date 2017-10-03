@@ -3,15 +3,11 @@
 
 This repository contains tips and tricks about gem5. It is intended to gather and share useful hints about gem5, so that the learning process is accelerated.
 
-* **depinstall.sh**: installs known dependencies.
-* **getrepos.sh**: clones gem5 related repositories.
-* **getfs.sh**: downloads full system files.
-* **getdoc.sh**: downloads documentation and tutorials.
-* **getbenchmarks.sh**: downloads some benchmarks.
-* **arch/arm/getarmsebenchmarks.sh**: generates SE benchmark programs for arm (the ones used by arm-gem5-rsk with a toolchain that is compatible with the current kernel emulated/syscalls implementation).
-* **arch/arm/runarmsebenchmarks.sh**: builds gem5 and runs some of the above-mentioned benchmarks.
-* **arch/arm/getarmfsbenchmarks.sh**: generates FS benchmark programs from the parsec suite for arm.
-* **arch/arm/runarmfsbenchmarks.sh**: builds gem5 and runs some of the above-mentioned benchmarks (full-system simulation).
+* [**depinstall.sh**](depinstall.sh): installs known dependencies.
+* [**getrepos.sh**](getrepos.sh): clones gem5 related repositories.
+* [**getfs.sh**](getfs.sh): downloads full system files.
+* [**getdoc.sh**](getdoc.sh): downloads documentation and tutorials.
+* [**getbenchmarks.sh**](getbenchmarks.sh): downloads some benchmarks.
 
 ### **Compiling gem5**
 
@@ -53,7 +49,7 @@ cat /proc/cpuinfo | grep processor | wc -l
 Export the environment variable **M5_PATH** poiting to full system files (disk images & binaries). Put your disk images in a folder named **disks** and the binaries in folder named **binaries**.
 
 ```bash
-export M5_PATH=$M5_PATH:/path/to/arm_full_system_files_directory:/path/to/other_full_system_files_directory
+export M5_PATH=$M5_PATH:/path/to/full_system_files_directory:/path/to/other_full_system_files_directory
 ```
 
 Prepare running script **\*.rcS** (optional)

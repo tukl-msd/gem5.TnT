@@ -1,3 +1,9 @@
+## gem5 Tips & Tricks
+### **Tips and tricks to make your life easier when dealing with gem5**
+
+This repository contains tips and tricks about gem5. It is intended to gather and share useful hints about gem5, so that the learning process is accelerated.
+
+Here you'll find an examample on how to get android up and running on gem5.
 
 Apply one of the patches to your gem5 source code.
 

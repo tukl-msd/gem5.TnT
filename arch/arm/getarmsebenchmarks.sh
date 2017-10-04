@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copyright (c) 2017, University of Kaiserslautern
 # All rights reserved.
@@ -35,11 +35,11 @@
 source ../../defaults.in
 source ../../util.in
 
-toolchain=gcc-linaro-5.4.1-2017.05-i686_arm-linux-gnueabihf
+toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
 toolchaintarball=$toolchain.tar.xz
 
 wgethis=(
-"$TOOLCHAINSDIR_ARM:https://releases.linaro.org/components/toolchain/binaries/latest-5/arm-linux-gnueabihf/$toolchaintarball"
+"$TOOLCHAINSDIR_ARM:https://releases.linaro.org/components/toolchain/binaries/latest-5/aarch64-linux-gnu/$toolchaintarball"
 )
 
 gitrepos=(
@@ -59,17 +59,18 @@ cd $BENCHMARKSDIR/test-suite
 git checkout release_50
 cd SingleSource/Benchmarks/Stanford
 
-printf "
-sysroot=$toolchaindir/bin/../arm-linux-gnueabihf/libc
-cc=$toolchaindir/bin/arm-linux-gnueabihf-gcc
-sources = \$(wildcard *.c)
-bins = \$(patsubst %%.c,%%,\$(sources))\n
+cat > Makefile << EOM
+sysroot=$toolchaindir/aarch64-linux-gnu/libc
+cc=$toolchaindir/bin/aarch64-linux-gnu-gcc
+sources=\$(wildcard *.c)
+bins=\$(patsubst %.c,%,\$(sources))
 all: \$(bins)
-\t@echo Compilation finished\n
+	@echo Done.
+%: %.c
+	\$(cc) --sysroot=\$(sysroot) --no-sysroot-suffix --static \$< -o \$@
 clean:
-\trm -rf \$(bins)\n
-%%: %%.c
-\t\$(cc) --sysroot=\$(sysroot) --static \$< -o \$@
-" > Makefile
+	rm -rf \$(bins)
+EOM
+
 getnumprocs np
 make -j$np

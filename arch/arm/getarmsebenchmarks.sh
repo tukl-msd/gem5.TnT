@@ -73,4 +73,5 @@ clean:
 EOM
 
 getnumprocs np
+make clean
 make -j$np

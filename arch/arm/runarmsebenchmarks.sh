@@ -35,7 +35,7 @@
 source ../../defaults.in
 source ../../util.in
 
-gem5_elf="build/ARM/gem5.opt"
+gem5_elf="build/ARM/gem5.fast"
 cd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
 	getnumprocs np
@@ -61,5 +61,5 @@ currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 output_rootdir="se_output_$currtime"
 for b in $benchmark_progs; do
 	output_dir="$output_rootdir/$b"
-	$gem5_elf -d $output_dir $config_script $cpu_options $benchmark_progs_path/$b
+	$gem5_elf -d $output_dir $config_script $cpu_options $benchmark_progs_path/$b &
 done

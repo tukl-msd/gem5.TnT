@@ -5,6 +5,8 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 
 Here you'll find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
 
+You can also watch these awesome video tutorials: [**Learning gem5 HPCA tutorial**](https://www.youtube.com/watch?v=5UT41VsGTsg).
+
 ### **Compiling gem5**
 
 ```bash

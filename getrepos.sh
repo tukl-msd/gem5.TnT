@@ -43,6 +43,8 @@ hgrepos=(
 # git repositories
 gitrepos=(
 "$ROOTDIR:https://gem5.googlesource.com/public/gem5"
+"$MISCREPOS:git://linux-arm.org/linux-linaro-tracking-gem5.git"
+"$MISCREPOS:git://linux-arm.org/linux-aarch64-gem5.git"
 "$MISCREPOS:https://github.com/gem5/linux-arm-gem5.git"
 "$MISCREPOS:https://github.com/arm-university/arm-gem5-rsk.git"
 )

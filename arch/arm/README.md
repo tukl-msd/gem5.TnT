@@ -3,7 +3,9 @@
 
 This repository contains tips and tricks about gem5. It is intended to gather and share useful hints about gem5, so that the learning process is accelerated.
 
-This folder contains tips and tricks for the arm archtecture.
+This folder contains tips and tricks for the arm architecture.
+
+Before running the scripts below make sure everything else is setup! You're all done if you followed [**the steps described here**](../../README.md).
 
 * [**getarmsebenchmarks.sh**](getarmsebenchmarks.sh): builds SE benchmark programs from the LLVM test-suite for arm.
 * [**runarmsebenchmarks.sh**](runarmsebenchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (system call emulation).

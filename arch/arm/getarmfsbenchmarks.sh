@@ -33,7 +33,7 @@
 # Author: Éder F. Zulian
 
 source ../../defaults.in
-source ../.../util.in
+source ../../util.in
 
 basedir="$PWD/../.."
 

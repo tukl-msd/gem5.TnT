@@ -32,8 +32,8 @@
 #
 # Author: Éder F. Zulian
 
-source ../../defaults.in
-source ../../util.in
+source ../../common/defaults.in
+source ../../common/util.in
 
 gem5_elf="build/ARM/gem5.fast"
 cd $ROOTDIR/gem5

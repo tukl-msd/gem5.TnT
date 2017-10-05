@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copyright (c) 2017, University of Kaiserslautern
 # All rights reserved.
@@ -32,7 +32,7 @@
 #
 # Author: Éder F. Zulian
 
-source ./util.in
+source ./common/util.in
 
 function instdep {
 	local plist="

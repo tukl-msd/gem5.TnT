@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copyright (c) 2017, University of Kaiserslautern
 # All rights reserved.
@@ -32,8 +32,8 @@
 #
 # Author: Éder F. Zulian
 
-source ./defaults.in
-source ./util.in
+source ./common/defaults.in
+source ./common/util.in
 
 wgethis=(
 # ARM full system files

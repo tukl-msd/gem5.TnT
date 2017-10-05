@@ -32,8 +32,8 @@
 #
 # Author: Éder F. Zulian
 
-source ../../defaults.in
-source ../../util.in
+source ../../common/defaults.in
+source ../../common/util.in
 
 basedir="$PWD/../.."
 
@@ -51,7 +51,7 @@ if [[ ! -d $toolchaindir ]]; then
 	tar -xaf $TOOLCHAINSDIR_ARM/$toolchaintarball -C $TOOLCHAINSDIR_ARM
 fi
 
-parsecdir="parsec-3.0"
+parsecdir="$BENCHMARKSDIR/parsec-3.0"
 parsectarball="parsec-3.0.tar.gz"
 if [[ ! -d $parsecdir ]]; then
 	tar -xaf $BENCHMARKSDIR/$parsectarball -C $BENCHMARKSDIR

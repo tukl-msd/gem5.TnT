@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copyright (c) 2017, University of Kaiserslautern
 # All rights reserved.
@@ -32,8 +32,8 @@
 #
 # Author: Éder F. Zulian
 
-source ./defaults.in
-source ./util.in
+source ./common/defaults.in
+source ./common/util.in
 
 wgethis=(
 "$TUTORIALSDIR:http://gem5.org/wiki/images/5/53/2015_ws_04_ISCA_2015_NoMali.pdf"

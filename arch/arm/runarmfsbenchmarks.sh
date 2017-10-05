@@ -32,8 +32,8 @@
 #
 # Author: Éder F. Zulian
 
-source ../../defaults.in
-source ../../util.in
+source ../../common/defaults.in
+source ../../common/util.in
 
 tarballs=`ls $FSDIRARM/*.tar.*`
 for tb in $tarballs; do

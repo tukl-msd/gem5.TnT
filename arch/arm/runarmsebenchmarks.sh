@@ -45,6 +45,7 @@ fi
 benchmark_progs_path="$BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford"
 benchmark_progs="
 Bubblesort
+FloatMM
 IntMM
 Oscar
 Perm

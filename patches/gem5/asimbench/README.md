@@ -7,6 +7,8 @@ Here you'll find an examample on how to get android up and running on gem5.
 
 Make sure everything is setup! You're all done if you followed [**the steps described here**](../../../README.md).
 
+Oh, one last thing, if you haven't yet built gem5 check [**this**](../../../doc/Gem5Basics.md).
+
 Apply one of the patches to your gem5 source code.
 
 ```bash

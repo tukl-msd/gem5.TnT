@@ -64,7 +64,7 @@ echo "Finally done! :D"
 /sbin/m5 exit
 ```
 
-Invoke commands
+Run:
 
 ```bash
 build/<arch>/gem5.<binary> config/example/fs.py --kernel=<kernel_file> --disk-image=<disk_image.img> --script=</path/to/script.rcS>
@@ -79,70 +79,3 @@ Connect to gem5 via telnet (3456 is the port indicated in the console output):
 ```bash
 telnet localhost 3456
 ```
-
-#### Add files to disk images used in Gem5 Full-System Simulation
-On the host machine:
-
-```bash
-mkdir -p tempdir
-sudo mount -o loop,offset=32256 /path/to/disk_image.img /path/to/temdir/
-```
-
-Inside tempdir is the content of the disk_image.img
-
-```bash
-cd tempdir
-sudo cp /path/to/file/to/add.file root
-```
-
-Verify
-
-```bash
-sudo ls root
-```
-
-Finish by unmout the disk image
-
-```bash
-sudo umount /path/to/temdir/
-```
-
-Now the disk_image.img contains the file we want at the root directory.
-
-Reference: https://www.youtube.com/watch?v=OXH1oxQbuHA&t=132s
-
-#### Install packages/benchmarks into disk images using qemu [TOBE CONTINUED]
-
-Later we can run gem5 full system simulation with this disk image containing our installed packages/benchmarks.
-
-1. Chrooting into target file systems
-
-To be able to chroot into a target file system, the qemu emulator for the target CPU needs to be accessible from inside the chroot jail. For this to work, you need first to install the qemu-user-static package:
-
-```bash
-apt-get install qemu qemu-user-static qemu-user qemu-system
-```
-
-You cannot use the dynamically linked qemu because the host libraries will not be accessible from inside the chroot.
-
-Next, copy the emulator for the target architecture to the path registered by binfmt-support. For example, for an ARM target file system, you need to do the following:
-
-```bash
-cp /usr/bin/qemu-arm-static /target_fs/usr/bin
-```
-
-You should now be able to chroot into the file system:
-
-```bash
-chroot /target_fs/
-```
-
-References:
-
-https://wiki.debian.org/QemuUserEmulation
-
-https://www.youtube.com/watch?v=Oh3NK12fnbg&t=101s
-
-https://wiki.ubuntu.com/ARM/BuildEABIChroot
-
-https://unix.stackexchange.com/questions/41889/how-can-i-chroot-into-a-filesystem-with-a-different-architechture

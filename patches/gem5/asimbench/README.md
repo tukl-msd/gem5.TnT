@@ -15,6 +15,8 @@ Apply one of the patches to your gem5 source code.
 patch -p1 < gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch
 ```
 
+After applying the patch you have to build gem5 again. But don't worry, this time the build process will finish much faster than the first build.
+
 Export the gem5 binary and some gem5 configurations as environment variables.
 
 ```bash

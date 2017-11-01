@@ -43,6 +43,7 @@ function instdep {
 	python
 	python-dev
 	python-pydot
+	python-protobuf
 	gcc
 	g++
 	libgoogle-perftools-dev

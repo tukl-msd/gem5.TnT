@@ -37,6 +37,7 @@ source common/util.in
 
 archs="
 ARM
+X86
 "
 
 buildlist="

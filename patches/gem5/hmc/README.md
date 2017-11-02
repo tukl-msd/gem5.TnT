@@ -20,15 +20,22 @@ After applying the patch you have to build gem5 again. But don't worry, this tim
 Basic usage examples:
 
 ```bash
-./build/ARM/gem5.opt configs/example/hmctest.py
-./build/ARM/gem5.opt configs/example/hmctest.py --enable-global-monitor --enable-link-monitor --arch=same
-./build/ARM/gem5.opt configs/example/hmctest.py --enable-global-monitor --enable-link-monitor --arch=mixed
+./build/ARM/gem5.opt -d hmc_se_output/test1 configs/example/hmctest.py
+```
+```bash
+./build/ARM/gem5.opt -d hmc_se_output/test2 configs/example/hmctest.py --enable-global-monitor --enable-link-monitor --arch=same
+```
+```bash
+./build/ARM/gem5.opt -d hmc_se_output/test3 configs/example/hmctest.py --enable-global-monitor --enable-link-monitor --arch=mixed
 ```
 
 Simple hello world script using HMC:
 
 ```bash
-./build/ARM/gem5.opt configs/example/hmc_hello.py
-./build/ARM/gem5.opt configs/example/hmc_hello.py --enable-global-monitor --enable-link-monitor
+./build/ARM/gem5.opt -d hmc_se_output/hello1 configs/example/hmc_hello.py
+```
+```bash
+./build/ARM/gem5.opt -d hmc_se_output/hello2 configs/example/hmc_hello.py --enable-global-monitor --enable-link-monitor
 ```
 
+After running the examples above check each of the output folders inside **hmc_se_output/**. Use a PDF viewer to open the generated **config.dot.pdf** file and a text editor to open **stats.txt**.

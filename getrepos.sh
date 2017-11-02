@@ -35,11 +35,6 @@
 source ./common/defaults.in
 source ./common/util.in
 
-# Mercurial repositories
-hgrepos=(
-"$MISCREPOS,http://repo.gem5.org/m5threads"
-)
-
 # git repositories
 gitrepos=(
 "$ROOTDIR:https://gem5.googlesource.com/public/gem5"
@@ -47,8 +42,8 @@ gitrepos=(
 "$MISCREPOS:git://linux-arm.org/linux-aarch64-gem5.git"
 "$MISCREPOS:https://github.com/gem5/linux-arm-gem5.git"
 "$MISCREPOS:https://github.com/arm-university/arm-gem5-rsk.git"
+"$MISCREPOS:https://gem5.googlesource.com/public/m5threads.git"
 )
 
 greetings
-hgcloneintodir hgrepos[@]
 gitcloneintodir gitrepos[@]

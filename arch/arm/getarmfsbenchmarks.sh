@@ -58,7 +58,7 @@ if [[ ! -d $parsecdir ]]; then
 fi
 
 patchfile="$basedir/patches/parsec/x86_host_cross_aarch64-linux-gnu.patch"
-patch -d $BENCHMARKSDIR/$parsecdir -p1 < $patchfile
+patch -d $parsecdir -p1 < $patchfile
 
 tempdir=`mktemp -d`
 wget -O $tempdir/config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
@@ -68,11 +68,11 @@ config.guess
 config.sub
 "
 for f in $replacefiles; do
-	find $BENCHMARKSDIR/$parsecdir -name $f -type f -print0 -execdir cp {} $f.backup \;
-	find $BENCHMARKSDIR/$parsecdir -name $f -type f -print0 -execdir cp $tempdir/$f {} \;
+	find $parsecdir -name $f -type f -print0 -execdir cp {} $f.backup \;
+	find $parsecdir -name $f -type f -print0 -execdir cp $tempdir/$f {} \;
 done
 
-sedfile="$BENCHMARKSDIR/$parsecdir/config/gcc.bldconf"
+sedfile="$parsecdir/config/gcc.bldconf"
 cchome="$toolchaindir"
 binutilhome="$toolchaindir/aarch64-linux-gnu"
 crossprefix="aarch64-linux-gnu-"
@@ -85,7 +85,7 @@ sed -i "s@CC=\"\${CC_HOME}/bin/gcc\"@CC=\"$cc\"@g" $sedfile
 sed -i "s@CXX=\"\${CC_HOME}/bin/g++\"@CXX=\"$cxx\"@g" $sedfile
 sed -i "s@CPP=\"\${CC_HOME}/bin/cpp\"@CPP=\"$cpp\"@g" $sedfile
 
-cd $BENCHMARKSDIR/$parsecdir
+cd $parsecdir
 source env.sh
 export PARSECPLAT="aarch64-linux"
 
@@ -95,13 +95,13 @@ facesim
 ferret
 fluidanimate
 freqmine
-swaptions
 "
+
 for b in $benchmarks; do
 	parsecmgmt -a build -c gcc-hooks -p $b
 done
 
-basepath="$BENCHMARKSDIR/$parsecdir/pkgs/apps"
+basepath="$parsecdir/pkgs/apps"
 for b in $benchmarks; do
 	elf=$basepath/$b/inst/aarch64-linux.gcc-hooks/bin/$b
 	file $elf

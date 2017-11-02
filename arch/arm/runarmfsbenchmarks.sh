@@ -98,7 +98,6 @@ facesim
 ferret
 fluidanimate
 freqmine
-swaptions
 "
 
 bmsuitedir="/$bmsuiteroot/$bmsuite"

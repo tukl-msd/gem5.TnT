@@ -40,29 +40,37 @@ ARM
 X86
 "
 
-buildlist="
-gem5.fast
-gem5.opt
+modes="
+fast
+opt
 "
 
 cd $ROOTDIR/gem5
 
-# Build gem5
 getnumprocs np
+njobs=`expr $np - 1`
 for arch in $archs; do
-	for b in $buildlist; do
-		t="build/$arch/$b" 
-		if [[ ! -e $t ]]; then
-			scons $t -j$np
-		fi
+	for mode in $modes; do
+		# Build gem5
+		target="build/$arch/gem5.$mode"
+		scons $target -j$njobs
+		# Build gem5 as a library
+		target="build/$arch/libgem5_$mode.so"
+		buildopts="--with-cxx-config --without-python"
+		scons $buildopts $target -j$njobs
 	done
 done
 
-# Build gem5 as a library
-target="build/ARM/libgem5_opt.so"
-buildopts="--with-cxx-config --without-python"
-if [[ ! -e $target ]]; then
-	scons $buildopts $target -j$np
-fi
+echo -e -n "\nDone.\n"
 
-
+echo -e -n "\nThe following targets were successfully built:\n\n"
+for arch in $archs; do
+	for mode in $modes; do
+		target="build/$arch/gem5.$mode"
+		file $target
+		echo ""
+		target="build/$arch/libgem5_$mode.so"
+		file $target
+		echo ""
+	done
+done

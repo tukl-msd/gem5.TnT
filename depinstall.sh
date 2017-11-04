@@ -48,9 +48,13 @@ function instdep {
 	g++
 	libgoogle-perftools-dev
 	protobuf-compiler
+	libprotobuf-dev
 	gcc-arm-linux-gnueabihf
 	gcc-aarch64-linux-gnu
 	device-tree-compiler
+	libzstd-dev
+	python-pthreading
+	python-posix-ipc
 	"
 
 	echo -e -n "This is a list of known dependencies:" && echo ""

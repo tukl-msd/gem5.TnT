@@ -12,6 +12,7 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**getarmfsbenchmarks.sh**](getarmfsbenchmarks.sh): builds FS benchmark programs from the parsec suite for arm.
 * [**runarmfsbenchmarks.sh**](runarmfsbenchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (full-system simulation).
 * [**runarmsehmc.sh**](runarmsehmc.sh): builds gem5 and runs it using HMC as main memory (syscall emulation).
+* [**runarmfsandroidics.sh**](runarmfsandroidics.sh): builds gem5 and runs android ics (full-system simulation).
 
 ### **The Arm Research Starter Kit: System Modeling using gem5**
 

@@ -39,3 +39,5 @@ Simple hello world script using HMC:
 ```
 
 After running the examples above check each of the output folders inside **hmc_se_output/**. Use a PDF viewer to open the generated **config.dot.pdf** file and a text editor to open **stats.txt**.
+
+The script [**runarmsehmc.sh**](../../arch/arm/runarmsehmc.sh) can be used to build gem5 and execute the steps described above.

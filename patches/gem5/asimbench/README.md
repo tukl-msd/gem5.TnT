@@ -67,7 +67,7 @@ Connect with **vncviewer**.
 vncviewer localhost:5901
 ```
 
-A convenient script [**runarmfsandroidics.sh**](../../arch/arm/runarmfsandroidics.sh) is provided.
+A convenient script [**runarmfsandroidics.sh**](../../../arch/arm/runarmfsandroidics.sh) is provided.
 
 #### References:
 

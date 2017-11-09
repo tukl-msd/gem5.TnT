@@ -59,17 +59,39 @@ NC='\033[0m'
 printf "\n----------------------------------------------------------------------\n"
 printf "${R}Running basic HMC examples${NC}"
 printf "\n----------------------------------------------------------------------\n"
-$gem5_elf -d $outdir/test1 configs/example/hmctest.py
+hmcscript="configs/example/hmctest.py"
+
+hmcopts=""
+od="$outdir/test1"
+$gem5_elf -d $od $hmcscript $hmcopts
+
 printf "\n----------------------------------------------------------------------\n"
-$gem5_elf -d $outdir/test2 configs/example/hmctest.py --enable-global-monitor --enable-link-monitor --arch=same
+
+hmcopts="--enable-global-monitor --enable-link-monitor --arch=same"
+od="$outdir/test2"
+$gem5_elf -d $od $hmcscript $hmcopts
+
 printf "\n----------------------------------------------------------------------\n"
-$gem5_elf -d $outdir/test3 configs/example/hmctest.py --enable-global-monitor --enable-link-monitor --arch=mixed
+
+hmcopts="--enable-global-monitor --enable-link-monitor --arch=mixed"
+od="$outdir/test3"
+$gem5_elf -d $od $hmcscript $hmcopts
+
 printf "\n----------------------------------------------------------------------\n"
 printf "${R}Running simple hello world script using HMC${NC}"
 printf "\n----------------------------------------------------------------------\n"
-$gem5_elf -d $outdir/hello1 configs/example/hmc_hello.py
+hmcscript="configs/example/hmc_hello.py"
+
+hmcopts=""
+od="$outdir/hello1"
+$gem5_elf -d $od $hmcscript $hmcopts
+
 printf "\n----------------------------------------------------------------------\n"
-$gem5_elf -d $outdir/hello2 configs/example/hmc_hello.py --enable-global-monitor --enable-link-monitor
+
+hmcopts="--enable-global-monitor --enable-link-monitor"
+od="$outdir/hello2"
+$gem5_elf -d $od $hmcscript $hmcopts
+
 printf "\n----------------------------------------------------------------------\n"
 printf "${R}Check each of the subfolders inside $outdir.${NC}\n"
 printf "${R}Take a look at the generated config.dot.pdf and stats.txt files.${NC}"

@@ -115,5 +115,6 @@ for b in $benchmark_progs; do
 	EOM
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 	output_dir="$output_rootdir/$b"
+	export M5_PATH=${M5_PATH}:"$ROOTDIR/full_system/arm/aarch-system-20170616"
 	$gem5_elf -d $output_dir $config_script $cpu_options $disk_options $bootscript_options &
 done

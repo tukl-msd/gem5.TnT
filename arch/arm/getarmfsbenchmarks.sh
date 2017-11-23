@@ -40,7 +40,7 @@ basedir="$PWD/../.."
 toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
 toolchaintarball=$toolchain.tar.xz
 wgethis=(
-"$TOOLCHAINSDIR_ARM:https://releases.linaro.org/components/toolchain/binaries/latest-5/aarch64-linux-gnu/$toolchaintarball"
+"$TOOLCHAINSDIR_ARM:https://releases.linaro.org/components/toolchain/binaries/5.4-2017.05/aarch64-linux-gnu/$toolchaintarball"
 )
 
 greetings
@@ -55,10 +55,19 @@ parsecdir="$BENCHMARKSDIR/parsec-3.0"
 parsectarball="parsec-3.0.tar.gz"
 if [[ ! -d $parsecdir ]]; then
 	tar -xaf $BENCHMARKSDIR/$parsectarball -C $BENCHMARKSDIR
+	cd $parsecdir
+	git init
+	git add .
+	git commit -m "Adding files to repository"
+	cd -
+else
+	cd $parsecdir
+	git checkout .
+	cd -
 fi
 
 patchfile="$basedir/patches/parsec/x86_host_cross_aarch64-linux-gnu.patch"
-patch -d $parsecdir -p1 < $patchfile
+patch -fs -d $parsecdir -p1 < $patchfile &>/dev/null
 
 tempdir=`mktemp -d`
 wget -O $tempdir/config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'

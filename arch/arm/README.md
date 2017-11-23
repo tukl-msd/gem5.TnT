@@ -14,7 +14,32 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**runarmsehmc.sh**](runarmsehmc.sh): builds gem5 and runs it using HMC as main memory (syscall emulation).
 * [**runarmfsandroidics.sh**](runarmfsandroidics.sh): builds gem5 and runs android ics (full-system simulation).
 
+#### **Run the scripts.**
+
+A suggestion on how to run the scripts follows:
+
+Build some benchmark programs:
+```bash
+bash getarmfsbenchmarks.sh
+```
+
+Execute benchmarks:
+```bash
+bash runarmsebenchmarks.sh
+```
+
+Build some full-system benchmark programs:
+```bash
+bash getarmfsbenchmarks.sh
+```
+
+Execute some full-system benchmarks (note that this one requires **sudo** to
+perform some actions):
+```bash
+sudo bash runarmfsbenchmarks.sh
+```
+
 ### **The Arm Research Starter Kit: System Modeling using gem5**
 
-The amazing [**Arm Research Starter Kit**](https://github.com/arm-university/arm-gem5-rsk) will guide you through Arm-based system modeling using the gem5 simulator.
+The [**Arm Research Starter Kit**](https://github.com/arm-university/arm-gem5-rsk) will guide you through Arm-based system modeling using the gem5 simulator.
 

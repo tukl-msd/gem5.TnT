@@ -40,6 +40,7 @@ for tb in $tarballs; do
 	dir=`expr $tb : '\(.*\).tar.*'`
 	if [[ ! -d $dir ]]; then
 		mkdir -p $dir
+		echo -ne "Uncompressing $tb into $dir. Please wait.\n"
 		tar -xaf $tb -C $dir
 	fi
 done
@@ -51,6 +52,7 @@ bmsuite="parsec-3.0"
 img="$imgdir/linaro-minimal-aarch64-${bmsuite}-inside.img"
 bmsuiteroot="home"
 if [[ ! -e $img ]]; then
+	echo -ne "Creating $img. Please wait.\n"
 	cp $baseimg $img
 
 	bm="$BENCHMARKSDIR/$bmsuite"
@@ -115,6 +117,6 @@ for b in $benchmark_progs; do
 	EOM
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 	output_dir="$output_rootdir/$b"
-	export M5_PATH=${M5_PATH}:"$ROOTDIR/full_system/arm/aarch-system-20170616"
+	export M5_PATH=${M5_PATH}:"$FSDIRARM/aarch-system-20170616"
 	$gem5_elf -d $output_dir $config_script $cpu_options $disk_options $bootscript_options &
 done

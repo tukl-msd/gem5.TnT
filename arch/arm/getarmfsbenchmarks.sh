@@ -54,7 +54,9 @@ fi
 parsecdir="$BENCHMARKSDIR/parsec-3.0"
 parsectarball="parsec-3.0.tar.gz"
 if [[ ! -d $parsecdir ]]; then
-	tar -xaf $BENCHMARKSDIR/$parsectarball -C $BENCHMARKSDIR
+	tarball=$BENCHMARKSDIR/$parsectarball
+	echo -ne "Uncompressing $tarball. Please wait.\n"
+	tar -xaf $tarball -C $BENCHMARKSDIR
 	cd $parsecdir
 	git init
 	git add .

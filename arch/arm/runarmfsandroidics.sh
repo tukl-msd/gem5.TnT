@@ -46,12 +46,16 @@ outdir="--outdir=android_asimbench_output_$currtime"
 fsscript="configs/example/fs.py"
 cpuopt="--cpu-type=TimingSimpleCPU --num-cpu=4"
 memopt="--mem-size=256MB --mem-type=DDR3_1600_8x8 --mem-channels=2 --caches --l2cache"
-benchmarkopt="--script=bbench.rcS"
 machine="--machine-type=RealView_PBX"
-kernel="--kernel=vmlinux.smp.ics.arm.asimbench.2.6.35"
-disk="--disk=ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 ostype="--os-type=android-ics"
 miscopt="--frame-capture"
+sp="$FSDIRARM/asimbench/asimbench_boot_scripts"
+benchmarkopt="--script=$sp/bbench.rcS"
+kp="$FSDIRARM/asimbench/asimbench_android_arm_kernel"
+kernel="--kernel=$kp/vmlinux.smp.ics.arm.asimbench.2.6.35"
+#dp="$FSDIRARM/asimbench/asimbench_disk_image"
+#disk="--disk=$dp/ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
+disk="--disk=ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 
 cd $ROOTDIR/gem5
 pfile="$basedir/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch"
@@ -60,4 +64,10 @@ getnumprocs np
 nj=`expr $np - 1`
 scons $gem5 -j$nj
 
+mkdir -p $FSDIRARM/asimbench/disks
+tar -xaf $FSDIRARM/asimbench/asimbench_disk_image/sdcard-1g.tar.gz -C $FSDIRARM/asimbench/disks
+tar -xaf $FSDIRARM/asimbench/asimbench_disk_image/ARMv7a-ICS-Android.SMP.Asimbench.tar.gz -C $FSDIRARM/asimbench/disks
+
+export M5_PATH=${M5_PATH}:"$FSDIRARM/aarch-system-20170616"
+export M5_PATH=${M5_PATH}:"$FSDIRARM/asimbench"
 $gem5 $outdir $fsscript $cpuopt $memopt $benchmarkopt $machine $kernel $disk $ostype $miscopt

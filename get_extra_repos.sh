@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2017, University of Kaiserslautern
+# Copyright (c) 2016, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -32,46 +32,17 @@
 #
 # Author: Éder F. Zulian
 
-source ../../common/defaults.in
-source ../../common/util.in
+source ./common/defaults.in
+source ./common/util.in
 
-toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
-toolchaintarball=$toolchain.tar.xz
-
-wgethis=(
-"$TOOLCHAINSDIR_ARM:https://releases.linaro.org/components/toolchain/binaries/5.4-2017.05/aarch64-linux-gnu/$toolchaintarball"
-)
-
+# git repositories
 gitrepos=(
-"$BENCHMARKSDIR:http://llvm.org/git/test-suite.git"
+"$MISCREPOS:git://linux-arm.org/linux-linaro-tracking-gem5.git"
+"$MISCREPOS:git://linux-arm.org/linux-aarch64-gem5.git"
+"$MISCREPOS:https://github.com/gem5/linux-arm-gem5.git"
+"$MISCREPOS:https://github.com/arm-university/arm-gem5-rsk.git"
+"$MISCREPOS:https://gem5.googlesource.com/public/m5threads.git"
 )
 
 greetings
-wgetintodir wgethis[@]
 gitcloneintodir gitrepos[@]
-
-toolchaindir=$TOOLCHAINSDIR_ARM/$toolchain
-if [[ ! -d $toolchaindir ]]; then
-	tar -xaf $TOOLCHAINSDIR_ARM/$toolchaintarball -C $TOOLCHAINSDIR_ARM
-fi
-
-cd $BENCHMARKSDIR/test-suite
-git checkout release_50
-cd SingleSource/Benchmarks/Stanford
-
-cat > Makefile << EOM
-sysroot=$toolchaindir/aarch64-linux-gnu/libc
-cc=$toolchaindir/bin/aarch64-linux-gnu-gcc
-sources=\$(wildcard *.c)
-bins=\$(patsubst %.c,%,\$(sources))
-all: \$(bins)
-	@echo Done.
-%: %.c
-	\$(cc) --sysroot=\$(sysroot) --no-sysroot-suffix --static \$< -o \$@
-clean:
-	rm -rf \$(bins)
-EOM
-
-getnumprocs np
-make clean
-make -j$np

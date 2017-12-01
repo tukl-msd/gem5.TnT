@@ -4,8 +4,10 @@
 This repository contains tips and tricks about gem5. It is intended to gather and share useful hints about gem5, so that the learning process is accelerated.
 
 * [**depinstall.sh**](depinstall.sh): installs known dependencies.
-* [**getrepos.sh**](getrepos.sh): clones gem5 related repositories.
-* [**getfs.sh**](getfs.sh): downloads full system files.
+* [**get_essential_repos.sh**](get_essential_repos.sh): clones gem5 essential repositories.
+* [**get_extra_repos.sh**](get_extra_repos.sh): clones other gem5 related repositories.
+* [**get_essential_fs.sh**](get_essential_fs.sh): downloads full system files.
+* [**get_extra_fs.sh**](get_extra_fs.sh): downloads full system files.
 * [**getdoc.sh**](getdoc.sh): downloads documentation and tutorials.
 * [**getbenchmarks.sh**](getbenchmarks.sh): downloads some benchmarks.
 * [**buildgem5.sh**](buildgem5.sh): can be used for building gem5.
@@ -47,12 +49,12 @@ bash getdoc.sh
 
 Get repositories:
 ```bash
-bash getrepos.sh
+bash get_essential_repos.sh
 ```
 
 Get some full system simulation files:
 ```bash
-bash getfs.sh
+bash get_essential_fs.sh
 ```
 
 Get some benchmark suites:

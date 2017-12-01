@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2016, University of Kaiserslautern
+# Copyright (c) 2017, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -35,15 +35,16 @@
 source ./common/defaults.in
 source ./common/util.in
 
-# git repositories
-gitrepos=(
-"$ROOTDIR:https://gem5.googlesource.com/public/gem5"
-"$MISCREPOS:git://linux-arm.org/linux-linaro-tracking-gem5.git"
-"$MISCREPOS:git://linux-arm.org/linux-aarch64-gem5.git"
-"$MISCREPOS:https://github.com/gem5/linux-arm-gem5.git"
-"$MISCREPOS:https://github.com/arm-university/arm-gem5-rsk.git"
-"$MISCREPOS:https://gem5.googlesource.com/public/m5threads.git"
+wgethis=(
+# ARM full system files
+"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170616.tar.xz"
+)
+
+hgrepos=(
+# Asimbench android disk images and vmlinux for arm
+"$FSDIRARM,https://bitbucket.org/yongbing_huang/asimbench"
 )
 
 greetings
-gitcloneintodir gitrepos[@]
+wgetintodir wgethis[@]
+hgcloneintodir hgrepos[@]

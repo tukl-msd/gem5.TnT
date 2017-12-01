@@ -3,10 +3,10 @@
 
 This repository contains tips and tricks about gem5. It is intended to gather and share useful hints about gem5, so that the learning process is accelerated.
 
-* [**depinstall.sh**](depinstall.sh): installs known dependencies.
-* [**get_essential_repos.sh**](get_essential_repos.sh): clones gem5 essential repositories.
+* [**depinstall.sh**](depinstall.sh): installs known dependencies for building gem5 and running the example scripts contained in this repository.
+* [**get_essential_repos.sh**](get_essential_repos.sh): clones gem5 essential repositories for running the examples.
 * [**get_extra_repos.sh**](get_extra_repos.sh): clones other gem5 related repositories.
-* [**get_essential_fs.sh**](get_essential_fs.sh): downloads full system files.
+* [**get_essential_fs.sh**](get_essential_fs.sh): downloads essential full system files for running the examples.
 * [**get_extra_fs.sh**](get_extra_fs.sh): downloads full system files.
 * [**getdoc.sh**](getdoc.sh): downloads documentation and tutorials.
 * [**getbenchmarks.sh**](getbenchmarks.sh): downloads some benchmarks.
@@ -42,11 +42,6 @@ root):
 sudo bash depinstall.sh
 ```
 
-Get documentation:
-```bash
-bash getdoc.sh
-```
-
 Get repositories:
 ```bash
 bash get_essential_repos.sh
@@ -60,6 +55,13 @@ bash get_essential_fs.sh
 Get some benchmark suites:
 ```bash
 bash getbenchmarks.sh
+```
+
+#### **Download documentation**
+
+Optionally, download some documentation with:
+```bash
+bash getdoc.sh
 ```
 
 The default directory for downloads is **$HOME/gem5_tnt**. That means a new

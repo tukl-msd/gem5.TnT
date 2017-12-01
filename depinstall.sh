@@ -55,6 +55,7 @@ function instdep {
 	libzstd-dev
 	python-pthreading
 	python-posix-ipc
+	parted
 	"
 
 	echo -e -n "This is a list of known dependencies:" && echo ""

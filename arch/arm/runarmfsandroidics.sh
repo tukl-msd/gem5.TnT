@@ -53,8 +53,6 @@ sp="$FSDIRARM/asimbench/asimbench_boot_scripts"
 benchmarkopt="--script=$sp/bbench.rcS"
 kp="$FSDIRARM/asimbench/asimbench_android_arm_kernel"
 kernel="--kernel=$kp/vmlinux.smp.ics.arm.asimbench.2.6.35"
-#dp="$FSDIRARM/asimbench/asimbench_disk_image"
-#disk="--disk=$dp/ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 disk="--disk=ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 
 cd $ROOTDIR/gem5

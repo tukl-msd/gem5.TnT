@@ -43,9 +43,6 @@ gem5_elf="build/$arch/gem5.$mode"
 
 cd $ROOTDIR/gem5
 
-pfile="$basedir/patches/gem5/hmc/hmc_se.patch"
-patch -fs -p1 < $pfile &>/dev/null
-
 getnumprocs np
 nj=`expr $np - 1`
 scons $gem5_elf -j$nj

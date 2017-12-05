@@ -14,7 +14,6 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 * [**Here**](arch/arm/README.md) you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
 * [**Here**](patches/gem5/asimbench/README.md) you'll find how you can run android on your gem5!
 * [**Here**](doc/Gem5Basics.md) you'll find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
-* [**Here**](patches/gem5/hmc/README.md) you'll find how you can run your gem5 using HMC as main memory (SE mode).
 
 ### **Using gem5.TnT**
 

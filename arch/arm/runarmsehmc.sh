@@ -43,9 +43,11 @@ gem5_elf="build/$arch/gem5.$mode"
 
 cd $ROOTDIR/gem5
 
-getnumprocs np
-nj=`expr $np - 1`
-scons $gem5_elf -j$nj
+if [[ ! -e $gem5_elf ]]; then
+	getnumprocs np
+	nj=`expr $np - 1`
+	scons $gem5_elf -j$nj
+fi
 
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 outdir="hmc_se_output_$currtime"

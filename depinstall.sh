@@ -73,7 +73,7 @@ function instdep {
 	echo ""
 
 	for p in $plist; do
-		local cmd="apt-get install $p"
+		local cmd="apt-get install -y $p"
 		rctest $cmd
 	done
 }

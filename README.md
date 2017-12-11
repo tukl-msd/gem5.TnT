@@ -17,12 +17,6 @@ This repository contains tips and tricks about gem5. It is intended to gather an
 
 ### **Using gem5.TnT**
 
-For optimal experience install the programms that follow as root or use sudo:
-
-```bash
-sudo apt-get install cowsay libnotify-bin
-```
-
 #### **Clone the repository and change to its directory:**
 
 ```bash

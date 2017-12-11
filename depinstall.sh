@@ -36,6 +36,8 @@ source ./common/util.in
 
 function instdep {
 	local plist="
+	cowsay
+	libnotify-bin
 	swig
 	m4
 	mercurial

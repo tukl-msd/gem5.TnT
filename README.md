@@ -11,7 +11,7 @@ accelerated.
 * [**get_essential_fs.sh**](get_essential_fs.sh): downloads essential full system files for running the examples.
 * [**get_extra_fs.sh**](get_extra_fs.sh): downloads full system files.
 * [**get_doc.sh**](get_doc.sh): downloads documentation and tutorials.
-* [**getbenchmarks.sh**](getbenchmarks.sh): downloads some benchmarks.
+* [**get_benchmarks.sh**](get_benchmarks.sh): downloads some benchmarks.
 * [**build_gem5.sh**](build_gem5.sh): can be used for building gem5.
 * [**Here**](arch/arm/README.md) you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
 * [**Here**](patches/gem5/asimbench/README.md) you'll find how you can run android on your gem5!
@@ -48,7 +48,7 @@ bash get_essential_fs.sh
 
 Get some benchmark suites:
 ```bash
-bash getbenchmarks.sh
+bash get_benchmarks.sh
 ```
 
 #### **Download documentation**

@@ -1,7 +1,9 @@
 ## gem5 Tips & Tricks
 ### **Tips and tricks to make your life easier when dealing with gem5**
 
-This repository contains tips and tricks about gem5. It is intended to gather and share useful hints about gem5, so that the learning process is accelerated.
+This repository contains tips and tricks about gem5. It is intended to gather
+and share useful hints about gem5, so that the learning process is
+accelerated.
 
 * [**depinstall.sh**](depinstall.sh): installs known dependencies for building gem5 and running the example scripts contained in this repository.
 * [**get_essential_repos.sh**](get_essential_repos.sh): clones gem5 essential repositories for running the examples.
@@ -58,6 +60,28 @@ bash getdoc.sh
 
 The default directory for downloads is **$HOME/gem5_tnt**. That means a new
 directory called **gem5_tnt** will be created in your home folder and
-populated with relevant documentation, repositories, etc. In case you want to
+populated with relevant files, documentation and repositories. In case you want to
 change the default paths edit the [defaults.in](common/defaults.in) file in your
 local repository before running the scripts.
+
+### **Quick Hints**
+
+#### Default python version is not python2.7:
+
+```bash
+python2.7 `which scons` build/\<arch\>/gem5.\<mode\> -j\<num jobs\>
+```
+
+Example:
+
+```bash
+python2.7 `which scons` build/ARM/gem5.opt -j$(cat /proc/cpuinfo | grep processor | wc -l)
+```
+
+#### Memory allocation error on Linux.
+
+```bash
+sudo su
+echo 1 > /proc/sys/vm/overcommit_memory
+```
+

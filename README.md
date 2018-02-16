@@ -5,14 +5,14 @@ This repository contains tips and tricks about gem5. It is intended to gather
 and share useful hints about gem5, so that the learning process is
 accelerated.
 
-* [**depinstall.sh**](depinstall.sh): installs known dependencies for building gem5 and running the example scripts contained in this repository.
+* [**dep_install.sh**](dep_install.sh): installs known dependencies for building gem5 and running the example scripts contained in this repository.
 * [**get_essential_repos.sh**](get_essential_repos.sh): clones gem5 essential repositories for running the examples.
 * [**get_extra_repos.sh**](get_extra_repos.sh): clones other gem5 related repositories.
 * [**get_essential_fs.sh**](get_essential_fs.sh): downloads essential full system files for running the examples.
 * [**get_extra_fs.sh**](get_extra_fs.sh): downloads full system files.
-* [**getdoc.sh**](getdoc.sh): downloads documentation and tutorials.
+* [**get_doc.sh**](get_doc.sh): downloads documentation and tutorials.
 * [**getbenchmarks.sh**](getbenchmarks.sh): downloads some benchmarks.
-* [**buildgem5.sh**](buildgem5.sh): can be used for building gem5.
+* [**build_gem5.sh**](build_gem5.sh): can be used for building gem5.
 * [**Here**](arch/arm/README.md) you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
 * [**Here**](patches/gem5/asimbench/README.md) you'll find how you can run android on your gem5!
 * [**Here**](doc/Gem5Basics.md) you'll find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
@@ -33,7 +33,7 @@ A suggestion on how to do that follows:
 Install known dependencies (note that this one has to be run with sudo or as
 root):
 ```bash
-sudo bash depinstall.sh
+sudo bash dep_install.sh
 ```
 
 Get repositories:
@@ -55,7 +55,7 @@ bash getbenchmarks.sh
 
 Optionally, download some documentation with:
 ```bash
-bash getdoc.sh
+bash get_doc.sh
 ```
 
 The default directory for downloads is **$HOME/gem5_tnt**. That means a new
@@ -69,7 +69,7 @@ local repository before running the scripts.
 #### Default python version is not python2.7:
 
 ```bash
-python2.7 `which scons` build/\<arch\>/gem5.\<mode\> -j\<num jobs\>
+python2.7 `which scons` build/<arch>/gem5.<mode> -j<num jobs>
 ```
 
 Example:

@@ -1,0 +1,209 @@
+diff --git a/configs/common/HBM.py b/configs/common/HBM.py
+new file mode 100644
+index 0000000..2c20170
+--- /dev/null
++++ b/configs/common/HBM.py
+@@ -0,0 +1,68 @@
++# Copyright (c) 2012-2013 ARM Limited
++# All rights reserved.
++#
++# The license below extends only to copyright in the software and shall
++# not be construed as granting a license to any other intellectual
++# property including but not limited to intellectual property relating
++# to a hardware implementation of the functionality of the software
++# licensed hereunder.  You may use the software subject to the license
++# terms below provided that you ensure that this notice is replicated
++# unmodified and in its entirety in all distributions of the software,
++# modified or unmodified, in source code or in binary form.
++#
++# Copyright (c) 2015 The University of Bologna
++# All rights reserved.
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions are
++# met: redistributions of source code must retain the above copyright
++# notice, this list of conditions and the following disclaimer;
++# redistributions in binary form must reproduce the above copyright
++# notice, this list of conditions and the following disclaimer in the
++# documentation and/or other materials provided with the distribution;
++# neither the name of the copyright holders nor the names of its
++# contributors may be used to endorse or promote products derived from
++# this software without specific prior written permission.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++#
++# Author: Shama Bhosale 
++# 
++import optparse
++
++import m5
++from m5.objects import *
++from m5.util import *
++
++
++def add_options(parser):
++	parser.add_option("--mem-type", type="choice", choices=["HBM_1000_4H_1x64", "GDDR5_4000_2x32"],
++                        default="HBM_1000_4H_1x64", help="type of HBM memory to\
++                        use. Default: HBM_1000_4H_1x64")
++	parser.add_option("--mem-channels", default=2, action="store", type="int",
++                        help="Number of memory channels")
++	parser.add_option("--mem-size", action="store", type="string",
++                      default="1024MB",
++                      help="Specify the physical memory size (single memory)")
++        parser.add_option("--cacheline_size", type="int", default=64)
++	 # Trace file paths input to trace probe in a capture simulation and input
++   	 # to Trace CPU in a replay simulation
++  	parser.add_option("--inst-trace-file", action="store", type="string",
++                      help="""Instruction fetch trace file input to
++                      Elastic Trace probe in a capture simulation and
++                      Trace CPU in a replay simulation""", default="")
++	parser.add_option("--data-trace-file", action="store", type="string",
++                      help="""Data dependency trace file input to
++                      Elastic Trace probe in a capture simulation and
++                      Trace CPU in a replay simulation""", default="")
++
+diff --git a/configs/example/hbm_hello.py b/configs/example/hbm_hello.py
+new file mode 100644
+index 0000000..70d7e2f
+--- /dev/null
++++ b/configs/example/hbm_hello.py
+@@ -0,0 +1,79 @@
++# Copyright (c) 2017, University of Kaiserslautern
++# All rights reserved.
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions are
++# met:
++#
++# 1. Redistributions of source code must retain the above copyright notice,
++#    this list of conditions and the following disclaimer.
++#
++# 2. Redistributions in binary form must reproduce the above copyright
++#    notice, this list of conditions and the following disclaimer in the
++#    documentation and/or other materials provided with the distribution.
++#
++# 3. Neither the name of the copyright holder nor the names of its
++#    contributors may be used to endorse or promote products derived from
++#    this software without specific prior written permission.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++# TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
++# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER
++# OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
++# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
++# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
++# PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++# LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
++# NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++#
++# Author: Shama Bhosale 
++
++import sys
++import optparse
++
++import m5
++from m5.objects import *
++from m5.util import *
++addToPath('../')
++from common import MemConfig
++from common import HBM 
++
++
++pd = "Simple elastic trace example using HBM as main memory"
++parser = optparse.OptionParser(description=pd)
++HBM.add_options(parser)
++(options, args) = parser.parse_args()
++# create the system we are going to simulate
++system = System(mem_ranges = [AddrRange(options.mem_size)])
++## Shama -added from se.py
++system.membus = SystemXBar()
++MemConfig.config_mem(options, system)
++####
++# use timing mode for the interaction between master-slave ports
++system.mem_mode = 'timing'
++# set the clock fequency of the system
++clk = '1GHz'
++vd = VoltageDomain(voltage='1V')
++system.clk_domain = SrcClockDomain(clock=clk, voltage_domain=vd)
++# create a Trace CPU
++system.cpu = TraceCPU()
++# hook the CPU ports up to the membus
++system.cpu.icache_port = system.membus.slave
++system.cpu.dcache_port = system.membus.slave
++# create the interrupt controller for the CPU and connect to the membus
++system.cpu.createInterruptController()
++# connect special port in the system to the membus. This port is a
++# functional-only port to allow the system to read and write memory.
++system.system_port = system.membus.slave
++# Assign input trace files to the Trace CPU
++system.cpu.instTraceFile=options.inst_trace_file
++system.cpu.dataTraceFile=options.data_trace_file
++#
++# create thread contexts
++system.cpu.createThreads()
++# set up the root SimObject
++root = Root(full_system=False, system=system)
++m5.instantiate()
++m5.simulate()
+diff --git a/src/mem/DRAMCtrl.py b/src/mem/DRAMCtrl.py
+index d1c5daf..ee6b048 100644
+--- a/src/mem/DRAMCtrl.py
++++ b/src/mem/DRAMCtrl.py
+@@ -1017,6 +1017,7 @@ class GDDR5_4000_2x32(DRAMCtrl):
+     # tCL is not directly found in datasheet and assumed equal tRCD
+     tCL = '12ns'
+ 
++
+     tRP = '12ns'
+     tRAS = '28ns'
+ 
+@@ -1158,7 +1159,7 @@ class HBM_1000_4H_1x64(HBM_1000_4H_1x128):
+ 
+     # size of channel in bytes, 4H stack of 8Gb dies is 4GB per stack;
+     # with 16 channels, 256MB per channel
+-    device_size = '256MB'
++    device_size = '512MB'
+ 
+     # page size is halved with pseudo-channel; maintaining the same same number
+     # of rows per pseudo-channel with 2X banks across 2 channels
+@@ -1181,5 +1182,13 @@ class HBM_1000_4H_1x64(HBM_1000_4H_1x128):
+     # active powerdown and precharge powerdown exit time
+     tXP = '10ns'
+ 
+-    # self refresh exit time
+-    tXS = '65ns'
++  
++  # Preliminiary current values from DRAMSpec 
++    IDD0 = '36mA'
++    IDD2N = '16mA'
++    IDD3N = '17mA'
++    IDD4W = '639mA'
++    IDD4R = '639mA'
++    IDD5 = '137mA'
++    VDD = '1.2V'
++
+diff --git a/src/mem/dram_ctrl.hh b/src/mem/dram_ctrl.hh
+index 467cfe8..cef87ce 100644
+--- a/src/mem/dram_ctrl.hh
++++ b/src/mem/dram_ctrl.hh
+@@ -911,7 +911,7 @@ class DRAMCtrl : public AbstractMemory
+      * The rowsPerBank is determined based on the capacity, number of
+      * ranks and banks, the burst size, and the row buffer size.
+      */
+-    const uint32_t deviceSize;
++    const uint64_t deviceSize;
+     const uint32_t deviceBusWidth;
+     const uint32_t burstLength;
+     const uint32_t deviceRowBufferSize;

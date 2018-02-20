@@ -7,12 +7,12 @@ This folder contains tips and tricks for the arm architecture.
 
 Before running the scripts below make sure everything else is setup! You're all done if you followed [**the steps described here**](../../README.md).
 
-* [**getarmsebenchmarks.sh**](getarmsebenchmarks.sh): builds SE benchmark programs from the LLVM test-suite for arm.
-* [**runarmsebenchmarks.sh**](runarmsebenchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (system call emulation).
-* [**getarmfsbenchmarks.sh**](getarmfsbenchmarks.sh): builds FS benchmark programs from the parsec suite for arm.
-* [**runarmfsbenchmarks.sh**](runarmfsbenchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (full-system simulation).
-* [**runarmsehmc.sh**](runarmsehmc.sh): builds gem5 and runs it using HMC as main memory (syscall emulation).
-* [**runarmfsandroidics.sh**](runarmfsandroidics.sh): builds gem5 and runs android ics (full-system simulation).
+* [**get_arm_se_benchmarks.sh**](get_arm_se_benchmarks.sh): builds SE benchmark programs from the LLVM test-suite for arm.
+* [**run_arm_se_benchmarks.sh**](run_arm_se_benchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (system call emulation).
+* [**get_arm_fs_benchmarks.sh**](get_arm_fs_benchmarks.sh): builds FS benchmark programs from the parsec suite for arm.
+* [**run_arm_fs_benchmarks.sh**](run_arm_fs_benchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (full-system simulation).
+* [**run_arm_se_hmc.sh**](run_arm_se_hmc.sh): builds gem5 and runs it using HMC as main memory (syscall emulation).
+* [**run_arm_fs_android_ics.sh**](run_arm_fs_android_ics.sh): builds gem5 and runs android ics (full-system simulation).
 
 #### **Run the scripts.**
 
@@ -20,23 +20,23 @@ A suggestion on how to run the scripts follows:
 
 Build some benchmark programs:
 ```bash
-bash getarmfsbenchmarks.sh
+bash get_arm_fs_benchmarks.sh
 ```
 
 Execute benchmarks:
 ```bash
-bash runarmsebenchmarks.sh
+bash run_arm_se_benchmarks.sh
 ```
 
 Build some full-system benchmark programs:
 ```bash
-bash getarmfsbenchmarks.sh
+bash get_arm_fs_benchmarks.sh
 ```
 
 Execute some full-system benchmarks (note that this one requires **sudo** to
 perform some actions):
 ```bash
-sudo bash runarmfsbenchmarks.sh
+sudo bash run_arm_fs_benchmarks.sh
 ```
 
 ### **The Arm Research Starter Kit: System Modeling using gem5**

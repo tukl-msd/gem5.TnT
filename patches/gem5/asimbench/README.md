@@ -12,7 +12,7 @@ Oh, one last thing, if you haven't yet built gem5 check [**this**](../../../doc/
 Apply one of the patches to your gem5 source code.
 
 ```bash
-patch -p1 < gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch
+patch -p1 < <path_to_gem5Tnt>/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch
 ```
 
 After applying the patch you have to build gem5 again. But don't worry, this time the build process will finish much faster than the first build.

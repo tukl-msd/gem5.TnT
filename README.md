@@ -13,9 +13,9 @@ accelerated.
 * [**get_doc.sh**](get_doc.sh): downloads documentation and tutorials.
 * [**get_benchmarks.sh**](get_benchmarks.sh): downloads some benchmarks.
 * [**build_gem5.sh**](build_gem5.sh): can be used for building gem5.
-* [**Here**](arch/arm/README.md) you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
-* [**Here**](patches/gem5/asimbench/README.md) you'll find how you can run android on your gem5!
 * [**Here**](doc/Gem5Basics.md) you'll find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
+* [**Here**](arch/arm/README.md) you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
+* [**Here**](patches/gem5/asimbench/README.md) you'll find how you can run android on your gem5.
 * [**Here**](patches/gem5/HBM_elastic_traces/README.md) you'll find the steps to run elastic traces on gem5 using HBM as the main memory.
 
 ### **Using gem5.TnT**

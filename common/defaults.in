@@ -38,6 +38,8 @@ readonly MISCREPOS=$ROOTDIR/misc_repos
 
 readonly BENCHMARKSDIR=$ROOTDIR/benchmarks
 
+readonly ELASTICTRACESDIR=$ROOTDIR/elastic_traces
+
 readonly DOCDIR=$ROOTDIR/Documentation
 readonly TUTORIALSDIR=$DOCDIR/tutorials
 readonly TUTORIALSDIR1=$TUTORIALSDIR/hipeac2012

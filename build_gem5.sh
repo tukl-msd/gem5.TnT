@@ -67,10 +67,14 @@ echo -e -n "\nThe following targets were successfully built:\n\n"
 for arch in $archs; do
 	for mode in $modes; do
 		target="build/$arch/gem5.$mode"
-		file $target
-		echo ""
+		if [[ -e $target ]]; then
+			file $target
+			echo ""
+		fi
 		target="build/$arch/libgem5_$mode.so"
-		file $target
-		echo ""
+		if [[ -e $target ]]; then
+			file $target
+			echo ""
+		fi
 	done
 done

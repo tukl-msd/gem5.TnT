@@ -78,6 +78,5 @@ od="$outdir"
 $gem5_elf -d $od $hbmscript $hbmopts
 
 printf "\n----------------------------------------------------------------------\n"
-printf "${R}Check each of the subfolders inside $outdir.${NC}\n"
 printf "${R}Take a look at the generated config.dot.pdf and stats.txt files inside $outdir.${NC}"
 printf "\n----------------------------------------------------------------------\n"

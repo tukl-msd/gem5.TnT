@@ -1,9 +1,7 @@
 ## gem5 Tips & Tricks
-### **Tips and tricks to make your life easier when dealing with gem5**
+### **Running android on gem5**
 
-This repository contains tips and tricks about gem5. It is intended to gather and share useful hints about gem5, so that the learning process is accelerated.
-
-Here you'll find an examample on how to get android up and running on gem5.
+Here you'll find an example on how to get android up and running on gem5.
 
 Make sure everything is setup! You're all done if you followed [**the steps described here**](../../../README.md).
 
@@ -12,7 +10,7 @@ Oh, one last thing, if you haven't yet built gem5 check [**this**](../../../doc/
 Apply one of the patches to your gem5 source code.
 
 ```bash
-patch -p1 < <path_to_gem5Tnt>/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch
+patch -p1 < <path_to_gem5.TnT_repo>/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch
 ```
 
 After applying the patch you have to build gem5 again. But don't worry, this time the build process will finish much faster than the first build.

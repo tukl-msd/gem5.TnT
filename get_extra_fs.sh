@@ -39,7 +39,6 @@ wgethis=(
 # ARM full system files
 "$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-2014-10.tar.xz"
 "$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170421.tar.xz"
-"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170616.tar.xz"
 # BBench android disk images and vmlinux for arm
 "$FSDIRARMBBENCH:http://www.gem5.org/dist/current/bbench/Gingerbread_disk_image_clean.tgz"
 "$FSDIRARMBBENCH:http://www.gem5.org/dist/current/bbench/ICS_disk_image_clean.tgz"
@@ -65,9 +64,6 @@ wgethis=(
 "$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/arm-system-2011-08.tar.bz2"
 # Old Full System Files -- Older pre-compiled Linux kernel, and file system.
 "$FSDIRARMLEGACY:http://www.m5sim.org/dist/current/arm/arm-system.tar.bz2"
-# X86 full system files
-# The kernel used for regressions, an SMP version of it, and a disk image
-"$FSDIRX86:http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2"
 # Config files for both of the above kernels, 2.6.25.1 and 2.6.28.4
 "$FSDIRX86:http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2"
 # ALPHA full system files
@@ -78,12 +74,5 @@ wgethis=(
 "$FSDIRALPHA:http://www.m5sim.org/dist/current/linux-dist.tgz"
 )
 
-# Mercurial repositories
-hgrepos=(
-# Asimbench android disk images and vmlinux for arm
-"$FSDIRARM,https://bitbucket.org/yongbing_huang/asimbench"
-)
-
 greetings
 wgetintodir wgethis[@]
-hgcloneintodir hgrepos[@]

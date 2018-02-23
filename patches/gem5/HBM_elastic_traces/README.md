@@ -6,7 +6,7 @@ To understand what elastic traces are, please refer to the documentation here : 
 
 Make sure everything is setup! You're all done if you followed [**the steps described here**](../../../README.md).
 
-Now we perform some steps to get the required setup for the simulation.
+Now we perform some steps to get the required setup for the simulation. 
 
 Firstly, since the source code changes required for HBM are still not incorporated into the official gem5 release, we need to patch the existing repository with certain additions. 
 
@@ -27,3 +27,7 @@ build/ARM/gem5.opt configs/example/hbm_hello.py -d hbm_etrace --mem-size=1GB --d
 The outputs are generated in the hbm_etrace directory. The config.dot.pdf file gives a nice pictorial representation of the system we created for the simulation and the stats.txt file gives the tabulated results of the simulation.
 
 Now that the system is setup, different trace files could be used based on requirements.
+
+A convenient script [**run_arm_se_hbm_eltrace.sh**](../../../arch/arm/run_arm_se_hbm_eltrace.sh) is provided.
+
+Run the script from the directory it is present in the repository to avoid path related issues.

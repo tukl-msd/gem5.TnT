@@ -17,6 +17,7 @@ accelerated.
 * [**Here**](arch/arm/README.md) you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
 * [**Here**](patches/gem5/asimbench/README.md) you'll find how you can run android on your gem5.
 * [**Here**](patches/gem5/HBM_elastic_traces/README.md) you'll find the steps to run elastic traces on gem5 using HBM as the main memory.
+* [**Here**](https://github.com/tukl-msd/gem5.bare-metal) you'll find the steps to run an example gem5 ARM bare-metal implementation. 
 
 ### **Using gem5.TnT**
 

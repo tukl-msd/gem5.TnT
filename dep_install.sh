@@ -46,6 +46,8 @@ function instdep {
 	python-dev
 	python-pydot
 	python-protobuf
+	libpython-dbg
+	libpython2.7-dbg
 	gcc
 	g++
 	libgoogle-perftools-dev

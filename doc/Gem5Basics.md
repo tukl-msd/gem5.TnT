@@ -100,6 +100,11 @@ TRANSITION 1 0 1
 TRANSITION 2 0 1
 ```
 
+The equivalent FSM diagram is presented below:
+
+![tgen_fsm1](tgen_fsm1.png)
+
+
 The file format contains [STATE]+ [INIT] [TRANSITION]+ in any order, where the states are the nodes in the graph, init describes what state to start in, and transition describes the edges of the graph.
 
 The usage is as described below:

@@ -34,7 +34,7 @@
 
 source ./common/util.in
 
-function instdep {
+instdep() {
 	local plist="
 	cowsay
 	libnotify-bin
@@ -83,4 +83,10 @@ function instdep {
 }
 
 greetings
+# Check distro. This script supports Debian/Ubuntu
+distro=`lsb_release -is`
+if [ "$distro" != "Debian" ] && [ "$distro" != "Ubuntu" ]; then
+	echo -e "Error unsupported distribution (${distro}). This script supports Debian/Ubuntu." 1>&2
+	exit 1
+fi
 instdep

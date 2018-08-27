@@ -56,7 +56,7 @@ for arch in $archs; do
 		scons $target -j$njobs
 		# Build gem5 as a library
 		target="build/$arch/libgem5_$mode.so"
-		buildopts="--with-cxx-config --without-python"
+		buildopts="--with-cxx-config --without-python --without-tcmalloc"
 		scons $buildopts $target -j$njobs
 	done
 done

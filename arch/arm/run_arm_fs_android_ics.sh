@@ -39,7 +39,7 @@ basedir="$PWD/../.."
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 arch="ARM"
-mode="fast"
+mode="opt"
 gem5="build/$arch/gem5.$mode"
 
 outdir="--outdir=android_asimbench_output_$currtime"

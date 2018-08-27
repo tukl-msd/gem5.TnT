@@ -38,7 +38,7 @@ source ../../common/util.in
 basedir="$PWD/../.."
 
 arch="ARM"
-mode="fast"
+mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
 cd $ROOTDIR/gem5

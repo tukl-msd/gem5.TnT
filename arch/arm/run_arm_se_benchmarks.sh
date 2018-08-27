@@ -35,7 +35,7 @@
 source ../../common/defaults.in
 source ../../common/util.in
 
-gem5_elf="build/ARM/gem5.fast"
+gem5_elf="build/ARM/gem5.opt"
 cd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
 	getnumprocs np

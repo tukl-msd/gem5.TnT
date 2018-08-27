@@ -77,7 +77,7 @@ fi
 
 cd $ROOTDIR/gem5
 
-gem5_elf="build/ARM/gem5.fast"
+gem5_elf="build/ARM/gem5.opt"
 
 if [[ ! -e $gem5_elf ]]; then
 	getnumprocs np

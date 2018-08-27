@@ -18,7 +18,7 @@ A suggestion on how to run the scripts follows:
 
 Build some benchmark programs:
 ```bash
-bash get_arm_fs_benchmarks.sh
+bash get_arm_se_benchmarks.sh
 ```
 
 Execute benchmarks:

@@ -57,10 +57,19 @@ Towers
 Treesort
 "
 config_script="configs/example/arm/starter_se.py"
-cpu_options="--cpu=hpi"
+ncores="1"
+cpu_options="--cpu=hpi --num-cores=$ncores"
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 output_rootdir="se_output_$currtime"
+mem_options="--mem-channels=1"
+#tlm_options="--tlm-memory"
+
 for b in $benchmark_progs; do
 	output_dir="$output_rootdir/$b"
-	$gem5_elf -d $output_dir $config_script $cpu_options $benchmark_progs_path/$b &
+	workload=""
+	wl="$benchmark_progs_path/$b"
+	for ((c = 0; c < ncores; c++)); do
+		workload+="$wl "
+	done
+	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload &
 done

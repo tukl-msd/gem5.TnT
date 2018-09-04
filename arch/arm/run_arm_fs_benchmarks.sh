@@ -74,7 +74,6 @@ if [[ ! -e $img ]]; then
 	sudo losetup --detach $loopdev
 fi
 
-
 cd $ROOTDIR/gem5
 
 gem5_elf="build/ARM/gem5.opt"
@@ -84,16 +83,6 @@ if [[ ! -e $gem5_elf ]]; then
 	scons $gem5_elf -j$np
 fi
 
-config_script="configs/example/arm/starter_fs.py"
-
-ncores="1"
-cpu_options="--cpu=hpi --num-cores=$ncores"
-
-disk_options="--disk-image=$img"
-
-currtime=$(date "+%Y.%m.%d-%H.%M.%S")
-output_rootdir="fs_output_${bmsuite}_$currtime"
-
 benchmark_progs="
 blackscholes
 facesim
@@ -101,6 +90,13 @@ ferret
 fluidanimate
 freqmine
 "
+currtime=$(date "+%Y.%m.%d-%H.%M.%S")
+output_rootdir="fs_output_${bmsuite}_$currtime"
+config_script="configs/example/arm/starter_fs.py"
+ncores="1"
+cpu_options="--cpu=hpi --num-cores=$ncores"
+disk_options="--disk-image=$img"
+#tlm_options="--tlm-memory"
 
 bmsuitedir="/$bmsuiteroot/$bmsuite"
 parsec_input="simsmall"
@@ -118,5 +114,5 @@ for b in $benchmark_progs; do
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 	output_dir="$output_rootdir/$b"
 	export M5_PATH=${M5_PATH}:"$FSDIRARM/aarch-system-20170616"
-	$gem5_elf -d $output_dir $config_script $cpu_options $disk_options $bootscript_options &
+	$gem5_elf -d $output_dir $config_script $cpu_options $tlm_options $disk_options $bootscript_options &
 done

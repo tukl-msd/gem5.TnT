@@ -47,34 +47,13 @@ opt
 
 cd $ROOTDIR/gem5
 
-getnumprocs np
-njobs=`expr $np - 1`
 for arch in $archs; do
 	for mode in $modes; do
 		# Build gem5
-		target="build/$arch/gem5.$mode"
-		scons $target -j$njobs
+                build_gem5 $arch $mode
 		# Build gem5 as a library
-		target="build/$arch/libgem5_$mode.so"
-		buildopts="--with-cxx-config --without-python --without-tcmalloc"
-		scons $buildopts $target -j$njobs
+                build_libgem5 $arch $mode
 	done
 done
 
 echo -e -n "\nDone.\n"
-
-echo -e -n "\nThe following targets were successfully built:\n\n"
-for arch in $archs; do
-	for mode in $modes; do
-		target="build/$arch/gem5.$mode"
-		if [[ -e $target ]]; then
-			file $target
-			echo ""
-		fi
-		target="build/$arch/libgem5_$mode.so"
-		if [[ -e $target ]]; then
-			file $target
-			echo ""
-		fi
-	done
-done

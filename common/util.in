@@ -32,6 +32,8 @@
 #
 # Author: Éder F. Zulian
 
+source defaults.in
+
 function abort {
 	echo -e -n "\n\033[31mAborting.\n"; exit
 }
@@ -154,5 +156,36 @@ function getnumprocs {
 		eval $__retvar="'$__nprocs'"
 	else
 		echo "$__nprocs"
+	fi
+}
+
+build_gem5() {
+	arch=$1
+	mode=$2
+	target="build/$arch/gem5.$mode"
+	cd $ROOTDIR/gem5
+	getnumprocs np
+	njobs=`expr $np - 1`
+	scons $target -j$njobs
+	if [[ -e $target ]]; then
+		echo -e -n "\nTarget successfully built\n\n"
+		file $target
+		echo ""
+	fi
+}
+
+build_libgem5() {
+	arch=$1
+	mode=$2
+	target="build/$arch/libgem5_$mode.so"
+	cd $ROOTDIR/gem5
+	getnumprocs np
+	njobs=`expr $np - 1`
+	buildopts="--with-cxx-config --without-python --without-tcmalloc"
+	scons $buildopts $target -j$njobs
+	if [[ -e $target ]]; then
+		echo -e -n "\nTarget successfully built\n\n"
+		file $target
+		echo ""
 	fi
 }

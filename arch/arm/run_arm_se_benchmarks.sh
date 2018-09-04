@@ -35,11 +35,12 @@
 source ../../common/defaults.in
 source ../../common/util.in
 
-gem5_elf="build/ARM/gem5.opt"
+arch="ARM"
+mode="opt"
+gem5_elf="build/$arch/gem5.$mode"
 cd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
-	getnumprocs np
-	scons $gem5_elf -j$np
+	build_gem5 $arch $mode
 fi
 
 benchmark_progs_path="$BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford"

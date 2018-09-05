@@ -66,6 +66,8 @@ populated with relevant files, documentation and repositories. In case you want 
 change the default paths edit the [defaults.in](common/defaults.in) file in your
 local repository before running the scripts.
 
+A convenient script (**do_it_for_me.sh**)[do_it_for_me.sh] is provided.
+
 ### **Quick Hints**
 
 #### Default python version is not python2.7:

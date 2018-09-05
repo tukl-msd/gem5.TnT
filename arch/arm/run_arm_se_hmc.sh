@@ -42,21 +42,15 @@ mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
 cd $ROOTDIR/gem5
-
 if [[ ! -e $gem5_elf ]]; then
-	getnumprocs np
-	nj=`expr $np - 1`
-	scons $gem5_elf -j$nj
+	build_gem5 $arch $mode
 fi
 
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 outdir="hmc_se_output_$currtime"
 
-R='\033[0;31m'
-NC='\033[0m'
-
 printf "\n----------------------------------------------------------------------\n"
-printf "${R}Running basic HMC examples${NC}"
+printf "${Red}Running basic HMC examples${NC}"
 printf "\n----------------------------------------------------------------------\n"
 hmcscript="configs/example/hmctest.py"
 
@@ -77,7 +71,7 @@ od="$outdir/test3"
 $gem5_elf -d $od $hmcscript $hmcopts
 
 printf "\n----------------------------------------------------------------------\n"
-printf "${R}Running simple hello world script using HMC${NC}"
+printf "${Red}Running simple hello world script using HMC${NC}"
 printf "\n----------------------------------------------------------------------\n"
 hmcscript="configs/example/hmc_hello.py"
 
@@ -92,6 +86,6 @@ od="$outdir/hello2"
 $gem5_elf -d $od $hmcscript $hmcopts
 
 printf "\n----------------------------------------------------------------------\n"
-printf "${R}Check each of the subfolders inside $outdir.${NC}\n"
-printf "${R}Take a look at the generated config.dot.pdf and stats.txt files.${NC}"
+printf "${Red}Check each of the subfolders inside $outdir.${NC}\n"
+printf "${Red}Take a look at the generated config.dot.pdf and stats.txt files.${NC}"
 printf "\n----------------------------------------------------------------------\n"

@@ -46,7 +46,6 @@ opt
 "
 
 cd $ROOTDIR/gem5
-
 for arch in $archs; do
 	for mode in $modes; do
 		# Build gem5
@@ -55,5 +54,4 @@ for arch in $archs; do
                 build_libgem5 $arch $mode
 	done
 done
-
 echo -e -n "\nDone.\n"

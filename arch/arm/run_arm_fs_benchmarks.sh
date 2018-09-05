@@ -45,8 +45,9 @@ for tb in $tarballs; do
 	fi
 done
 
-
-imgdir="$FSDIRARM/aarch-system-20170616/disks"
+#sysver=20170616
+sysver=20180409
+imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 baseimg="$imgdir/linaro-minimal-aarch64.img"
 bmsuite="parsec-3.0"
 img="$imgdir/linaro-minimal-aarch64-${bmsuite}-inside.img"
@@ -63,7 +64,7 @@ if [[ ! -e $img ]]; then
 	dev=`sudo fdisk -l $img | tail -1 | awk '{ print $1 }'`
 	startsector=`sudo fdisk -l $img | grep $dev | awk '{ print $2 }'`
 	sectorsize=`sudo fdisk -l $img | grep ^Units | awk '{ print $8 }'`
-	loopdev=`losetup -f`
+	loopdev=`sudo losetup -f`
 	offset=$(($startsector*$sectorsize))
 	sudo losetup -o $offset $loopdev $img
 	tempdir=`mktemp -d`
@@ -114,6 +115,6 @@ for b in $benchmark_progs; do
 	EOM
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 	output_dir="$output_rootdir/$b"
-	export M5_PATH=${M5_PATH}:"$FSDIRARM/aarch-system-20170616"
+	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
 	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $disk_options $bootscript_options &
 done

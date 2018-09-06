@@ -36,6 +36,7 @@ source ./common/defaults.in
 source ./common/util.in
 
 wgethis=(
+"$TUTORIALSDIR:http://gem5.org/wiki/images/0/0e/ASPLOS2017_gem5_tutorial.pdf"
 "$TUTORIALSDIR:http://gem5.org/wiki/images/5/53/2015_ws_04_ISCA_2015_NoMali.pdf"
 "$TUTORIALSDIR:http://gem5.org/wiki/images/f/f7/2015_ws_02_hansson_gem5_workshop_2015.pdf"
 "$TUTORIALSDIR:http://gem5.org/wiki/images/4/4c/2015_ws_09_2015-06-14_Gem5_ISCA.pptx"

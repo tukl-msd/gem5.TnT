@@ -102,6 +102,8 @@ disk_options="--disk-image=$img"
 
 bmsuitedir="/$bmsuiteroot/$bmsuite"
 parsec_input="simsmall"
+#parsec_input="simmedium"
+#parsec_input="simlarge"
 parsec_nthreads="$ncores"
 
 for b in $benchmark_progs; do

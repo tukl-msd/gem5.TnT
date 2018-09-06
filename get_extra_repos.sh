@@ -37,6 +37,7 @@ source ./common/util.in
 
 # git repositories
 gitrepos=(
+"$MISCREPOS:https://github.com/metempsy/gem5_arm_fullsystem_files_generator.git"
 "$MISCREPOS:git://linux-arm.org/linux-linaro-tracking-gem5.git"
 "$MISCREPOS:git://linux-arm.org/linux-aarch64-gem5.git"
 "$MISCREPOS:https://github.com/gem5/linux-arm-gem5.git"

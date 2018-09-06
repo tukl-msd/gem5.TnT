@@ -99,6 +99,8 @@ cpu_options="--cpu=hpi --num-cores=$ncores"
 mem_options="--mem-size=1GB"
 #tlm_options="--tlm-memory"
 disk_options="--disk-image=$img"
+kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
+dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 
 bmsuitedir="/$bmsuiteroot/$bmsuite"
 parsec_input="simsmall"
@@ -118,5 +120,5 @@ for b in $benchmark_progs; do
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 	output_dir="$output_rootdir/$b"
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $disk_options $bootscript_options &
+	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options &
 done

@@ -203,6 +203,5 @@ build_libgem5() {
 	local mode=$2
 	local target="build/$arch/libgem5_$mode.so"
 	local buildopts="--with-cxx-config --without-python --without-tcmalloc"
-	build $target $buildopts
+	build ${target} "${buildopts}"
 }
-

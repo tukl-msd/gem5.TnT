@@ -63,7 +63,7 @@ cpu_options="--cpu=hpi --num-cores=$ncores"
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 output_rootdir="se_output_$currtime"
 mem_options="--mem-channels=1"
-#tlm_options="--tlm-memory"
+#tlm_options="--tlm-memory=transactor"
 
 for b in $benchmark_progs; do
 	output_dir="$output_rootdir/$b"

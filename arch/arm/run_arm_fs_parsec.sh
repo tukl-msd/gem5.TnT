@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2017, University of Kaiserslautern
+# Copyright (c) 2018, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,6 @@ for tb in $tarballs; do
 	fi
 done
 
-#sysver=20170616
 sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 baseimg="$imgdir/linaro-minimal-aarch64.img"
@@ -94,7 +93,7 @@ freqmine
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 output_rootdir="fs_output_${bmsuite}_$currtime"
 config_script="configs/example/arm/starter_fs.py"
-ncores="1"
+ncores="2"
 cpu_options="--cpu=hpi --num-cores=$ncores"
 mem_options="--mem-size=1GB"
 #tlm_options="--tlm-memory"
@@ -114,7 +113,10 @@ for b in $benchmark_progs; do
 	#!/bin/bash
 	cd $bmsuitedir
 	source ./env.sh
+	echo "Running parsec $b input $parsec_input threads $parsec_nthreads"
 	parsecmgmt -a run -p $b -c gcc-hooks -i $parsec_input -n $parsec_nthreads
+	echo "Benchmark finished."
+	sleep 1
 	m5 exit
 	EOM
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
@@ -122,3 +124,4 @@ for b in $benchmark_progs; do
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
 	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options &
 done
+wait

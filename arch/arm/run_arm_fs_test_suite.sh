@@ -35,44 +35,11 @@
 source ../../common/defaults.in
 source ../../common/util.in
 
-#tarballs=`ls $FSDIRARM/*.tar.*`
-#for tb in $tarballs; do
-#	dir=`expr $tb : '\(.*\).tar.*'`
-#	if [[ ! -d $dir ]]; then
-#		mkdir -p $dir
-#		echo -ne "Uncompressing $tb into $dir. Please wait.\n"
-#		tar -xaf $tb -C $dir
-#	fi
-#done
-
 sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
-#baseimg="$imgdir/linaro-minimal-aarch64.img"
 bmsuite="test-suite"
 img="$imgdir/linaro-minimal-aarch64-${bmsuite}-inside.img"
 bmsuiteroot="home"
-#if [[ ! -e $img ]]; then
-#	echo -ne "Creating $img. Please wait.\n"
-#	cp $baseimg $img
-#
-#	bm="$BENCHMARKSDIR/$bmsuite"
-#	cnt=`du -ms $bm | awk '{print $1}'`
-#	bsize="1M"
-#	dd if=/dev/zero bs=$bsize count=$cnt >> $img
-#	sudo parted $img resizepart 1 100%
-#	dev=`sudo fdisk -l $img | tail -1 | awk '{ print $1 }'`
-#	startsector=`sudo fdisk -l $img | grep $dev | awk '{ print $2 }'`
-#	sectorsize=`sudo fdisk -l $img | grep ^Units | awk '{ print $8 }'`
-#	loopdev=`sudo losetup -f`
-#	offset=$(($startsector*$sectorsize))
-#	sudo losetup -o $offset $loopdev $img
-#	tempdir=`mktemp -d`
-#	sudo mount $loopdev $tempdir
-#	sudo resize2fs $loopdev
-#	sudo rsync -au $bm $tempdir/$bmsuiteroot
-#	sudo umount $tempdir
-#	sudo losetup --detach $loopdev
-#fi
 
 arch="ARM"
 mode="opt"

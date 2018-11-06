@@ -85,11 +85,11 @@ fi
 
 benchmark_progs="
 blackscholes
-facesim
 ferret
 fluidanimate
 freqmine
 "
+
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 output_rootdir="fs_output_${bmsuite}_$currtime"
 config_script="configs/example/arm/starter_fs.py"

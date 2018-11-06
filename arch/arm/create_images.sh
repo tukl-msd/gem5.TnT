@@ -35,8 +35,6 @@
 source ../../common/defaults.in
 source ../../common/util.in
 
-checkprivledges
-
 sysver=20180409
 system="aarch-system-${sysver}"
 tarball="$FSDIRARM/${system}.tar.xz"
@@ -82,6 +80,7 @@ for bs in $bmsuites; do
 		sudo resize2fs $loopdev
 		sudo rsync -au $bm $tempdir/$bmsuiteroot
 		sudo umount $tempdir
+		sudo sync
 		sudo losetup --detach $loopdev
 	fi
 done

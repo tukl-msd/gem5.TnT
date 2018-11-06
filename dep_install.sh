@@ -61,6 +61,7 @@ instdep() {
 	python-pthreading
 	python-posix-ipc
 	parted
+	csh
 	"
 
 	echo -e -n "This is a list of known dependencies:" && echo ""

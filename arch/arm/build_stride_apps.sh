@@ -35,54 +35,24 @@
 source ../../common/defaults.in
 source ../../common/util.in
 
-checkprivledges
+toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
+toolchaintarball=$toolchain.tar.xz
 
-sysver=20180409
-system="aarch-system-${sysver}"
-tarball="$FSDIRARM/${system}.tar.xz"
-dir=`expr ${tarball} : '\(.*\).tar.*'`
-if [[ ! -d ${dir} ]]; then
-	mkdir -p ${dir}
-	echo -ne "Uncompressing ${tarball} into ${dir}. Please wait.\n"
-	tar -xaf ${tarbll} -C ${dir}
+wgethis=(
+"$TOOLCHAINSDIR_ARM:https://releases.linaro.org/components/toolchain/binaries/5.4-2017.05/aarch64-linux-gnu/$toolchaintarball"
+)
+
+greetings
+wgetintodir wgethis[@]
+
+toolchaindir=$TOOLCHAINSDIR_ARM/$toolchain
+if [[ ! -d $toolchaindir ]]; then
+	tar -xaf $TOOLCHAINSDIR_ARM/$toolchaintarball -C $TOOLCHAINSDIR_ARM
 fi
 
-imgdir="$FSDIRARM/${system}/disks"
-baseimg="$imgdir/linaro-minimal-aarch64.img"
+tar -C $BENCHMARKSDIR/ -xf ../../benchmarks/STRIDE_v1.1.tar.gz
 
-bmsuites="
-STRIDE_v1.1
-parsec-3.0
-stream
-test-suite
-"
-
-bmsuiteroot="home"
-
-for bs in $bmsuites; do
-	img="$imgdir/linaro-minimal-aarch64-${bs}-inside.img"
-	if [[ -e $img ]]; then
-		echo -ne "Image $img already exists. Please remove it if you want to create it again.\n"
-	else
-		echo -ne "Creating $img. Please wait.\n"
-		cp $baseimg $img
-		bm="$BENCHMARKSDIR/$bs"
-		cnt=`du -ms $bm | awk '{print $1}'`
-		bsize="1M"
-		dd if=/dev/zero bs=$bsize count=$cnt >> $img
-		sudo parted $img resizepart 1 100%
-		dev=`sudo fdisk -l $img | tail -1 | awk '{ print $1 }'`
-		startsector=`sudo fdisk -l $img | grep $dev | awk '{ print $2 }'`
-		sectorsize=`sudo fdisk -l $img | grep ^Units | awk '{ print $8 }'`
-		loopdev=`sudo losetup -f`
-		offset=$(($startsector*$sectorsize))
-		sudo losetup -o $offset $loopdev $img
-		tempdir=`mktemp -d`
-		sudo mount $loopdev $tempdir
-		sudo resize2fs $loopdev
-		sudo rsync -au $bm $tempdir/$bmsuiteroot
-		sudo umount $tempdir
-		sudo losetup --detach $loopdev
-	fi
-done
+cd $BENCHMARKSDIR/STRIDE_v1.1
+export ARMTOOLCHAINDIR=$TOOLCHAINSDIR_ARM
+./buildit
 echo "Done."

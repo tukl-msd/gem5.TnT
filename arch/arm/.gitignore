@@ -1,3 +1,4 @@
 *.err
 *.out
 .nfs*
+*.jobscript

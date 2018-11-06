@@ -5,12 +5,12 @@ Here you'll find tips and tricks for the ARM architecture.
 
 Before running the scripts below make sure everything else is setup! You're all done if you followed [**the steps described here**](../../README.md).
 
-* [**get_arm_se_benchmarks.sh**](get_arm_se_benchmarks.sh): builds SE benchmark programs from the LLVM test-suite for arm.
-* [**run_arm_se_benchmarks.sh**](run_arm_se_benchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (system call emulation).
-* [**get_arm_fs_benchmarks.sh**](get_arm_fs_benchmarks.sh): builds FS benchmark programs from the parsec suite for arm.
-* [**run_arm_fs_benchmarks.sh**](run_arm_fs_benchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (full-system simulation).
-* [**run_arm_se_hmc.sh**](run_arm_se_hmc.sh): builds gem5 and runs it using HMC as main memory (syscall emulation).
+* [**build_llvm_test_suite_apps.sh**](build_llvm_test_suite_apps.sh): builds some benchmark programs from the LLVM test-suite for arm.
+* [**build_parsec_apps.sh**](build_parsec_apps.sh): builds some benchmark programs from the parsec-3.0 benchmark suite for arm.
+* [**run_arm_fs_parsec.sh**](run_arm_fs_parsec.sh): builds gem5 and runs some benchmarks in full-system mode.
 * [**run_arm_fs_android_ics.sh**](run_arm_fs_android_ics.sh): builds gem5 and runs android ics (full-system simulation).
+* [**run_arm_se_hmc.sh**](run_arm_se_hmc.sh): builds gem5 and runs it using HMC as main memory (syscall emulation).
+* [**run_arm_se_benchmarks.sh**](run_arm_se_benchmarks.sh): builds gem5 and runs some of the above-mentioned benchmarks (system call emulation).
 
 #### **Run the scripts.**
 

@@ -55,10 +55,12 @@ if [[ ! -d $toolchaindir ]]; then
 	tar -xaf $TOOLCHAINSDIR_ARM/$toolchaintarball -C $TOOLCHAINSDIR_ARM
 fi
 
+getnumprocs np
+
 cd $BENCHMARKSDIR/test-suite
 git checkout release_50
-cd SingleSource/Benchmarks/Stanford
 
+cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford
 cat > Makefile << EOM
 sysroot=$toolchaindir/aarch64-linux-gnu/libc
 cc=$toolchaindir/bin/aarch64-linux-gnu-gcc
@@ -71,7 +73,76 @@ all: \$(bins)
 clean:
 	rm -rf \$(bins)
 EOM
-
-getnumprocs np
 make clean
-make -j$np
+make -j$np > /dev/null 2>&1
+
+cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/CoyoteBench
+cat > Makefile << EOM
+LDLIBS += -lm -lstdc++
+sysroot=$toolchaindir/aarch64-linux-gnu/libc
+cc=$toolchaindir/bin/aarch64-linux-gnu-gcc
+sources=\$(wildcard *.c)
+bins=\$(patsubst %.c,%,\$(sources))
+all: \$(bins)
+	@echo Done.
+%: %.c
+	\$(cc) --sysroot=\$(sysroot) --no-sysroot-suffix --static \$< -o \$@ \$(LDLIBS)
+clean:
+	rm -rf \$(bins)
+EOM
+make clean
+make -j$np > /dev/null 2>&1
+
+cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Dhrystone
+cat > Makefile << EOM
+LDLIBS += -lm
+sysroot=$toolchaindir/aarch64-linux-gnu/libc
+cc=$toolchaindir/bin/aarch64-linux-gnu-gcc
+sources=\$(wildcard *.c)
+bins=\$(patsubst %.c,%,\$(sources))
+all: \$(bins)
+	@echo Done.
+%: %.c
+	\$(cc) --sysroot=\$(sysroot) --no-sysroot-suffix --static \$< -o \$@ \$(LDLIBS)
+clean:
+	rm -rf \$(bins)
+EOM
+make clean
+make -j$np > /dev/null 2>&1
+
+cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Linpack
+cat > Makefile << EOM
+LDLIBS += -lm
+sysroot=$toolchaindir/aarch64-linux-gnu/libc
+cc=$toolchaindir/bin/aarch64-linux-gnu-gcc
+sources=\$(wildcard *.c)
+bins=\$(patsubst %.c,%,\$(sources))
+all: \$(bins)
+	@echo Done.
+%: %.c
+	\$(cc) --sysroot=\$(sysroot) --no-sysroot-suffix --static \$< -o \$@ \$(LDLIBS)
+clean:
+	rm -rf \$(bins)
+EOM
+make clean
+make -j$np > /dev/null 2>&1
+
+cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/McGill
+cat > Makefile << EOM
+FP_TOLERANCE := 0.001
+LDLIBS += -lm
+sysroot=$toolchaindir/aarch64-linux-gnu/libc
+cc=$toolchaindir/bin/aarch64-linux-gnu-gcc
+sources=\$(wildcard *.c)
+bins=\$(patsubst %.c,%,\$(sources))
+all: \$(bins)
+	@echo Done.
+%: %.c
+	\$(cc) --sysroot=\$(sysroot) --no-sysroot-suffix --static \$< -o \$@ \$(LDLIBS)
+clean:
+	rm -rf \$(bins)
+EOM
+make clean
+make -j$np > /dev/null 2>&1
+
+echo "Done."

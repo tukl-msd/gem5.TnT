@@ -35,6 +35,11 @@
 source ../../common/defaults.in
 source ../../common/util.in
 
+. ./build_llvm_test_suite_apps.sh
+. ./build_parsec_apps.sh
+. ./build_stream_app.sh
+. ./build_stride_apps.sh
+
 checkprivledges
 
 sysver=20180409

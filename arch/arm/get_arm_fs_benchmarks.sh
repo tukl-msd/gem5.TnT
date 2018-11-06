@@ -102,7 +102,6 @@ export PARSECPLAT="aarch64-linux"
 
 benchmarks="
 blackscholes
-facesim
 ferret
 fluidanimate
 freqmine

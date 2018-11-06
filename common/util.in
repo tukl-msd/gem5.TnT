@@ -129,7 +129,6 @@ checkprivledges() {
 		msg="Superuser priviledges are needed in order to perform\
 		some operations"
 		echo -e -n $msg && echo ""
-		echo "Please run as root"
 		exit
 	fi
 }

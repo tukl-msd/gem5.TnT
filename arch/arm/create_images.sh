@@ -35,10 +35,12 @@
 source ../../common/defaults.in
 source ../../common/util.in
 
-. ./build_llvm_test_suite_apps.sh
-. ./build_parsec_apps.sh
-. ./build_stream_app.sh
-. ./build_stride_apps.sh
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+
+. $DIR/build_llvm_test_suite_apps.sh
+. $DIR/build_parsec_apps.sh
+. $DIR/build_stream_app.sh
+. $DIR/build_stride_apps.sh
 
 checkprivledges
 

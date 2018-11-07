@@ -100,20 +100,46 @@ cd $parsecdir
 source env.sh
 export PARSECPLAT="aarch64-linux"
 
-benchmarks="
+apps="
 blackscholes
+bodytrack
+facesim
 ferret
 fluidanimate
 freqmine
-facesim
+swaptions
 "
+#raytrace
+#vips
+#x264
 
-for b in $benchmarks; do
-	parsecmgmt -a build -c gcc-hooks -p $b
+kernels="
+streamcluster
+"
+#canneal
+#dedup
+
+for a in $apps; do
+	parsecmgmt -a build -c gcc-hooks -p $a
+done
+
+for k in $kernels; do
+	parsecmgmt -a build -c gcc-hooks -p $k
 done
 
 basepath="$parsecdir/pkgs/apps"
-for b in $benchmarks; do
-	elf=$basepath/$b/inst/aarch64-linux.gcc-hooks/bin/$b
+for a in $apps; do
+	elf=$basepath/$a/inst/aarch64-linux.gcc-hooks/bin/$a
+	echo "------------------------------" 
 	file $elf
 done
+
+basepath="$parsecdir/pkgs/kernels"
+for k in $kernels; do
+	elf=$basepath/$k/inst/aarch64-linux.gcc-hooks/bin/$k
+	echo "------------------------------" 
+	file $elf
+done
+echo "------------------------------" 
+
+echo "Done."

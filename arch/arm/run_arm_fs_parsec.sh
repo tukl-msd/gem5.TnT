@@ -53,7 +53,6 @@ benchmark_progs="
 blackscholes
 ferret
 fluidanimate
-freqmine
 "
 
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")

@@ -105,6 +105,7 @@ blackscholes
 ferret
 fluidanimate
 freqmine
+facesim
 "
 
 for b in $benchmarks; do

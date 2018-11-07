@@ -49,14 +49,7 @@ if [[ ! -e $gem5_elf ]]; then
 	build_gem5 $arch $mode
 fi
 
-benchmark_progs="
-blackscholes
-ferret
-fluidanimate
-"
-
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
-output_rootdir="fs_output_${bmsuite}_$currtime"
 config_script="configs/example/arm/starter_fs.py"
 ncores="2"
 cpu_options="--cpu=hpi --num-cores=$ncores"
@@ -67,25 +60,40 @@ kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5
 dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 
 bmsuitedir="/$bmsuiteroot/$bmsuite"
-parsec_input="simsmall"
-#parsec_input="simmedium"
-#parsec_input="simlarge"
 parsec_nthreads="$ncores"
 
-for b in $benchmark_progs; do
-	bootscript=${b}_${parsec_input}_${parsec_nthreads}.rcS
+# Application : Input size
+# Input sizes are test, simdev, simsmall, simmedium, simlarge or native.
+apps=(
+"blackscholes:test"
+"ferret:test"
+"fluidanimate:test"
+"freqmine:test"
+"facesim:test"
+"blackscholes:simdev"
+"ferret:simdev"
+"fluidanimate:simdev"
+"freqmine:simdev"
+"facesim:simdev"
+)
+
+for e in "${apps[@]}"; do
+	a=${e%%:*}
+	in=${e#*:}
+	bootscript=${a}_${in}_${parsec_nthreads}.rcS
 	cat > $bootscript <<- EOM
 	#!/bin/bash
 	cd $bmsuitedir
 	source ./env.sh
-	echo "Running parsec $b input $parsec_input threads $parsec_nthreads"
-	parsecmgmt -a run -p $b -c gcc-hooks -i $parsec_input -n $parsec_nthreads
+	echo "Running parsec $a input $in threads $parsec_nthreads"
+	parsecmgmt -a run -p $a -c gcc-hooks -i $in -n $parsec_nthreads
 	echo "Benchmark finished."
 	sleep 1
 	m5 exit
 	EOM
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
-	output_dir="$output_rootdir/$b"
+	output_rootdir="fs_output_${bmsuite}_${in}_${currtime}"
+	output_dir="$output_rootdir/$a"
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
 	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options &
 done

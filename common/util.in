@@ -53,6 +53,18 @@ readonly NC='\033[0m'
 
 # Functions
 
+pulse() {
+        local stime=0.1
+        local sp='/-\|'
+        printf ' '
+        sleep $stime
+        while true; do
+                printf '\b%.1s' "$sp"
+                sp=${sp#?}${sp%???}
+                sleep $stime
+        done
+}
+
 abort() {
 	echo -e -n "\n\033[31mAborting.\n"; exit
 }
@@ -204,3 +216,4 @@ build_libgem5() {
 	local buildopts="--with-cxx-config --without-python --without-tcmalloc"
 	build ${target} "${buildopts}"
 }
+

@@ -72,6 +72,8 @@ output_rootdir="se_output_$currtime"
 mem_options="--mem-channels=1"
 #tlm_options="--tlm-memory=transactor"
 
+pulse &
+pupid=$!
 for e in "${apps[@]}"; do
 	b=${e#*:}
 	path=${e%%:*}
@@ -86,3 +88,4 @@ for e in "${apps[@]}"; do
 	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload > $logfile 2>&1 &
 done
 wait
+kill $pupid &>/dev/null

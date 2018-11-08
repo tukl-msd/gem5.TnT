@@ -59,7 +59,7 @@ disk_options="--disk-image=$img"
 kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 
-benchmark_progs=(
+apps=(
 "test-suite/SingleSource/Benchmarks/Stanford:Bubblesort"
 "test-suite/SingleSource/Benchmarks/Stanford:FloatMM"
 "test-suite/SingleSource/Benchmarks/Stanford:IntMM"
@@ -80,7 +80,7 @@ benchmark_progs=(
 "test-suite/SingleSource/Benchmarks/McGill:queens"
 )
 
-for e in "${benchmark_progs[@]}"; do
+for e in "${apps[@]}"; do
 	bp=${e#*:}
 	path=${e%%:*}
 	bootscript="${bmsuite}_${bp}_${ncores}_cores.rcS"

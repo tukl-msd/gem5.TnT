@@ -43,20 +43,27 @@ if [[ ! -e $gem5_elf ]]; then
 	build_gem5 $arch $mode
 fi
 
-benchmark_progs_path="$BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford"
-benchmark_progs="
-Bubblesort
-FloatMM
-IntMM
-Oscar
-Perm
-Puzzle
-Queens
-Quicksort
-RealMM
-Towers
-Treesort
-"
+apps=(
+"test-suite/SingleSource/Benchmarks/Stanford:Bubblesort"
+"test-suite/SingleSource/Benchmarks/Stanford:FloatMM"
+"test-suite/SingleSource/Benchmarks/Stanford:IntMM"
+"test-suite/SingleSource/Benchmarks/Stanford:Oscar"
+"test-suite/SingleSource/Benchmarks/Stanford:Perm"
+"test-suite/SingleSource/Benchmarks/Stanford:Puzzle"
+"test-suite/SingleSource/Benchmarks/Stanford:Queens"
+"test-suite/SingleSource/Benchmarks/Stanford:Quicksort"
+"test-suite/SingleSource/Benchmarks/Stanford:RealMM"
+"test-suite/SingleSource/Benchmarks/Stanford:Towers"
+"test-suite/SingleSource/Benchmarks/Stanford:Treesort"
+"test-suite/SingleSource/Benchmarks/CoyoteBench:almabench"
+"test-suite/SingleSource/Benchmarks/CoyoteBench:lpbench"
+"test-suite/SingleSource/Benchmarks/Dhrystone:fldry"
+"test-suite/SingleSource/Benchmarks/McGill:chomp"
+"test-suite/SingleSource/Benchmarks/McGill:exptree"
+"test-suite/SingleSource/Benchmarks/McGill:misr"
+"test-suite/SingleSource/Benchmarks/McGill:queens"
+)
+
 config_script="configs/example/arm/starter_se.py"
 ncores="1"
 cpu_options="--cpu=hpi --num-cores=$ncores"
@@ -65,12 +72,15 @@ output_rootdir="se_output_$currtime"
 mem_options="--mem-channels=1"
 #tlm_options="--tlm-memory=transactor"
 
-for b in $benchmark_progs; do
+for e in "${apps[@]}"; do
+	b=${e#*:}
+	path=${e%%:*}
 	output_dir="$output_rootdir/$b"
 	workload=""
-	wl="$benchmark_progs_path/$b"
+	wl="$BENCHMARKSDIR/$path/$b"
 	for ((c = 0; c < ncores; c++)); do
 		workload+="$wl "
 	done
 	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload &
 done
+wait

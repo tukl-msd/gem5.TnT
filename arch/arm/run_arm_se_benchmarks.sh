@@ -76,11 +76,13 @@ for e in "${apps[@]}"; do
 	b=${e#*:}
 	path=${e%%:*}
 	output_dir="$output_rootdir/$b"
+	mkdir -p ${output_dir}
+	logfile=${output_dir}/${b}.log
 	workload=""
 	wl="$BENCHMARKSDIR/$path/$b"
 	for ((c = 0; c < ncores; c++)); do
 		workload+="$wl "
 	done
-	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload &
+	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload > $logfile 2>&1 &
 done
 wait

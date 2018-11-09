@@ -35,17 +35,50 @@
 source common/defaults.in
 source common/util.in
 
+# Specify a commit hash (in long or short form), a branch or a tag to checkout
+# before building gem5. Otherwise the top of the master branch will be used.
+# Note: the build folder will be removed when 'gitbuildrev' and the HEAD
+# (current commit) differ.
+#gitbuildrev="a470ef51456fe05e8d8ae6a95493e1da5a088a0d"
+#gitbuildrev="a470ef5"
+
+# Architectures to build
 archs="
 ARM
 X86
 "
 
+# Gem5 Modes
 modes="
-fast
 opt
+fast
 "
 
 cd $ROOTDIR/gem5
+
+# Check whether the 'gitbuildrev' variable is set or not
+if [ -v gitbuildrev ]; then
+	chead=$(git rev-parse HEAD)
+	cheadshort=$(git rev-parse --short HEAD)
+	buildrev=$(git rev-parse $gitbuildrev)
+	buildrevshort=$(git rev-parse --short $gitbuildrev)
+	if [[ "$chead" != "$buildrev" && "$cheadshort" != "$buildrev" ]]; then
+		# Delete the build folder if the desired and the current commit differ
+		rm -rf build
+		# Swtich to the target commit
+		git checkout $gitbuildrev
+	fi
+else
+	# Remove the build folder if the top of the master branch moved
+	phead=$(git rev-parse HEAD)
+	git checkout master
+	git pull
+	chead=$(git rev-parse HEAD)
+	if [[ "$chead" != "$phead" ]]; then
+		rm -rf build
+	fi
+fi
+
 for arch in $archs; do
 	for mode in $modes; do
 		# Build gem5

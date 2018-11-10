@@ -87,4 +87,3 @@ for bp in ${benchmark_progs}; do
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
 	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options &
 done
-wait

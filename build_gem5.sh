@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2017, University of Kaiserslautern
+# Copyright (c) 2018, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ if [ -v gitbuildrev ]; then
 	cheadshort=$(git rev-parse --short HEAD)
 	buildrev=$(git rev-parse $gitbuildrev)
 	buildrevshort=$(git rev-parse --short $gitbuildrev)
-	if [[ "$chead" != "$buildrev" && "$cheadshort" != "$buildrev" ]]; then
+	if [[ "$chead" != "$buildrev" && "$cheadshort" != "$buildrevshort" ]]; then
 		# Delete the build folder if the desired and the current commit differ
 		rm -rf build
 		# Swtich to the target commit

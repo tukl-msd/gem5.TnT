@@ -71,6 +71,7 @@ mem_options="--mem-channels=1"
 
 pulse &
 pupid=$!
+declare -a pids
 for e in "${apps[@]}"; do
 	b=${e#*:}
 	path=${e%%:*}
@@ -82,7 +83,8 @@ for e in "${apps[@]}"; do
 	for ((c = 0; c < ncores; c++)); do
 		workload+="$wl "
 	done
-	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload > $logfile 2>&1 &
+	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload > $logfile 2>&1 & pids+=($!)
 done
-wait
+wait "${pids[@]}"
+unset pids
 kill $pupid &>/dev/null

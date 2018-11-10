@@ -32,8 +32,10 @@
 #
 # Author: Éder F. Zulian
 
-source ../../common/defaults.in
-source ../../common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR/../..
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 sysver=20180409
 system="aarch-system-${sysver}"

@@ -32,10 +32,10 @@
 #
 # Author: Éder F. Zulian
 
-source ../../common/defaults.in
-source ../../common/util.in
-
-basedir="$PWD/../.."
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR/../..
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
 toolchaintarball=$toolchain.tar.xz
@@ -65,10 +65,11 @@ if [[ ! -d $parsecdir ]]; then
 else
 	cd $parsecdir
 	git checkout .
+	git clean -fdx
 	cd -
 fi
 
-patchfile="$basedir/patches/parsec/x86_host_cross_aarch64-linux-gnu.patch"
+patchfile="$TOPDIR/patches/parsec/x86_host_cross_aarch64-linux-gnu.patch"
 patch -fs -d $parsecdir -p1 < $patchfile &>/dev/null
 
 tempdir=`mktemp -d`
@@ -141,5 +142,4 @@ for k in $kernels; do
 	file $elf
 done
 echo "------------------------------" 
-
 echo "Done."

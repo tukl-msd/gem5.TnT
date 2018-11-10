@@ -32,10 +32,11 @@
 #
 # Author: Éder F. Zulian
 
-source ../../common/defaults.in
-source ../../common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR/../..
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
-basedir="$PWD/../.."
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 arch="ARM"
@@ -56,7 +57,7 @@ kernel="--kernel=$kp/vmlinux.smp.ics.arm.asimbench.2.6.35"
 disk="--disk=ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 
 cd $ROOTDIR/gem5
-pfile="$basedir/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch"
+pfile="$TOPDIR/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch"
 patch -fs -p1 < $pfile &>/dev/null
 getnumprocs np
 nj=`expr $np - 1`

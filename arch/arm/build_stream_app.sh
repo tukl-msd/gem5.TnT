@@ -32,8 +32,10 @@
 #
 # Author: Éder F. Zulian
 
-source ../../common/defaults.in
-source ../../common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR/../..
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
 toolchaintarball=$toolchain.tar.xz
@@ -50,7 +52,7 @@ if [[ ! -d $toolchaindir ]]; then
 	tar -xaf $TOOLCHAINSDIR_ARM/$toolchaintarball -C $TOOLCHAINSDIR_ARM
 fi
 
-tar -C $BENCHMARKSDIR/ -xf ../../benchmarks/stream.tar.gz
+tar -C $BENCHMARKSDIR/ -xf $TOPDIR/benchmarks/stream.tar.gz
 
 cd $BENCHMARKSDIR/stream
 export ARMTOOLCHAINDIR=$TOOLCHAINSDIR_ARM

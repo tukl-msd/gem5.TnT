@@ -32,12 +32,10 @@
 #
 # Author: Shama Bhosale 
 
-source ../../common/defaults.in
-source ../../common/util.in
-
-
-##Gem5.TnT repository
-basedir="$PWD/../.."
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR/../..
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 arch="ARM"
 mode="opt"
@@ -48,35 +46,30 @@ cd $ROOTDIR/gem5
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 outdir="hbm_se_output_$currtime"
 
-R='\033[0;31m'
-NC='\033[0m'
-
 cd $ROOTDIR/gem5
 
 printf "\n----------------------------------------------------------------------\n"
-printf "${R}Patching the required gem5 files for running the current example"
+printf "${Red}Patching the required gem5 files for running the current example"
 printf "\n----------------------------------------------------------------------\n"
 
-patch -p1 -f < $basedir/patches/gem5/HBM_elastic_traces/hbm.patch
+patch -p1 -f < $TOPDIR/patches/gem5/HBM_elastic_traces/hbm.patch
 
 printf "\n----------------------------------------------------------------------\n"
-printf "${R}Building gem5 after patching"
+printf "${Red}Building gem5 after patching"
 printf "\n----------------------------------------------------------------------\n"
-
 
 getnumprocs np
 nj=`expr $np - 1`
 scons $gem5_elf -j$nj
 
 printf "\n----------------------------------------------------------------------\n"
-printf "${R}Running basic Elastic trace HBM example"
+printf "${Red}Running basic Elastic trace HBM example"
 printf "\n----------------------------------------------------------------------\n"
 hbmscript="configs/example/hbm_hello.py"
 
-hbmopts="--mem-size=1GB --data-trace-file=$basedir/elastic_traces/system.cpu.traceListener.random.data.gz --inst-trace-file=$basedir/elastic_traces/system.cpu.traceListener.random.inst.gz"
-od="$outdir"
-$gem5_elf -d $od $hbmscript $hbmopts
+hbmopts="--mem-size=1GB --data-trace-file=$TOPDIR/elastic_traces/system.cpu.traceListener.random.data.gz --inst-trace-file=$TOPDIR/elastic_traces/system.cpu.traceListener.random.inst.gz"
+$gem5_elf -d $outdir $hbmscript $hbmopts
 
 printf "\n----------------------------------------------------------------------\n"
-printf "${R}Take a look at the generated config.dot.pdf and stats.txt files inside $outdir.${NC}"
+printf "${Red}Take a look at the generated config.dot.pdf and stats.txt files inside $outdir.${NC}"
 printf "\n----------------------------------------------------------------------\n"

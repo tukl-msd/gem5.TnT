@@ -32,8 +32,10 @@
 #
 # Author: Éder F. Zulian
 
-source ../../common/defaults.in
-source ../../common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR/../..
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
@@ -135,4 +137,3 @@ for e in "${apps[@]}"; do
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
 	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options &
 done
-wait

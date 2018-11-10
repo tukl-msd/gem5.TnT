@@ -32,8 +32,10 @@
 #
 # Author: Éder F. Zulian
 
-source common/defaults.in
-source common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 # Specify a commit hash (in long or short form), a branch or a tag to checkout
 # before building gem5. Otherwise the top of the master branch will be used.

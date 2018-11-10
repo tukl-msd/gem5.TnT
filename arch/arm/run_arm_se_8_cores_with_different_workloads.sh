@@ -32,8 +32,10 @@
 #
 # Author: Éder F. Zulian
 
-source ../../common/defaults.in
-source ../../common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR/../..
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 arch="ARM"
 mode="opt"
@@ -70,3 +72,4 @@ done
 
 output_dir="$output_rootdir/se_${ncores}_cores"
 $gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload &
+wait

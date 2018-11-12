@@ -75,7 +75,7 @@ all: \$(bins)
 clean:
 	rm -rf \$(bins)
 EOM
-make clean
+make clean > /dev/null 2>&1
 make -j$np > /dev/null 2>&1
 
 cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/CoyoteBench
@@ -92,7 +92,7 @@ all: \$(bins)
 clean:
 	rm -rf \$(bins)
 EOM
-make clean
+make clean > /dev/null 2>&1
 make -j$np > /dev/null 2>&1
 
 cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Dhrystone
@@ -109,7 +109,7 @@ all: \$(bins)
 clean:
 	rm -rf \$(bins)
 EOM
-make clean
+make clean > /dev/null 2>&1
 make -j$np > /dev/null 2>&1
 
 cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Linpack
@@ -126,7 +126,7 @@ all: \$(bins)
 clean:
 	rm -rf \$(bins)
 EOM
-make clean
+make clean > /dev/null 2>&1
 make -j$np > /dev/null 2>&1
 
 cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/McGill
@@ -144,6 +144,6 @@ all: \$(bins)
 clean:
 	rm -rf \$(bins)
 EOM
-make clean
+make clean > /dev/null 2>&1
 make -j$np > /dev/null 2>&1
 echo "Done."

@@ -73,14 +73,15 @@ apps=(
 "test-suite/SingleSource/Benchmarks/Stanford:RealMM"
 "test-suite/SingleSource/Benchmarks/Stanford:Towers"
 "test-suite/SingleSource/Benchmarks/Stanford:Treesort"
-"test-suite/SingleSource/Benchmarks/CoyoteBench:almabench"
-"test-suite/SingleSource/Benchmarks/CoyoteBench:lpbench"
-"test-suite/SingleSource/Benchmarks/Dhrystone:fldry"
 "test-suite/SingleSource/Benchmarks/McGill:chomp"
 "test-suite/SingleSource/Benchmarks/McGill:exptree"
 "test-suite/SingleSource/Benchmarks/McGill:misr"
 "test-suite/SingleSource/Benchmarks/McGill:queens"
 )
+
+#"test-suite/SingleSource/Benchmarks/CoyoteBench:almabench"
+#"test-suite/SingleSource/Benchmarks/CoyoteBench:lpbench"
+#"test-suite/SingleSource/Benchmarks/Dhrystone:fldry"
 
 for e in "${apps[@]}"; do
 	bp=${e#*:}

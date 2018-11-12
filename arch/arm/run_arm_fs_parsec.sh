@@ -37,6 +37,9 @@ TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
+# Set to "yes" or "no" in order to enable a spinner or not.
+spinner="no"
+
 sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 bmsuite="parsec-3.0"
@@ -117,6 +120,12 @@ apps=(
 "streamcluster:native"
 )
 
+# start spinner
+if [ "$spinner" = "yes" ]; then
+	pulse &
+	pupid=$!
+fi
+declare -a pids
 for e in "${apps[@]}"; do
 	a=${e%%:*}
 	in=${e#*:}
@@ -134,6 +143,14 @@ for e in "${apps[@]}"; do
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 	output_rootdir="fs_output_${bmsuite}_${in}_${currtime}"
 	output_dir="$output_rootdir/$a"
+	mkdir -p ${output_dir}
+	logfile=${output_dir}/gem5.log
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options &
+	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options > $logfile 2>&1 & pids+=($!)
 done
+wait "${pids[@]}"
+unset pids
+# stop spinner
+if [ "$spinner" = "yes" ]; then
+	kill $pupid &>/dev/null
+fi

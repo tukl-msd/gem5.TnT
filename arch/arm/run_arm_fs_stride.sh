@@ -37,6 +37,9 @@ TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
+# Set to "yes" or "no" in order to enable a spinner or not.
+spinner="no"
+
 sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 bmsuite="STRIDE_v1.1"
@@ -66,7 +69,12 @@ cachec.Opt
 strid3c.Opt
 vecopc.Opt
 "
-
+# start spinner
+if [ "$spinner" = "yes" ]; then
+	pulse &
+	pupid=$!
+fi
+declare -a pids
 for bp in ${benchmark_progs}; do
 	bootscript="${bmsuite}_${bp}_${ncores}_cores.rcS"
 	printf '#!/bin/bash\n' > $bootscript
@@ -84,6 +92,14 @@ for bp in ${benchmark_progs}; do
 	printf 'm5 exit\n' >> $bootscript
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 	output_dir="$output_rootdir/${bmsuite}_${bp}_${ncores}_cores"
+	mkdir -p ${output_dir}
+	logfile=${output_dir}/gem5.log
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options &
+	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options > $logfile 2>&1 & pids+=($!)
 done
+wait "${pids[@]}"
+unset pids
+# stop spinner
+if [ "$spinner" = "yes" ]; then
+	kill $pupid &>/dev/null
+fi

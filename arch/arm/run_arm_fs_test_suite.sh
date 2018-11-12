@@ -110,7 +110,7 @@ for e in "${apps[@]}"; do
 	printf 'sleep 1\n' >> $bootscript
 	printf 'm5 exit\n' >> $bootscript
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
-	output_dir="$output_rootdir/${a}_${ncores}_cores"
+	output_dir="$output_rootdir/${a}"
 	mkdir -p ${output_dir}
 	logfile=${output_dir}/gem5.log
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}

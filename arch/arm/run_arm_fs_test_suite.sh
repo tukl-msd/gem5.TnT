@@ -93,15 +93,15 @@ if [ "$spinner" = "yes" ]; then
 fi
 declare -a pids
 for e in "${apps[@]}"; do
-	bp=${e#*:}
+	a=${e#*:}
 	path=${e%%:*}
-	bootscript="${bmsuite}_${bp}_${ncores}_cores.rcS"
+	bootscript="${bmsuite}_${a}_${ncores}_cores.rcS"
 	printf '#!/bin/bash\n' > $bootscript
 	printf "declare -a pids\n" >> $bootscript
 	printf "cd ${bmsuiteroot}/${path}\n" >> $bootscript
-	printf "echo \"Starting ${bp} in background...\"\n" >> $bootscript
-	printf "./${bp} & pids+=(\$!)\n" >> $bootscript
-	printf "echo \"${bp} started\"\n" >> $bootscript
+	printf "echo \"Starting ${a} in background...\"\n" >> $bootscript
+	printf "./${a} & pids+=(\$!)\n" >> $bootscript
+	printf "echo \"${a} started\"\n" >> $bootscript
 	printf 'echo "Waiting..."\n' >> $bootscript
 	printf 'wait "${pids[@]}"\n' >> $bootscript
 	printf 'unset pids\n' >> $bootscript
@@ -110,7 +110,7 @@ for e in "${apps[@]}"; do
 	printf 'sleep 1\n' >> $bootscript
 	printf 'm5 exit\n' >> $bootscript
 	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
-	output_dir="$output_rootdir/${bmsuite}_${bp}_${ncores}_cores"
+	output_dir="$output_rootdir/${a}_${ncores}_cores"
 	mkdir -p ${output_dir}
 	logfile=${output_dir}/gem5.log
 	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}

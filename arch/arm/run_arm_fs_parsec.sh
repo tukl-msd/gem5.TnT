@@ -98,8 +98,7 @@ for e in "${apps[@]}"; do
 	in=${e#*:}
 	img="${imgname}-${in}-${a}.img"
 	if [[ ! -e ${img} ]]; then
-		cp ${imgname}.img ${img}
-		sync
+		rsync -a ${imgname}.img ${img}
 	fi
 	disk_options="--disk-image=$img"
 	bootscript=${a}_${in}_${parsec_nthreads}.rcS

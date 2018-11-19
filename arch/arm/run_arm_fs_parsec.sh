@@ -43,7 +43,7 @@ spinner="no"
 sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 bmsuite="parsec-3.0"
-img="$imgdir/linaro-minimal-aarch64-${bmsuite}-inside.img"
+imgname="$imgdir/linaro-minimal-aarch64-${bmsuite}-inside"
 bmsuiteroot="home"
 
 arch="ARM"
@@ -60,7 +60,6 @@ ncores="2"
 cpu_options="--cpu=hpi --num-cores=$ncores"
 mem_options="--mem-size=1GB"
 #tlm_options="--tlm-memory=transactor"
-disk_options="--disk-image=$img"
 kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 
@@ -70,54 +69,22 @@ parsec_nthreads="$ncores"
 # Application : Input size
 # Input sizes are test, simdev, simsmall, simmedium, simlarge or native.
 apps=(
-"blackscholes:test"
-"bodytrack:test"
-"facesim:test"
-"ferret:test"
-"fluidanimate:test"
-"freqmine:test"
-"swaptions:test"
-"streamcluster:test"
 "blackscholes:simdev"
-"bodytrack:simdev"
-"facesim:simdev"
-"ferret:simdev"
 "fluidanimate:simdev"
-"freqmine:simdev"
 "swaptions:simdev"
 "streamcluster:simdev"
 "blackscholes:simsmall"
 "bodytrack:simsmall"
-"facesim:simsmall"
 "ferret:simsmall"
 "fluidanimate:simsmall"
-"freqmine:simsmall"
 "swaptions:simsmall"
 "streamcluster:simsmall"
 "blackscholes:simmedium"
-"bodytrack:simmedium"
-"facesim:simmedium"
 "ferret:simmedium"
-"fluidanimate:simmedium"
-"freqmine:simmedium"
 "swaptions:simmedium"
 "streamcluster:simmedium"
-"blackscholes:simlarge"
-"bodytrack:simlarge"
-"facesim:simlarge"
-"ferret:simlarge"
-"fluidanimate:simlarge"
-"freqmine:simlarge"
 "swaptions:simlarge"
 "streamcluster:simlarge"
-"blackscholes:native"
-"bodytrack:native"
-"facesim:native"
-"ferret:native"
-"fluidanimate:native"
-"freqmine:native"
-"swaptions:native"
-"streamcluster:native"
 )
 
 # start spinner
@@ -129,6 +96,12 @@ declare -a pids
 for e in "${apps[@]}"; do
 	a=${e%%:*}
 	in=${e#*:}
+	img="${imgname}-${in}-${a}.img"
+	if [[ ! -e ${img} ]]; then
+		cp ${imgname}.img ${img}
+		sync
+	fi
+	disk_options="--disk-image=$img"
 	bootscript=${a}_${in}_${parsec_nthreads}.rcS
 	cat > $bootscript <<- EOM
 	#!/bin/bash

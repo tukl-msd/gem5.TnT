@@ -32,6 +32,12 @@
 #
 # Author: Éder F. Zulian
 
+# yes: easier to track changes, but takes more space on disk. Default: no.
+track_with_git="no"
+# yes: remove some apps and kernels to reduce the required space on disk
+# considerably.
+lean_version="yes"
+
 DIR="$(cd "$(dirname "$0")" && pwd)"
 TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
@@ -57,16 +63,20 @@ if [[ ! -d $parsecdir ]]; then
 	tarball=$BENCHMARKSDIR/$parsectarball
 	echo -ne "Uncompressing $tarball. Please wait.\n"
 	tar -xaf $tarball -C $BENCHMARKSDIR
-	cd $parsecdir
-	git init
-	git add .
-	git commit -m "Adding files to repository"
-	cd -
+	if [ $track_with_git == "yes" ]; then
+		cd $parsecdir
+		git init
+		git add .
+		git commit -m "Adding files to repository"
+		cd -
+	fi
 else
-	cd $parsecdir
-	git checkout .
-	git clean -fdx
-	cd -
+	if [ $track_with_git == "yes" ]; then
+		cd $parsecdir
+		git checkout .
+		git clean -fdx
+		cd -
+	fi
 fi
 
 patchfile="$TOPDIR/patches/parsec/x86_host_cross_aarch64-linux-gnu.patch"
@@ -98,6 +108,26 @@ sed -i "s@CXX=\"\${CC_HOME}/bin/g++\"@CXX=\"$cxx\"@g" $sedfile
 sed -i "s@CPP=\"\${CC_HOME}/bin/cpp\"@CPP=\"$cpp\"@g" $sedfile
 
 cd $parsecdir
+
+rm_apps="
+raytrace
+vips
+x264
+"
+rm_kernels="
+canneal
+dedup
+"
+if [ $lean_version == "yes" ]; then
+	# Remove some apps and kernels to save space on disk
+	for a in $rm_apps; do
+		rm -rf pkgs/apps/$a
+	done
+	for k in $rm_kernels; do
+		rm -rf pkgs/kernels/$k
+	done
+fi
+
 source env.sh
 export PARSECPLAT="aarch64-linux"
 
@@ -110,16 +140,10 @@ fluidanimate
 freqmine
 swaptions
 "
-#raytrace
-#vips
-#x264
 
 kernels="
 streamcluster
 "
-#canneal
-#dedup
-
 for a in $apps; do
 	parsecmgmt -a build -c gcc-hooks -p $a
 done

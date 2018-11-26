@@ -42,7 +42,7 @@ source $TOPDIR/common/util.in
 # Note: the build folder will be removed when 'gitbuildrev' and the HEAD
 # (current commit) differ.
 #gitbuildrev="a470ef51456fe05e8d8ae6a95493e1da5a088a0d"
-#gitbuildrev="a470ef5"
+gitbuildrev="a470ef5"
 
 # Architectures to build
 archs="

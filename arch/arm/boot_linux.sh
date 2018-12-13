@@ -65,8 +65,7 @@ bootscript="${target}_${ncores}c.rcS"
 printf '#!/bin/bash\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Linux is already running."\n' >> $bootscript
-printf 'echo "Calling m5 exit in 1 second from now..."\n' >> $bootscript
-printf 'sleep 1\n' >> $bootscript
+printf 'echo "Calling m5 exit now..."\n' >> $bootscript
 printf 'm5 exit\n' >> $bootscript
 
 bootscript_options="--script=$ROOTDIR/gem5/$bootscript"

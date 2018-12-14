@@ -55,7 +55,10 @@ if [ "$script" == "starter_se.py" ]; then
 elif [ "$script" == "se.py" ]; then
 	config_script="configs/example/se.py"
 	cpu_options="--cpu-type=TimingSimpleCPU --num-cpu=$ncores"
+	# L1 + L2
 	mem_options="--mem-size=512MB --mem-channels=1 --caches --l2cache --mem-type=SimpleMemory"
+	# L1
+	# mem_options="--mem-size=512MB --mem-channels=1 --caches --mem-type=SimpleMemory"
 else
 	echo && echo "Please define options for $script" && echo && exit
 fi

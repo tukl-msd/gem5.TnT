@@ -51,7 +51,7 @@ sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 img="$imgdir/linaro-minimal-aarch64.img"
 
-target="boot_linux"
+target="boot_linaro"
 config_script="configs/example/arm/starter_fs.py"
 ncores="2"
 cpu_options="--cpu=hpi --num-cores=$ncores"

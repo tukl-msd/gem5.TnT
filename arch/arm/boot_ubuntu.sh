@@ -52,7 +52,7 @@ imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 img="$imgdir/aarch64-ubuntu-trusty-headless.img"
 
 
-target="boot_linux"
+target="boot_ubuntu"
 config_script="configs/example/arm/starter_fs.py"
 ncores="2"
 cpu_options="--cpu=hpi --num-cores=$ncores --cpu-freq=4GHz"
@@ -66,7 +66,7 @@ call_m5_exit="no"
 sleep_before_exit="0"
 checkpoint_after_boot="no"
 
-bootscript="${target}_${ncores}c_10GHz.rcS"
+bootscript="${target}_${ncores}c.rcS"
 printf '#!/bin/bash\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Linux is already running."\n' >> $bootscript

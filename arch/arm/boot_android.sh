@@ -72,12 +72,13 @@ os_options="--os-type=android-ics"
 disk_options="--disk=$FSDIRARM/asimbench/disks/ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 kernel="--kernel=$FSDIRARM/asimbench/asimbench_android_arm_kernel/vmlinux.smp.ics.arm.asimbench.2.6.35"
 
-#!/system/bin/sh
+sleep_before_exit="1"
 bootscript="${target}_${ncores}c.rcS"
 printf '#!/system/bin/sh\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Android is already running."\n' >> $bootscript
-printf 'echo "Calling m5 exit now..."\n' >> $bootscript
+printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
+printf "sleep ${sleep_before_exit}\n" >> $bootscript
 printf '/sbin/m5 exit\n' >> $bootscript
 
 bootscript_options="--script=$ROOTDIR/gem5/$bootscript"

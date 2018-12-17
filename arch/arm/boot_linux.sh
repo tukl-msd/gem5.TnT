@@ -61,11 +61,13 @@ disk_options="--disk-image=$img"
 kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 
+sleep_before_exit="1"
 bootscript="${target}_${ncores}c.rcS"
 printf '#!/bin/bash\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Linux is already running."\n' >> $bootscript
-printf 'echo "Calling m5 exit now..."\n' >> $bootscript
+printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
+printf "sleep ${sleep_before_exit}\n" >> $bootscript
 printf 'm5 exit\n' >> $bootscript
 
 bootscript_options="--script=$ROOTDIR/gem5/$bootscript"

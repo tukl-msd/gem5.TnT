@@ -62,14 +62,14 @@ fi
 
 target="boot_android"
 config_script="configs/example/fs.py"
-ncores="4"
+ncores="2"
 cpu_options="--cpu-type=TimingSimpleCPU --num-cpu=$ncores"
 mem_options="--mem-size=256MB --mem-type=DDR3_1600_8x8 --mem-channels=1 --caches --l2cache"
 #tlm_options="--tlm-memory=transactor"
 machine_options="--machine-type=RealView_PBX"
 os_options="--os-type=android-ics"
 #misc_options="--frame-capture"
-disk_options="--disk=ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
+disk_options="--disk=$FSDIRARM/asimbench/disks/ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 kernel="--kernel=$FSDIRARM/asimbench/asimbench_android_arm_kernel/vmlinux.smp.ics.arm.asimbench.2.6.35"
 
 #!/system/bin/sh
@@ -85,6 +85,5 @@ output_dir="${target}_${ncores}c_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 
-export M5_PATH=${M5_PATH}:"$FSDIRARM/aarch-system-20170616"
 export M5_PATH=${M5_PATH}:"$FSDIRARM/asimbench":
 $gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $disk_options $machine_options $os_options $misc_options $bootscript_options 2>&1 | tee $logfile

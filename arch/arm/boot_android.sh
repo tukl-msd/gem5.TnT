@@ -72,14 +72,24 @@ os_options="--os-type=android-ics"
 disk_options="--disk=$FSDIRARM/asimbench/disks/ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 kernel="--kernel=$FSDIRARM/asimbench/asimbench_android_arm_kernel/vmlinux.smp.ics.arm.asimbench.2.6.35"
 
-sleep_before_exit="1"
+call_m5_exit="no"
+sleep_before_exit="0"
+checkpoint_before_exit="no"
+
 bootscript="${target}_${ncores}c.rcS"
 printf '#!/system/bin/sh\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Android is already running."\n' >> $bootscript
-printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
-printf "sleep ${sleep_before_exit}\n" >> $bootscript
-printf '/sbin/m5 exit\n' >> $bootscript
+if [ "$checkpoint_before_exit" == "yes" ]; then
+	printf '/sbin/m5 dumpstats\n' >> $bootscript
+	printf '/sbin/m5 resetstats\n' >> $bootscript
+	printf '/sbin/m5 checkpoint\n' >> $bootscript
+fi
+if [ "$call_m5_exit" == "yes" ]; then
+	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
+	printf "sleep ${sleep_before_exit}\n" >> $bootscript
+	printf '/sbin/m5 exit\n' >> $bootscript
+fi
 
 bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 output_dir="${target}_${ncores}c_$currtime"

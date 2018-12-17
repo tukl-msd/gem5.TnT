@@ -61,14 +61,24 @@ disk_options="--disk-image=$img"
 kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 
-sleep_before_exit="1"
+call_m5_exit="no"
+sleep_before_exit="0"
+checkpoint_before_exit="no"
+
 bootscript="${target}_${ncores}c.rcS"
 printf '#!/bin/bash\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Linux is already running."\n' >> $bootscript
-printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
-printf "sleep ${sleep_before_exit}\n" >> $bootscript
-printf 'm5 exit\n' >> $bootscript
+if [ "$checkpoint_before_exit" == "yes" ]; then
+	printf 'm5 dumpstats\n' >> $bootscript
+	printf 'm5 resetstats\n' >> $bootscript
+	printf 'm5 checkpoint\n' >> $bootscript
+fi
+if [ "$call_m5_exit" == "yes" ]; then
+	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
+	printf "sleep ${sleep_before_exit}\n" >> $bootscript
+	printf 'm5 exit\n' >> $bootscript
+fi
 
 bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 output_dir="${target}_${ncores}c_$currtime"

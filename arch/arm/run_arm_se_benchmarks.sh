@@ -49,11 +49,11 @@ output_rootdir="se_output_$currtime"
 #tlm_options="--tlm-memory=transactor"
 
 if [ "$script" == "starter_se.py" ]; then
-	config_script="configs/example/arm/starter_se.py"
+	config_script="configs/example/arm/${script}"
 	cpu_options="--cpu=hpi --num-cores=$ncores"
 	mem_options="--mem-channels=1"
 elif [ "$script" == "se.py" ]; then
-	config_script="configs/example/se.py"
+	config_script="configs/example/${script}"
 	cpu_options="--cpu-type=TimingSimpleCPU --num-cpu=$ncores"
 	# L1 + L2
 	mem_options="--mem-size=512MB --mem-channels=1 --caches --l2cache --mem-type=SimpleMemory"

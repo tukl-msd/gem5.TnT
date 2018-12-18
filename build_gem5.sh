@@ -68,13 +68,13 @@ if [ -v gitbuildrev ]; then
 		# Delete the build folder if the desired and the current commit differ
 		rm -rf build
 		# Swtich to the target commit
-		git checkout $gitbuildrev
+		git checkout --quiet --no-progress $gitbuildrev
 	fi
 else
 	# Remove the build folder if the top of the master branch moved
 	phead=$(git rev-parse HEAD)
-	git checkout master
-	git pull
+	git checkout --quiet --no-progress master
+	git pull --quiet
 	chead=$(git rev-parse HEAD)
 	if [[ "$chead" != "$phead" ]]; then
 		rm -rf build
@@ -89,4 +89,4 @@ for arch in $archs; do
                 build_libgem5 $arch $mode
 	done
 done
-echo -e -n "\nDone.\n"
+echo -e "Done."

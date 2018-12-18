@@ -188,7 +188,7 @@ hgcloneintodir() {
 		pulse on
 		hg clone ${e#*,} > /dev/null 2>&1
 		pulse off
-		echo -e "${Green}${e#*,} cloned into ${e%%,*}${NC}"
+		printf "${Green}${e#*,} cloned into ${e%%,*}${NC}\n"
 	done
 }
 
@@ -202,8 +202,8 @@ gitcloneintodir() {
 		printf "Cloning repository... "
 		pulse on
 		git clone --recursive ${e#*:} > /dev/null 2>&1
-		echo -e "${Green}${e#*:} cloned into ${e%%:*}${NC}"
 		pulse off
+		printf "${Green}${e#*:} cloned into ${e%%:*}${NC}\n"
 	done
 }
 
@@ -222,10 +222,10 @@ build() {
 	local buildopts=$2
 	getnumprocs np
 	local njobs=`expr $np - 1`
+	local cmd="scons --ignore-style $buildopts $target -j$njobs"
 	printf "Building $target... "
 	pulse on
-	cmd="scons $buildopts $target -j$njobs"
-	${cmd} > /dev/null 2&>1
+	${cmd} > /dev/null 2>&1
 	pulse off
 	if [[ -e $target ]]; then
 		printf "${Green}Target successfully built${NC}\n"

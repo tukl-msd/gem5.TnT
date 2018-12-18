@@ -53,14 +53,19 @@ img="$imgdir/aarch64-ubuntu-trusty-headless.img"
 
 
 target="boot_ubuntu"
-config_script="configs/example/arm/starter_fs.py"
 ncores="2"
-cpu_options="--cpu=hpi --num-cores=$ncores --cpu-freq=4GHz"
-mem_options="--mem-size=4GB"
+cpu_freq="4GHz"
+mem_size="4GB"
+config_script="configs/example/arm/starter_fs.py"
+cpu_options="--cpu=hpi --num-cores=$ncores --cpu-freq=${cpu_freq}"
+mem_options="--mem-size=${mem_size}"
 #tlm_options="--tlm-memory=transactor"
 disk_options="--disk-image=$img"
 kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
+#kernel_cmdline="earlyprintk=pl011,0x1c090000 console=ttyAMA0 lpj=19988480 norandmaps rw loglevel=8 mem=${mem_size} root=/dev/vda1"
+#kernel_cmdline_options="--command-line=${kernel_cmdline}"
 dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
+
 
 call_m5_exit="no"
 sleep_before_exit="0"
@@ -85,4 +90,5 @@ output_dir="${target}_${ncores}c_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
+#$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $kernel_cmdline_options $dtb $disk_options $bootscript_options 2>&1 | tee $logfile
 $gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options 2>&1 | tee $logfile

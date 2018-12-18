@@ -74,18 +74,17 @@ kernel="--kernel=$FSDIRARM/asimbench/asimbench_android_arm_kernel/vmlinux.smp.ic
 
 call_m5_exit="no"
 sleep_before_exit="0"
-checkpoint_after_boot="no"
+checkpoint_before_exit="no"
 
 bootscript="${target}_${ncores}c.rcS"
 printf '#!/system/bin/sh\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Android is already running."\n' >> $bootscript
-if [ "$checkpoint_after_boot" == "yes" ]; then
-	#printf '/sbin/m5 dumpstats\n' >> $bootscript
-	#printf '/sbin/m5 resetstats\n' >> $bootscript
-	printf '/sbin/m5 checkpoint\n' >> $bootscript
-fi
 if [ "$call_m5_exit" == "yes" ]; then
+	if [ "$checkpoint_before_exit" == "yes" ]; then
+		printf 'Creating a checkpoint\n' >> $bootscript
+		printf 'm5 checkpoint\n' >> $bootscript
+	fi
 	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
 	printf "sleep ${sleep_before_exit}\n" >> $bootscript
 	printf '/sbin/m5 exit\n' >> $bootscript

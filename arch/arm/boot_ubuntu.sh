@@ -64,18 +64,17 @@ dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.
 
 call_m5_exit="no"
 sleep_before_exit="0"
-checkpoint_after_boot="no"
+checkpoint_before_exit="no"
 
 bootscript="${target}_${ncores}c.rcS"
 printf '#!/bin/bash\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Linux is already running."\n' >> $bootscript
-if [ "$checkpoint_after_boot" == "yes" ]; then
-	#printf 'm5 dumpstats\n' >> $bootscript
-	#printf 'm5 resetstats\n' >> $bootscript
-	printf 'm5 checkpoint\n' >> $bootscript
-fi
 if [ "$call_m5_exit" == "yes" ]; then
+	if [ "$checkpoint_before_exit" == "yes" ]; then
+		printf 'Creating a checkpoint\n' >> $bootscript
+		printf 'm5 checkpoint\n' >> $bootscript
+	fi
 	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
 	printf "sleep ${sleep_before_exit}\n" >> $bootscript
 	printf 'm5 exit\n' >> $bootscript

@@ -37,7 +37,6 @@ source ./common/util.in
 
 wgethis=(
 # ARM full system files
-"$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20170616.tar.xz"
 "$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20180409.tar.xz"
 # X86 full system files
 "$FSDIRX86:http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2"

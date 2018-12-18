@@ -53,20 +53,8 @@ readonly NC='\033[0m'
 
 # Functions
 
-pulse() {
-        local stime=0.1
-        local sp='/-\|'
-        printf ' '
-        sleep $stime
-        while true; do
-                printf '\b%.1s' "$sp"
-                sp=${sp#?}${sp%???}
-                sleep $stime
-        done
-}
-
 abort() {
-	echo -e -n "\n\033[31mAborting.\n"; exit
+	echo -e "\n${Red}Aborting.${NC}"; exit
 }
 
 cmdtest() {
@@ -80,9 +68,42 @@ rctest() {
 	"$@"
 	local status=$?
 	if [ $status -ne 0 ]; then
-		echo -e -n "\n\033[31mError executing \"$@\".\n" >&2; echo -en "\e[0m"; abort;
+		echo -e -n "\n${Red}Error executing \"$@\".${NC}\n" >&2
+		abort
 	fi
 	return $status
+}
+
+spinner() {
+        local stime=0.1
+        local sp='/-\|'
+        printf ' '
+        sleep $stime
+        while true ; do
+                printf '\b%.1s' "$sp"
+                sp=${sp#?}${sp%???}
+                sleep $stime
+        done
+}
+
+declare -a spids
+pulse() {
+	case $1 in
+		on)
+			spinner &
+			spids+=($!)
+			;;
+		off)
+			kill -STOP "${spids[@]}"
+			unset spids
+			printf '\b '
+			printf '\n'
+			;;
+		*)
+			echo -e "${Red}Usage: ${FUNCNAME[0]} {on|off}${NC}"
+			exit 1
+			;;
+	esac
 }
 
 archdetect() {
@@ -96,8 +117,8 @@ archdetect() {
 
 chessit() {
 	local nr=1
-	local nc=80
-	echo ""
+	local nc=78
+	echo -e ""
 	for (( r = 0; r < $nr; r++ ))
 	do
 		for (( c = 0 ; c < $nc; c++ ))
@@ -105,19 +126,18 @@ chessit() {
 			local sqrs=`expr $r + $c`
 			local odd=`expr $sqrs % 2`
 			if [ $odd -eq 0 ]; then
-				echo -e -n "\033[47m "
+				echo -en "\033[47m "
 			else
-				echo -e -n "\033[40m "
+				echo -en "\033[40m "
 			fi
 		done
-		echo -e -n "\033[40m" && echo ""
+		echo -e "\033[40m"
 	done
+	echo -e ""
 }
 
 greetings() {
 	chessit
-	echo ""
-	archdetect
 	rctest date
 	if [ "$EUID" -ne 0 ]; then
 		local msg="Greetings $USER!"
@@ -129,18 +149,16 @@ greetings() {
 			echo -e "$msg"
 		fi
 	fi
-	echo ""
-	echo -e -n "You're currently on $HOSTNAME" && echo ""
-	echo -e -n "Your home folder is $HOME" && echo ""
-	echo -e -n "The current directory is $PWD" && echo ""
-	echo ""
+	echo -e "You are currently on $HOSTNAME"
+	echo -e "gem5.TnT will save files in $ROOTDIR"
+	chessit
 }
 
 checkprivledges() {
 	if [ "$EUID" -ne 0 ]; then
 		msg="Superuser priviledges are needed in order to perform\
 		some operations"
-		echo -e -n $msg && echo ""
+		echo -e $msg
 		exit
 	fi
 }
@@ -151,7 +169,11 @@ wgetintodir() {
 	for e in "${argarray[@]}"; do
 		local c="mkdir -p ${e%%:*}"
 		rctest $c
-		wget -N ${e#*:} -P ${e%%:*}
+		printf "Downloading... "
+		pulse on
+		wget -N ${e#*:} -P ${e%%:*} > /dev/null 2>&1
+		pulse off
+		printf "${Green}${e#*:} downloaded in ${e%%:*}${NC}\n"
 	done
 }
 
@@ -162,8 +184,11 @@ hgcloneintodir() {
 		local c="mkdir -p ${e%%,*}"
 		rctest $c
 		cd ${e%%,*}
-		hg clone ${e#*,}
-		echo -e -n "${e#*,} cloned into ${e%%,*}" && echo ""
+		printf "Cloning repository... "
+		pulse on
+		hg clone ${e#*,} > /dev/null 2>&1
+		pulse off
+		echo -e "${Green}${e#*,} cloned into ${e%%,*}${NC}"
 	done
 }
 
@@ -174,8 +199,11 @@ gitcloneintodir() {
 		local c="mkdir -p ${e%%:*}"
 		rctest $c
 		cd ${e%%:*}
-		git clone --recursive ${e#*:}
-		echo -e -n "${e#*:} cloned into ${e%%:*}" && echo ""
+		printf "Cloning repository... "
+		pulse on
+		git clone --recursive ${e#*:} > /dev/null 2>&1
+		echo -e "${Green}${e#*:} cloned into ${e%%:*}${NC}"
+		pulse off
 	done
 }
 
@@ -194,11 +222,17 @@ build() {
 	local buildopts=$2
 	getnumprocs np
 	local njobs=`expr $np - 1`
-	scons $buildopts $target -j$njobs
+	printf "Building $target... "
+	pulse on
+	cmd="scons $buildopts $target -j$njobs"
+	${cmd} > /dev/null 2&>1
+	pulse off
 	if [[ -e $target ]]; then
-		printf "\n${Red}Target successfully built${NC}\n"
+		printf "${Green}Target successfully built${NC}\n"
 		file $target
-		printf "\n"
+	else
+		printf "${Red}Error building $target${NC}\n"
+		printf "${Red}Command used: ${cmd}${NC}\n"
 	fi
 }
 

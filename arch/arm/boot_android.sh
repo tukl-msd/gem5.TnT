@@ -82,7 +82,7 @@ printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Android is already running."\n' >> $bootscript
 if [ "$call_m5_exit" == "yes" ]; then
 	if [ "$checkpoint_before_exit" == "yes" ]; then
-		printf 'Creating a checkpoint\n' >> $bootscript
+		printf 'echo "Creating a checkpoint"\n' >> $bootscript
 		printf 'm5 checkpoint\n' >> $bootscript
 	fi
 	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript

@@ -54,10 +54,8 @@ img="$imgdir/aarch64-ubuntu-trusty-headless.img"
 
 target="boot_ubuntu"
 ncores="2"
-
 script="fs.py"
 #script="starter_fs.py"
-
 #tlm_options="--tlm-memory=transactor"
 
 if [ "${script}" == "starter_fs.py" ]; then
@@ -96,7 +94,7 @@ printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf 'echo "Linux is already running."\n' >> $bootscript
 if [ "$call_m5_exit" == "yes" ]; then
 	if [ "$checkpoint_before_exit" == "yes" ]; then
-		printf 'Creating a checkpoint\n' >> $bootscript
+		printf 'echo "Creating a checkpoint"\n' >> $bootscript
 		printf 'm5 checkpoint\n' >> $bootscript
 	fi
 	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript

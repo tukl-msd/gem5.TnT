@@ -49,36 +49,35 @@ fi
 
 sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
-img="$imgdir/aarch64-ubuntu-trusty-headless.img"
 
 
 target="boot_ubuntu"
 ncores="2"
-script="fs.py"
-#script="starter_fs.py"
+cpu_clk_freq="4GHz"
+mem_size="4GB"
+
+#script="fs.py"
+script="starter_fs.py"
+
 #tlm_options="--tlm-memory=transactor"
 
 if [ "${script}" == "starter_fs.py" ]; then
-	cpu_freq="4GHz"
-	mem_size="4GB"
+	img="$imgdir/aarch64-ubuntu-trusty-headless.img"
 	config_script="configs/example/arm/${script}"
-	cpu_options="--cpu=hpi --num-cores=${ncores} --cpu-freq=${cpu_freq}"
+	cpu_options="--cpu=hpi --num-cores=${ncores} --cpu-freq=${cpu_clk_freq}"
 	mem_options="--mem-size=${mem_size}"
 	disk_options="--disk-image=$img"
 	kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
 	dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 elif [ "${script}" == "fs.py" ]; then
-	mem_size="4GB"
+	img="$imgdir/aarch32-ubuntu-natty-headless.img"
 	config_script="configs/example/${script}"
-	cpu_options="--cpu-type=TimingSimpleCPU --num-cpu=${ncores}"
-	#cpu_options="--cpu-type=HPI --num-cpu=${ncores}"
-	other_options="--machine-type=VExpress_GEM5_V1"
+	cpu_options="--cpu-type=TimingSimpleCPU --num-cpu=${ncores} --cpu-clock=${cpu_clk_freq}"
+	other_options="--machine-type=VExpress_GEM5_V1 --root-device=/dev/vda1"
 	mem_options="--mem-size=${mem_size} --mem-type=DDR3_1600_8x8 --mem-channels=1 --caches --l2cache"
 	disk_options="--disk=$img"
-	dtb="--dtb-filename=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
+	dtb="--dtb-filename=$FSDIRARM/aarch-system-${sysver}/binaries/armv7_gem5_v1_${ncores}cpu.dtb"
 	kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1"
-	#kernel_cmdline="earlyprintk=pl011,0x1c090000 console=ttyAMA0 lpj=19988480 norandmaps rw loglevel=8 mem=${mem_size} root=/dev/vda1"
-	#kernel_cmdline_options="--command-line=${kernel_cmdline}"
 else
 	printf "\nPlease define options for ${script}\n"
 	exit
@@ -107,4 +106,4 @@ output_dir="${target}_${ncores}c_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $kernel_cmdline_options $dtb $disk_options $bootscript_options $other_options 2>&1 | tee $logfile
+$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options $other_options 2>&1 | tee $logfile

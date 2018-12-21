@@ -76,24 +76,18 @@ call_m5_exit="no"
 sleep_before_exit="0"
 checkpoint_before_exit="no"
 
-bootscript="${target}_${ncores}c.rcS"
-printf '#!/system/bin/sh\n' > $bootscript
-printf "echo \"Executing $bootscript now\"\n" >> $bootscript
-printf 'echo "Android is already running."\n' >> $bootscript
-if [ "$call_m5_exit" == "yes" ]; then
-	if [ "$checkpoint_before_exit" == "yes" ]; then
-		printf 'echo "Creating a checkpoint"\n' >> $bootscript
-		printf 'm5 checkpoint\n' >> $bootscript
-	fi
-	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
-	printf "sleep ${sleep_before_exit}\n" >> $bootscript
-	printf '/sbin/m5 exit\n' >> $bootscript
+restore_from_checkpoint="no"
+checkpoint_dir="${target}_${ncores}c_"
+checkpoint_tick_number="0"
+if [ "$restore_from_checkpoint" == "yes" ]; then
+	restore_checkpoint_options="--restore=${checkpoint_dir}/cpt.${checkpoint_tick_number}/"
 fi
 
-bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
+#bootscript="${target}_${ncores}c.rcS"
+#bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 output_dir="${target}_${ncores}c_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 
 export M5_PATH=${M5_PATH}:"$FSDIRARM/asimbench":
-$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $disk_options $machine_options $os_options $misc_options $bootscript_options 2>&1 | tee $logfile
+$gem5_elf -d $output_dir $config_script $restore_checkpoint_options $cpu_options $mem_options $tlm_options $kernel $disk_options $machine_options $os_options $misc_options $bootscript_options 2>&1 | tee $logfile

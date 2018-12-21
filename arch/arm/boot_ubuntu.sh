@@ -54,7 +54,7 @@ imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 target="boot_ubuntu"
 ncores="2"
 cpu_clk_freq="4GHz"
-mem_size="4GB"
+mem_size="2GB"
 
 #script="fs.py"
 script="starter_fs.py"
@@ -83,27 +83,30 @@ else
 	exit
 fi
 
+
 call_m5_exit="no"
 sleep_before_exit="0"
-checkpoint_before_exit="no"
 
-bootscript="${target}_${ncores}c.rcS"
-printf '#!/bin/bash\n' > $bootscript
-printf "echo \"Executing $bootscript now\"\n" >> $bootscript
-printf 'echo "Linux is already running."\n' >> $bootscript
+restore_from_checkpoint="no"
+checkpoint_dir_timestamp=""
+checkpoint_tick_number=""
+checkpoint_dir="${target}_${ncores}c_${checkpoint_dir_timestamp}"
+
 if [ "$call_m5_exit" == "yes" ]; then
-	if [ "$checkpoint_before_exit" == "yes" ]; then
-		printf 'echo "Creating a checkpoint"\n' >> $bootscript
-		printf 'm5 checkpoint\n' >> $bootscript
-	fi
-	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
+	bootscript="${target}_${ncores}c.rcS"
+	printf '#!/bin/bash\n' > $bootscript
+	printf "echo \"Executing $bootscript now\"\n" >> $bootscript
+	printf 'echo "Linux is already running."\n' >> $bootscript
+	printf "echo \"Calling m5 exit in $sleep_before_exit seconds from now...\"\n" >> $bootscript
 	printf "sleep ${sleep_before_exit}\n" >> $bootscript
 	printf 'm5 exit\n' >> $bootscript
+	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
+elif [ "$restore_from_checkpoint" == "yes" ]; then
+	restore_checkpoint_options="--restore=${checkpoint_dir}/cpt.${checkpoint_tick_number}/"
 fi
 
-bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 output_dir="${target}_${ncores}c_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options $other_options 2>&1 | tee $logfile
+$gem5_elf -d $output_dir $config_script $restore_checkpoint_options $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options $other_options 2>&1 | tee $logfile

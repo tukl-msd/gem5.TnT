@@ -70,7 +70,7 @@ instdep() {
 	done
 	echo ""
 
-	checkprivledges
+	check_privledges
 
 	msg="I'm going to try to install the dependencies using the apt-get\
 	command commonly found in debian like distros. If you're using\
@@ -80,7 +80,7 @@ instdep() {
 
 	for p in $plist; do
 		local cmd="apt-get install -y $p"
-		rctest $cmd
+		ret_code_test $cmd
 	done
 }
 

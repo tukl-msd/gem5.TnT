@@ -59,7 +59,7 @@ disk="--disk=ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
 cd $ROOTDIR/gem5
 pfile="$TOPDIR/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch"
 patch -fs -p1 < $pfile &>/dev/null
-getnumprocs np
+get_num_procs np
 nj=`expr $np - 1`
 scons $gem5 -j$nj
 

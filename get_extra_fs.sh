@@ -76,4 +76,4 @@ wgethis=(
 )
 
 greetings
-wgetintodir wgethis[@]
+wget_into_dir wgethis[@]

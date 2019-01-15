@@ -45,5 +45,5 @@ hgrepos=(
 )
 
 greetings
-wgetintodir wgethis[@]
-hgcloneintodir hgrepos[@]
+wget_into_dir wgethis[@]
+hg_clone_into_dir hgrepos[@]

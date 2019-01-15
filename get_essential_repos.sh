@@ -41,4 +41,4 @@ gitrepos=(
 )
 
 greetings
-gitcloneintodir gitrepos[@]
+git_clone_into_dir gitrepos[@]

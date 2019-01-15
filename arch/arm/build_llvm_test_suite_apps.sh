@@ -49,15 +49,15 @@ gitrepos=(
 )
 
 greetings
-wgetintodir wgethis[@]
-gitcloneintodir gitrepos[@]
+wget_into_dir wgethis[@]
+git_clone_into_dir gitrepos[@]
 
 toolchaindir=$TOOLCHAINSDIR_ARM/$toolchain
 if [[ ! -d $toolchaindir ]]; then
 	tar -xaf $TOOLCHAINSDIR_ARM/$toolchaintarball -C $TOOLCHAINSDIR_ARM
 fi
 
-getnumprocs np
+get_num_procs np
 
 cd $BENCHMARKSDIR/test-suite
 git checkout release_50

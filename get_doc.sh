@@ -75,5 +75,5 @@ gitrepos=(
 )
 
 greetings
-wgetintodir wgethis[@]
-gitcloneintodir gitrepos[@]
+wget_into_dir wgethis[@]
+git_clone_into_dir gitrepos[@]

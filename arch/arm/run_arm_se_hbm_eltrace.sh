@@ -58,7 +58,7 @@ printf "\n----------------------------------------------------------------------
 printf "${Red}Building gem5 after patching"
 printf "\n----------------------------------------------------------------------\n"
 
-getnumprocs np
+get_num_procs np
 nj=`expr $np - 1`
 scons $gem5_elf -j$nj
 

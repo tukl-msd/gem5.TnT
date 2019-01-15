@@ -57,14 +57,14 @@ abort() {
 	echo -e "\n${Red}Aborting.${NC}"; exit
 }
 
-cmdtest() {
+cmd_test() {
 	hash $@ 2>/dev/null || { echo >&2 "\"$@\" could not be found. Please install it and try again."; abort; }
 }
 
-rctest() {
+ret_code_test() {
 	local cmdline="$@"
 	local cmd="${cmdline%% *}"
-	cmdtest $cmd
+	cmd_test $cmd
 	"$@"
 	local status=$?
 	if [ $status -ne 0 ]; then
@@ -106,7 +106,7 @@ pulse() {
 	esac
 }
 
-archdetect() {
+arch_detect() {
 	local arch=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
 	hash notify-send 2> /dev/null
 	if [[ $? -eq 0 ]]; then
@@ -138,13 +138,13 @@ chessit() {
 
 greetings() {
 	chessit
-	rctest date
+	ret_code_test date
 	if [ "$EUID" -ne 0 ]; then
 		local msg="Greetings $USER!"
 		hash cowsay 2> /dev/null
 		if [[ $? -eq 0 ]]; then
 			cmd="cowsay -f tux $msg"
-			rctest $cmd
+			ret_code_test $cmd
 		else
 			echo -e "$msg"
 		fi
@@ -154,7 +154,7 @@ greetings() {
 	chessit
 }
 
-checkprivledges() {
+check_privledges() {
 	if [ "$EUID" -ne 0 ]; then
 		msg="Superuser priviledges are needed in order to perform\
 		some operations"
@@ -163,12 +163,12 @@ checkprivledges() {
 	fi
 }
 
-wgetintodir() {
-	cmdtest wget
+wget_into_dir() {
+	cmd_test wget
 	declare -a argarray=("${!1}")
 	for e in "${argarray[@]}"; do
 		local c="mkdir -p ${e%%:*}"
-		rctest $c
+		ret_code_test $c
 		printf "Downloading... "
 		pulse on
 		wget -N ${e#*:} -P ${e%%:*} > /dev/null 2>&1
@@ -177,12 +177,12 @@ wgetintodir() {
 	done
 }
 
-hgcloneintodir() {
-	cmdtest hg
+hg_clone_into_dir() {
+	cmd_test hg
 	declare -a argarray=("${!1}")
 	for e in "${argarray[@]}"; do
 		local c="mkdir -p ${e%%,*}"
-		rctest $c
+		ret_code_test $c
 		cd ${e%%,*}
 		printf "Cloning repository... "
 		pulse on
@@ -192,12 +192,12 @@ hgcloneintodir() {
 	done
 }
 
-gitcloneintodir() {
-	cmdtest git
+git_clone_into_dir() {
+	cmd_test git
 	declare -a argarray=("${!1}")
 	for e in "${argarray[@]}"; do
 		local c="mkdir -p ${e%%:*}"
-		rctest $c
+		ret_code_test $c
 		cd ${e%%:*}
 		printf "Cloning repository... "
 		pulse on
@@ -207,7 +207,7 @@ gitcloneintodir() {
 	done
 }
 
-getnumprocs() {
+get_num_procs() {
 	local __retvar=$1;
 	local __nprocs=$(cat /proc/cpuinfo | grep processor | wc -l)
 	if [[ "$__retvar" ]]; then
@@ -220,7 +220,7 @@ getnumprocs() {
 build() {
 	local target=$1
 	local buildopts=$2
-	getnumprocs np
+	get_num_procs np
 	local njobs=`expr $np / 2`
 	local cmd="scons --ignore-style $buildopts $target -j$njobs"
 	printf "Building $target... "

@@ -29,22 +29,22 @@ A suggestion on how to run the scripts follows:
 
 Build some benchmark programs:
 ```bash
-./build_llvm_test_suite_apps.sh
-./build_parsec_apps.sh
-./build_stream_app.sh
-./build_stride_apps.sh
+$ ./build_llvm_test_suite_apps.sh
+$ ./build_parsec_apps.sh
+$ ./build_stream_app.sh
+$ ./build_stride_apps.sh
 ```
 
 Create disk images with the benchmark programs inside (this script uses
 **sudo**):
 ```bash
-./create_images.sh
+$ ./create_images.sh
 ```
 
 Execute benchmarks:
 ```bash
-./run_arm_fs_test_suite.sh
-./run_arm_se_benchmarks.sh
+$ ./run_arm_fs_test_suite.sh
+$ ./run_arm_se_benchmarks.sh
 ```
 
 ### **The Arm Research Starter Kit: System Modeling using gem5**

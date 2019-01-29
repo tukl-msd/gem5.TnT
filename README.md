@@ -24,6 +24,7 @@ accelerated.
 #### **Clone the repository and change to its directory:**
 
 ```bash
+$ cd $HOME
 $ git clone https://github.com/tukl-msd/gem5.TnT.git
 $ cd gem5.TnT
 ```
@@ -77,19 +78,19 @@ $ ./do_it_for_me.sh
 #### Default python version is not python2.7:
 
 ```bash
-python2.7 `which scons` build/<arch>/gem5.<mode> -j<num jobs>
+$ python2.7 `which scons` build/<arch>/gem5.<mode> -j<num jobs>
 ```
 
 Example:
 
 ```bash
-python2.7 `which scons` build/ARM/gem5.opt -j$(cat /proc/cpuinfo | grep processor | wc -l)
+$ python2.7 `which scons` build/ARM/gem5.opt -j$(cat /proc/cpuinfo | grep processor | wc -l)
 ```
 
 #### Memory allocation error on Linux.
 
 ```bash
-sudo su
-echo 1 > /proc/sys/vm/overcommit_memory
+$ sudo su
+$ echo 1 > /proc/sys/vm/overcommit_memory
 ```
 

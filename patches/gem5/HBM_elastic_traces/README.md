@@ -14,7 +14,8 @@ Firstly, since the source code changes required for HBM are still not incorporat
 Apply the patch to your gem5 source code using the below command. Make sure you are in the gem5 directory while executing this command.
 
 ```bash
-patch -p1 -f < <path_to_gem5.TnT_repo>/patches/gem5/HBM_elastic_traces/hbm.patch
+$ cd $HOME/gem5_tnt/gem5
+$ patch -p1 -f < $HOME/gem5.TnT/patches/gem5/HBM_elastic_traces/hbm.patch
 ```
 
 After applying the patch you have to build gem5 again. But don't worry, this time the build process will finish much faster than the first build.
@@ -22,7 +23,7 @@ After applying the patch you have to build gem5 again. But don't worry, this tim
 Run gem5.
 
 ```bash
-build/ARM/gem5.opt configs/example/hbm_hello.py -d hbm_etrace --mem-size=1GB --data-trace-file=<path_to_gem5.TnT_repo>/elastic_traces/system.cpu.traceListener.random.data.gz --inst-trace-file=<path_to_gem5.TnT_repo>/elastic_traces/system.cpu.traceListener.random.inst.gz
+$ build/ARM/gem5.opt configs/example/hbm_hello.py -d hbm_etrace --mem-size=1GB --data-trace-file=$HOME/gem5.TnT/elastic_traces/system.cpu.traceListener.random.data.gz --inst-trace-file=$HOME/gem5.TnT/elastic_traces/system.cpu.traceListener.random.inst.gz
 ```
 
 The outputs are generated in the hbm_etrace directory. The config.dot.pdf file gives a nice pictorial representation of the system we created for the simulation and the stats.txt file gives the tabulated results of the simulation.

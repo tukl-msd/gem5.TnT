@@ -8,28 +8,28 @@ You can also watch these awesome video tutorials: [**Learning gem5 HPCA tutorial
 ### **Compiling gem5**
 
 ```bash
-scons build/<arch>/gem5.<binary> -j<jobs>
+$ scons build/<ARCH>/gem5.<BINARY> -j<JOBS>
 ```
 
 Where:
 
-* **\<arch\>**: architecture e.g., **ALPHA**, **ARM**, **X86**, **RISCV**. For more options, try the command below inside gem5's root directory:
+* **\<ARCH\>**: architecture e.g., **ALPHA**, **ARM**, **X86**, **RISCV**. For more options, try the command below inside gem5's root directory:
 
 ```bash
-ls build_opts/
+$ ls build_opts/
 ```
 
-* **\<binary\>**:
+* **\<BINARY\>**:
 	* gem5.**debug** - A binary used for debugging without any optimizations. *_Fast compilation + slow execution_*.
 	* gem5.**opt** - A binary with debugging and optimization. _*Faster execution + slower compilation*_.
 	* gem5.**prof** - Same as opt target + profiling support suitable for use with gprof.
 	* gem5.**perf** - Similar to prof, this target is aimed for CPU and heap profiling using the google perftools.
 	* gem5.**fast** - _*Fastest execution + Debug removed*_.
 
-* **\<jobs\>**: number of jobs to run simultaneously. If you're not sure, try the command below to get a reasonable number:
+* **\<JOBS\>**: number of jobs to run simultaneously. If you're not sure, try the command below to get a reasonable number:
 
 ```bash
-cat /proc/cpuinfo | grep processor | wc -l
+$ cat /proc/cpuinfo | grep processor | wc -l
 ```
 
 
@@ -45,7 +45,7 @@ cat /proc/cpuinfo | grep processor | wc -l
 Export the environment variable **M5_PATH** poiting to full system files (disk images & binaries). Put your disk images in a folder named **disks** and the binaries in folder named **binaries**.
 
 ```bash
-export M5_PATH=$M5_PATH:/path/to/full_system_files_directory:/path/to/other_full_system_files_directory
+$ export M5_PATH=$M5_PATH:/path/to/full_system_files_directory:/path/to/other_full_system_files_directory
 ```
 
 Prepare running script **\*.rcS** (optional)
@@ -65,7 +65,7 @@ echo "Finally done! :D"
 Run:
 
 ```bash
-build/<arch>/gem5.<binary> config/example/fs.py --kernel=<kernel_file> --disk-image=<disk_image.img> --script=</path/to/script.rcS>
+$ build/<ARCH>/gem5.<binary> config/example/fs.py --kernel=<kernel_file> --disk-image=<disk_image.img> --script=</path/to/script.rcS>
 ```
 
 **NOTE**:
@@ -75,7 +75,7 @@ If you get errors stating that some files cannot be found check at least *config
 Connect to gem5 via telnet (3456 is the port indicated in the console output):
 
 ```bash
-telnet localhost 3456
+$ telnet localhost 3456
 ```
 
 **Using Traffic generators in gem5**:

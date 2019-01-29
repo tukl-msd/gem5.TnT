@@ -48,7 +48,7 @@ bash get_essential_fs.sh
 bash get_benchmarks.sh
 
 # 5. Download documentation
-bash get_doc.sh
+# bash get_doc.sh
 
 # 6. Build gem5 (gem5.opt, gem5.fast for ARM and X86 + the same but as
 # libraries)

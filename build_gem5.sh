@@ -53,7 +53,6 @@ X86
 # Gem5 Modes
 modes="
 opt
-fast
 "
 
 cd $ROOTDIR/gem5

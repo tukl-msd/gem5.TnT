@@ -58,7 +58,18 @@ opt
 cd $ROOTDIR/gem5
 
 # Check whether the 'gitbuildrev' variable is set or not
-if [ -v gitbuildrev ]; then
+if [ -z ${gitbuildrev+x} ]; then
+	# Variable 'gitbuildrev' is unset, use top of the master branch
+	# Remove the build folder if the top of the master branch moved
+	phead=$(git rev-parse HEAD)
+	git checkout --quiet master > /dev/null 2>&1
+	git pull --quiet
+	chead=$(git rev-parse HEAD)
+	if [[ "$chead" != "$phead" ]]; then
+		rm -rf build
+	fi
+else
+	# Variable 'gitbuildrev' is set, use commit specified
 	chead=$(git rev-parse HEAD)
 	cheadshort=$(git rev-parse --short HEAD)
 	buildrev=$(git rev-parse $gitbuildrev)
@@ -67,16 +78,7 @@ if [ -v gitbuildrev ]; then
 		# Delete the build folder if the desired and the current commit differ
 		rm -rf build
 		# Swtich to the target commit
-		git checkout --quiet --no-progress $gitbuildrev
-	fi
-else
-	# Remove the build folder if the top of the master branch moved
-	phead=$(git rev-parse HEAD)
-	git checkout --quiet --no-progress master
-	git pull --quiet
-	chead=$(git rev-parse HEAD)
-	if [[ "$chead" != "$phead" ]]; then
-		rm -rf build
+		git checkout --quiet $gitbuildrev > /dev/null 2>&1
 	fi
 fi
 

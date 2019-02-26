@@ -32,10 +32,14 @@
 #
 # Author: Éder F. Zulian
 
-source ./common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 instdep() {
 	local plist="
+	wget
 	cowsay
 	libnotify-bin
 	swig
@@ -62,6 +66,7 @@ instdep() {
 	python-posix-ipc
 	parted
 	csh
+	lsb-core
 	"
 
 	echo -e -n "This is a list of known dependencies:" && echo ""
@@ -86,8 +91,8 @@ instdep() {
 
 greetings
 # Check distro. This script supports Debian/Ubuntu
-distro=`lsb_release -is`
-if [ "$distro" != "Debian" ] && [ "$distro" != "Ubuntu" ]; then
+distro=$(cat /etc/os-release | grep "^ID=" | sed 's/.*=//' | awk '{print tolower($0)}')
+if [ "$distro" != "debian" ] && [ "$distro" != "ubuntu" ]; then
 	echo -e "Error unsupported distribution (${distro}). This script supports Debian/Ubuntu." 1>&2
 	exit 1
 fi

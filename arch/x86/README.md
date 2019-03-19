@@ -1,5 +1,5 @@
 ## gem5 Tips & Tricks
-### **Tips and tricks for the ARM architecture**
+### **Tips and tricks for the X86 ISA**
 
 Here you'll find tips and tricks for the X86 ISA.
 

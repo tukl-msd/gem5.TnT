@@ -1,0 +1,25 @@
+#!/bin/sh
+
+cmd="/sbin/m5 dumpstats"
+echo "Geetings!"
+echo ""
+echo "Dumping stats with $cmd"
+echo ""
+/sbin/m5 dumpstats
+
+cmd="/sbin/m5 resetstats"
+echo "Reseting stats with $cmd"
+/sbin/m5 resetstats
+echo ""
+
+cmd="/sbin/m5 -h"
+echo "Showing m5 help with $cmd"
+echo ""
+/sbin/m5 -h
+echo ""
+
+echo "Done!"
+cmd="/sbin/m5 exit"
+echo ""
+echo "Exiting with $cmd"
+/sbin/m5 exit

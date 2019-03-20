@@ -209,7 +209,12 @@ git_clone_into_dir() {
 
 get_num_procs() {
 	local __retvar=$1;
-	local __nprocs=$(cat /proc/cpuinfo | grep processor | wc -l)
+	hash nproc 2> /dev/null
+	if [[ $? -eq 0 ]]; then
+		__nprocs=$(nproc)
+	else
+		__nprocs=$(cat /proc/cpuinfo | grep processor | wc -l)
+	fi
 	if [[ "$__retvar" ]]; then
 		eval $__retvar="'$__nprocs'"
 	else

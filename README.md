@@ -95,3 +95,24 @@ $ sudo su
 $ echo 1 > /proc/sys/vm/overcommit_memory
 ```
 
+#### M5TERM
+
+Build **m5term**.
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+$ cd util/term
+$ make
+```
+
+Start your gem5 simulation. The gem5 simulator generates a message with a port
+number for connection with m5term or telnet.
+
+Example of use follows.
+
+```bash
+$ ./m5term localhost 3456
+```
+
+Note: the port number may vary.
+

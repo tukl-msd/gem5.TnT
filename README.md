@@ -95,7 +95,7 @@ $ sudo su
 $ echo 1 > /proc/sys/vm/overcommit_memory
 ```
 
-#### M5 Term
+### M5 Term
 
 Build **m5term**.
 
@@ -116,7 +116,7 @@ $ ./m5term localhost 3456
 
 Note: the port number may vary.
 
-#### The M5 Binary
+### The M5 Binary
 
 Commands to build the **m5** for the x86 ISA follow.
 

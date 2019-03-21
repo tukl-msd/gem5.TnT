@@ -36,6 +36,8 @@ source ./common/defaults.in
 source ./common/util.in
 
 wgethis=(
+# ALPHA full system files
+"$FSDIRALPHA:http://www.m5sim.org/dist/current/m5_system_2.0b3.tar.bz2"
 # ARM full system files
 "$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20180409.tar.xz"
 # X86 full system files

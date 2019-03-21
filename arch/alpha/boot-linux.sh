@@ -38,7 +38,7 @@ source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
-arch="X86"
+arch="ALPHA"
 mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
@@ -48,25 +48,23 @@ if [[ ! -e $gem5_elf ]]; then
 fi
 popd
 
-sys='x86-system'
+sys='m5_system_2.0b3'
 tarball="${sys}.tar.bz2"
 if [[ ! -e $tarball ]]; then
-	wgethis=("$FSDIRX86:http://www.m5sim.org/dist/current/x86/$tarball")
+	wgethis=("$FSDIRALPHA:http://www.m5sim.org/dist/current/$tarball")
 	wget_into_dir wgethis[@]
 fi
 
-pushd ${FSDIRX86}
+pushd ${FSDIRALPHA}
 if [[ ! -d ${sys} ]]; then
-	mkdir -p ${sys}
-	tar -xaf ${tarball} -C ${sys}
+	tar -xaf ${tarball}
 fi
 popd
 
-syspath="$FSDIRX86/${sys}"
+syspath="$FSDIRALPHA/${sys}"
 diskpath="${syspath}/disks"
-#disk="${diskpath}/linux-x86.img"
-disk="/home/eder/gem5_tnt/gem5/disk.img"
-kernel="${syspath}/binaries/x86_64-vmlinux-2.6.22.9"
+disk="${diskpath}/linux-latest.img"
+kernel="${syspath}/binaries/vmlinux"
 cfgscript="configs/example/fs.py"
 disk_opt="--disk-image=${disk}"
 kernel_opt="--kernel=${kernel}"
@@ -74,8 +72,7 @@ kernel_opt="--kernel=${kernel}"
 
 pushd $ROOTDIR/gem5
 git checkout configs/common/FSConfig.py
-git apply $DIR/boot-linux.patch
-output_dir="x86_linux_$currtime"
+output_dir="alpha_linux_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="${syspath}":${M5_PATH}

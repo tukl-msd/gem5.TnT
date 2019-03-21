@@ -29,4 +29,4 @@ Optionally, open a new terminal and connect to gem5.
 ```bash
 $ telnet localhost 3456
 ```
-
+[boot-linux.sh]: boot-linux.sh

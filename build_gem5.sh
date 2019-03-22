@@ -46,13 +46,16 @@ gitbuildrev="a470ef5"
 
 # Architectures to build
 archs="
+ALPHA
 ARM
+RISCV
 X86
 "
 
 # Gem5 Modes
 modes="
 opt
+fast
 "
 
 cd $ROOTDIR/gem5

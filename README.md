@@ -209,6 +209,10 @@ This is a good one:
 ### More Resources, Useless Links
 
 ```
+The Ultimate Computer
+Stardate: 4729.4
+
+...
 KIRK: I'm curious, Doctor. Why is it called M-5 and not M-1?
 DAYSTROM: Well, you see, the multitronic units one through four were not entirely successful. This one is. M-5 is ready to take control of the ship.
 ...
@@ -216,9 +220,9 @@ MCCOY: Jim, he's on the edge of a nervous breakdown, if not insanity.
 KIRK: The M-5 must be destroyed.
 ...
 SPOCK: The force field is gone, Captain. M-5 is neutralised.
-SCOTT: System's coming back...
+SCOTT: System's coming back.
+...
 ```
-
 [Source](http://chakoteya.net/StarTrek/53.htm)
 
 

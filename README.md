@@ -189,6 +189,21 @@ TWO_BYTE_OP(m5_dump_stats, M5OP_DUMP_STATS)
 TWO_BYTE_OP(m5_checkpoint, M5OP_CHECKPOINT)
 ```
 
+### More Resources, Useful Links
+
+Here some links you may consider useful. Many thanks to the respective authors for
+throwing some light on this.
+
+[Learning gem5](http://www.lowepower.com/jason/learning_gem5/)
+
+[When to use full system FS vs syscall emulation SE with userland programs in gem5?](https://stackoverflow.com/questions/48986597/when-to-use-full-system-fs-vs-syscall-emulation-se-with-userland-programs-in-gem)
+
+[How to solve “FATAL: kernel too old” when running gem5 in syscall emulation SE mode?](https://stackoverflow.com/questions/48959349/how-to-solve-fatal-kernel-too-old-when-running-gem5-in-syscall-emulation-se-m/50542301#50542301)
+
+This is a good one:
+[gem5 vs QEMU](https://github.com/cirosantilli/linux-kernel-module-cheat/tree/00d282d912173b72c63c0a2cc893a97d45498da5#gem5-vs-qemu)
+
+
 [m5.c]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/m5/m5.c
 [m5_mmap.c]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/m5/m5_mmap.c
 [Makefile.x86]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/m5/Makefile.x86

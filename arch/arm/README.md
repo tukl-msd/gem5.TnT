@@ -18,7 +18,7 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**run_arm_fs_stream.sh**](run_arm_fs_stream.sh): Full-system mode executing stream app.
 * [**run_arm_fs_stride.sh**](run_arm_fs_stride.sh): Full-system mode executing stride v1.1 apps.
 * [**run_arm_fs_test_suite.sh**](run_arm_fs_test_suite.sh): Full-system mode executing some apps from LLVM test-suite.
-* [**run_arm_se_8_cores_with_different_workloads.sh**](run_arm_se_8_cores_with_different_workloads.sh): System call emulation mode, 8 cores with different workloads (experimental).
+* [**run_arm_se_8_cores_with_different_workloads.sh**](run_arm_se_8_cores_with_different_workloads.sh): System call emulation mode, 8 cores with different workloads.
 * [**run_arm_se_benchmarks.sh**](run_arm_se_benchmarks.sh): System call emulation mode executing some apps.
 * [**run_arm_se_hbm_eltrace.sh**](run_arm_se_hbm_eltrace.sh): System call emulation mode HBM as main memory using elastic traces as stimuli.
 * [**run_arm_se_hmc.sh**](run_arm_se_hmc.sh): System call emulation mode HMC as main memory.

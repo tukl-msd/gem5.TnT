@@ -47,7 +47,33 @@ $ ./run_arm_fs_test_suite.sh
 $ ./run_arm_se_benchmarks.sh
 ```
 
+### Notes
+
+SE mode hello using [se.py].
+
+```bash
+~/gem5_tnt/gem5$ build/ARM/gem5.opt configs/example/se.py -c ./tests/test-progs/hello/bin/arm/linux/hello
+```
+
+SE mode hello in 8 cores using [starter_se.py].
+
+```bash
+~/gem5_tnt/gem5$ build/ARM/gem5.opt \
+	configs/example/arm/starter_se.py \
+	--cpu=hpi --num-cores=8 --mem-channels=1 \
+	./tests/test-progs/hello/bin/arm/linux/hello \
+	./tests/test-progs/hello/bin/arm/linux/hello \
+	./tests/test-progs/hello/bin/arm/linux/hello \
+	./tests/test-progs/hello/bin/arm/linux/hello \
+	./tests/test-progs/hello/bin/arm/linux/hello \
+	./tests/test-progs/hello/bin/arm/linux/hello \
+	./tests/test-progs/hello/bin/arm/linux/hello \
+	./tests/test-progs/hello/bin/arm/linux/hello
+```
+
 ### **The Arm Research Starter Kit: System Modeling using gem5**
 
 The [**Arm Research Starter Kit**](https://github.com/arm-university/arm-gem5-rsk) will guide you through Arm-based system modeling using the gem5 simulator.
 
+[se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/se.py
+[starter_se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/arm/starter_se.py

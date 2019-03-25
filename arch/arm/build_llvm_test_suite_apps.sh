@@ -60,7 +60,10 @@ fi
 get_num_procs np
 
 cd $BENCHMARKSDIR/test-suite
-git checkout release_50
+git checkout release_50 > /dev/null 2>&1
+
+git clean -fdx > /dev/null 2>&1
+git checkout . > /dev/null 2>&1
 
 cd $BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford
 cat > Makefile << EOM

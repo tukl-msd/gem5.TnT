@@ -45,6 +45,8 @@ if [[ ! -e $gem5_elf ]]; then
 	build_gem5 $arch $mode
 fi
 
+$DIR/build_llvm_test_suite_apps.sh
+
 benchmark_progs_path="$BENCHMARKSDIR/test-suite/SingleSource/Benchmarks/Stanford"
 benchmark_progs="
 Bubblesort
@@ -71,5 +73,4 @@ for b in $benchmark_progs; do
 done
 
 output_dir="$output_rootdir/se_${ncores}_cores"
-$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload &
-wait
+$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $workload

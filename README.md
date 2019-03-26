@@ -189,6 +189,53 @@ TWO_BYTE_OP(m5_dump_stats, M5OP_DUMP_STATS)
 TWO_BYTE_OP(m5_checkpoint, M5OP_CHECKPOINT)
 ```
 
+### Syscall Emulation SE
+
+Emulation functions that are generic enough that they don't need to be
+recompiled for different emulated OS's are defined in [syscall_emul.cc]. See
+also [syscall_emul.hh].
+
+The *class SyscallDesc* provides the wrapper interface for the system call
+implementations.
+
+Note the tables with syscalls for x86 in [src/arch/x86/linux/process.cc].
+There you can check if the syscalls needed by an application are implemented.
+
+```
+static SyscallDesc syscallDescs64[] {
+    /*   0 */ SyscallDesc("read", readFunc),
+    /*   1 */ SyscallDesc("write", writeFunc),
+    /*   2 */ SyscallDesc("open", openFunc<X86Linux64>),
+    /*   3 */ SyscallDesc("close", closeFunc),
+    ...
+    /*  57 */ SyscallDesc("fork", unimplementedFunc),
+    ...
+}
+
+static SyscallDesc syscallDescs32[] = {
+    /*   0 */ SyscallDesc("restart_syscall", unimplementedFunc),
+    /*   1 */ SyscallDesc("exit", exitFunc),
+    /*   2 */ SyscallDesc("fork", unimplementedFunc),
+    /*   3 */ SyscallDesc("read", readFunc),
+    ...
+}
+```
+
+Also in [src/arch/x86/linux/process.cc] you can find the implementation of
+**uname** that is a system call (a function provided by the kernel) to get
+name and information about the kernel, for example the **kernel version**. See
+also uname(2).
+
+```
+$ man 2 uname
+```
+
+In
+[src/arch/riscv/linux/process.cc](https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/arch/riscv/linux/process.cc)
+you can find information for RISC-V, in
+[src/arch/arm/linux/process.cc](https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/arch/arm/linux/process.cc)
+you can find information for ARM, and so on.
+
 ### More Resources, Useful Links
 
 Here some links you may consider useful. Many thanks to the respective authors for
@@ -231,3 +278,6 @@ SCOTT: System's coming back.
 [Makefile.x86]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/m5/Makefile.x86
 [m5op_x86.S]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/m5/m5op_x86.S
 [m5ops.h]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/include/gem5/asm/generic/m5ops.h
+[syscall_emul.cc]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/sim/syscall_emul.cc
+[syscall_emul.hh]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/sim/syscall_emul.hh
+[src/arch/x86/linux/process.cc]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/arch/x86/linux/process.cc

@@ -77,6 +77,21 @@ $ ./do_it_for_me.sh
 
 ### **Quick Hints**
 
+#### GEM5 Scons Build Options:
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+$ scons --ignore-style -h
+
+$ scons --ignore-style -h | grep KVM
+USE_KVM: Enable hardware virtualized (KVM) CPU models (yes|no)
+
+$ echo "USE_KVM = 'yes'" >> build_opts/X86
+$ cat build_opts/X86
+
+$ scons --ignore-style build/X86/gem5.opt -j`nproc`
+```
+
 #### Default python version is not python2.7:
 
 ```bash

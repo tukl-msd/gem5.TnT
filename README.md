@@ -82,14 +82,6 @@ $ ./do_it_for_me.sh
 ```bash
 $ cd $HOME/gem5_tnt/gem5
 $ scons --ignore-style -h
-
-$ scons --ignore-style -h | grep KVM
-USE_KVM: Enable hardware virtualized (KVM) CPU models (yes|no)
-
-$ echo "USE_KVM = 'yes'" >> build_opts/X86
-$ cat build_opts/X86
-
-$ scons --ignore-style build/X86/gem5.opt -j`nproc`
 ```
 
 #### Default python version is not python2.7:
@@ -110,6 +102,45 @@ $ python2.7 `which scons` build/ARM/gem5.opt -j$(cat /proc/cpuinfo | grep proces
 $ sudo su
 $ echo 1 > /proc/sys/vm/overcommit_memory
 ```
+
+### Using [KVM]:
+
+```bash
+$ scons --ignore-style -h | grep KVM
+USE_KVM: Enable hardware virtualized (KVM) CPU models (yes|no)
+
+$ echo "USE_KVM = 'yes'" >> build_opts/X86
+$ cat build_opts/X86
+
+$ scons --ignore-style build/X86/gem5.opt -j`nproc`
+```
+
+Some features may require you to have access to special files or devices, e.g.
+*/dev/kvm*.
+
+```bash
+$ groups
+$ grep kvm /etc/group
+$ sudo adduser $USER kvm
+```
+
+Restart for the permissions to take effect.
+
+Now you may need this:
+
+```bash
+$ sudo su
+# echo 1 > /proc/sys/kernel/perf_event_paranoid
+# exit
+$ cat /proc/sys/kernel/perf_event_paranoid
+```
+
+Still it may fail. See also:
+
+[https://gem5-users.gem5.narkive.com/8DBihuUx/running-fs-py-with-x86kvmcpu-failed](https://gem5-users.gem5.narkive.com/8DBihuUx/running-fs-py-with-x86kvmcpu-failed)
+
+[https://github.com/darchr/gem5/tree/master](https://github.com/darchr/gem5/tree/master)
+
 
 ### M5 Term
 
@@ -296,3 +327,4 @@ SCOTT: System's coming back.
 [syscall_emul.cc]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/sim/syscall_emul.cc
 [syscall_emul.hh]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/sim/syscall_emul.hh
 [src/arch/x86/linux/process.cc]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/arch/x86/linux/process.cc
+[KVM]: https://www.linux-kvm.org/page/Main_Page

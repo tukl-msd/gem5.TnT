@@ -64,13 +64,19 @@ popd
 
 syspath="$FSDIRX86/${sys}"
 diskpath="${syspath}/disks"
-#disk="${diskpath}/linux-x86.img"
-disk="/home/eder/gem5_tnt/gem5/disk.img"
+
+disk="${diskpath}/linux-x86.img"
 kernel="${syspath}/binaries/x86_64-vmlinux-2.6.22.9"
+
 cfgscript="configs/example/fs.py"
 disk_opt="--disk-image=${disk}"
 kernel_opt="--kernel=${kernel}"
+
 #script_opt="--script=$DIR/boot-linux.rcS"
+
+cpu_opt="--cpu-type=AtomicSimpleCPU"
+#cpu_opt="--cpu-type=NonCachingSimpleCPU"
+#cpu_opt="--cpu-type=X86KvmCPU"
 
 pushd $ROOTDIR/gem5
 git checkout configs/common/FSConfig.py
@@ -79,6 +85,6 @@ output_dir="x86_linux_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="${syspath}":${M5_PATH}
-$gem5_elf -d $output_dir $cfgscript $tlm_options $kernel_opt $disk_opt $script_opt 2>&1 | tee $logfile
+$gem5_elf -d $output_dir $cfgscript $cpu_opt $tlm_options $kernel_opt $disk_opt $script_opt 2>&1 | tee $logfile
 popd
 

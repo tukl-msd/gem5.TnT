@@ -65,11 +65,8 @@ wgethis=(
 "$FSDIRARMLEGACY:http://www.gem5.org/dist/current/arm/arm-system-2011-08.tar.bz2"
 # Old Full System Files -- Older pre-compiled Linux kernel, and file system.
 "$FSDIRARMLEGACY:http://www.m5sim.org/dist/current/arm/arm-system.tar.bz2"
-# Config files for both of the above kernels, 2.6.25.1 and 2.6.28.4
+# Config files for kernels 2.6.25.1 and 2.6.28.4
 "$FSDIRX86:http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2"
-# ALPHA full system files
-# Pre-compiled Linux kernels, PALcode/Console code, and a filesystem
-"$FSDIRALPHA:http://www.m5sim.org/dist/current/m5_system_2.0b3.tar.bz2"
 # Everything you need to create your own disk image and compile everything in
 # it from scratch
 "$FSDIRALPHA:http://www.m5sim.org/dist/current/linux-dist.tgz"

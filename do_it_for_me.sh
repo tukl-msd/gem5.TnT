@@ -34,22 +34,24 @@
 
 # This script runs the steps suggested on the website.
 
-# 1. Install known dependencies (this one requires sudo and it's for debian
-# like distros):
+# Install known dependencies (this one requires sudo and it's for debian like
+# distros):
 sudo bash dep_install.sh
 
-# 2. Get repositories:
+# Get repositories
 bash get_essential_repos.sh
 
-# 3. Get some full system simulation files:
+# Get some full system simulation files:
 bash get_essential_fs.sh
 
-# 4. Get some benchmark suites
+# Get some benchmark suites
 bash get_benchmarks.sh
 
-# 5. Download documentation
-# bash get_doc.sh
+# Download documentation
+bash get_doc.sh
 
-# 6. Build gem5 (gem5.opt, gem5.fast for ARM and X86 + the same but as
-# libraries)
+# Get extra repositories
+bash get_extra_repos.sh
+
+# Build gem5
 bash build_gem5.sh

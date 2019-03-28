@@ -53,6 +53,8 @@ greetings
 wget_into_dir wgethis[@]
 hg_clone_into_dir hgrepos[@]
 
+printf "Uncompressing files..."
+pulse on
 sys="$FSDIRALPHA/m5_system_2.0b3"
 tb="$sys.tar.bz2"
 if [[ ! -d $sys ]]; then
@@ -72,3 +74,4 @@ if [[ ! -d $sys ]]; then
 	mkdir -p $sys
 	tar -xaf $tb -C $sys
 fi
+pulse off

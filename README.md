@@ -144,6 +144,7 @@ See also:
 
 [https://github.com/darchr/gem5/tree/master](https://github.com/darchr/gem5/tree/master)
 
+[arch/x86/boot-linux-kvm.sh](arch/x86/boot-linux-kvm.sh)
 
 ### M5 Term
 

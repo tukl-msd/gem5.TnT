@@ -44,12 +44,15 @@ gem5_elf="build/$arch/gem5.$mode"
 
 cd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
-	build_gem5 $arch $mode
+	$TOPDIR/build_gem5.sh
 fi
 
-sysver=20180409
-imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
-
+sysver="20180409"
+sf="$FSDIRARM/aarch-system-${sysver}"
+imgdir="$sf/disks"
+if [[ ! -d $sf ]]; then
+	$TOPDIR/get_essential_fs.sh
+fi
 
 target="boot_ubuntu"
 ncores="2"

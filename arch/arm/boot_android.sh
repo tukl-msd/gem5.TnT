@@ -44,20 +44,28 @@ gem5_elf="build/$arch/gem5.$mode"
 
 cd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
-	pfile="$TOPDIR/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch"
-	patch -fs -p1 < $pfile &>/dev/null
-	build_gem5 $arch $mode
+	$TOPDIR/build_gem5.sh
 fi
 
-imgdir="$FSDIRARM/asimbench/disks"
+rm -rf build/ARM
+pfile="$TOPDIR/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch"
+patch -fs -p1 < $pfile &>/dev/null
+build_gem5 $arch $mode
+
+sf="$FSDIRARM/asimbench"
+if [[ ! -d $sf ]]; then
+	$TOPDIR/get_essential_fs.sh
+fi
+
+imgdir="$sf/disks"
 mkdir -p $imgdir
 
 if [[ ! -e $imgdir/sdcard-1g-mxplayer.img ]]; then
-	tar -xaf $FSDIRARM/asimbench/asimbench_disk_image/sdcard-1g.tar.gz -C $imgdir
+	tar -xaf $sf/asimbench_disk_image/sdcard-1g.tar.gz -C $imgdir
 fi
 
 if [[ ! -e $imgdir/ARMv7a-ICS-Android.SMP.Asimbench-v3.img ]]; then
-	tar -xaf $FSDIRARM/asimbench/asimbench_disk_image/ARMv7a-ICS-Android.SMP.Asimbench.tar.gz -C $imgdir
+	tar -xaf $sf/asimbench_disk_image/ARMv7a-ICS-Android.SMP.Asimbench.tar.gz -C $imgdir
 fi
 
 target="boot_android"

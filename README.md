@@ -106,12 +106,14 @@ $ echo 1 > /proc/sys/vm/overcommit_memory
 ### Using [KVM]:
 
 ```bash
+$ cd $HOME/gem5_tnt/gem5
 $ scons --ignore-style -h | grep KVM
 USE_KVM: Enable hardware virtualized (KVM) CPU models (yes|no)
 
 $ echo "USE_KVM = 'yes'" >> build_opts/X86
 $ cat build_opts/X86
 
+$ rm -rf build/X86
 $ scons --ignore-style build/X86/gem5.opt -j`nproc`
 ```
 

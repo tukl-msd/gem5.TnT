@@ -43,8 +43,10 @@ tarball="$FSDIRARM/${system}.tar.xz"
 dir=`expr ${tarball} : '\(.*\).tar.*'`
 if [[ ! -d ${dir} ]]; then
 	mkdir -p ${dir}
-	echo -ne "Uncompressing ${tarball} into ${dir}. Please wait.\n"
+	echo -ne "Uncompressing ${tarball} into ${dir}. Please wait..."
+	pulse on
 	tar -xaf ${tarball} -C ${dir}
+	pulse off
 fi
 
 imgdir="$FSDIRARM/${system}/disks"

@@ -11,7 +11,7 @@ all done if you followed [**the steps described here**](../../README.md).
 
 #### **Run the script.**
 
-A suggestion on how to run the scripts follows.
+A suggestion on how to run the script follows.
 
 ```bash
 $ ./boot-linux.sh
@@ -38,7 +38,7 @@ $ telnet localhost 3456
 
 #### **Run the script.**
 
-A suggestion on how to run the scripts follows.
+A suggestion on how to run the script follows.
 
 ```bash
 $ ./boot-linux-kvm.sh

@@ -301,7 +301,6 @@ throwing some light on this.
 
 [How to solve “FATAL: kernel too old” when running gem5 in syscall emulation SE mode?](https://stackoverflow.com/questions/48959349/how-to-solve-fatal-kernel-too-old-when-running-gem5-in-syscall-emulation-se-m/50542301#50542301)
 
-This is a good one:
 [gem5 vs QEMU](https://github.com/cirosantilli/linux-kernel-module-cheat/tree/00d282d912173b72c63c0a2cc893a97d45498da5#gem5-vs-qemu)
 
 [https://gem5-users.gem5.narkive.com/](https://gem5-users.gem5.narkive.com/)

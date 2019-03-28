@@ -44,12 +44,16 @@ gem5_elf="build/$arch/gem5.$mode"
 
 cd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
-	build_gem5 $arch $mode
+	$TOPDIR/build_gem5.sh
 fi
 
-sysver=20180409
+sysver="20180409"
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 img="$imgdir/linaro-minimal-aarch64.img"
+
+if [[ ! -e $img ]]; then
+	$TOPDIR/get_essential_fs.sh
+fi
 
 target="boot_linaro"
 config_script="configs/example/arm/starter_fs.py"

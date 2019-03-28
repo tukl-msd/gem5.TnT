@@ -52,3 +52,23 @@ hgrepos=(
 greetings
 wget_into_dir wgethis[@]
 hg_clone_into_dir hgrepos[@]
+
+sys="$FSDIRALPHA/m5_system_2.0b3"
+tb="$sys.tar.bz2"
+if [[ ! -d $sys ]]; then
+	tar -xaf $tb -C $FSDIRALPHA
+fi
+
+sys="$FSDIRARM/aarch-system-20180409"
+tb="$sys.tar.xz"
+if [[ ! -d $sys ]]; then
+	mkdir -p $sys
+	tar -xaf $tb -C $sys
+fi
+
+sys="$FSDIRX86/x86-system"
+tb="$sys.tar.bz2"
+if [[ ! -d $sys ]]; then
+	mkdir -p $sys
+	tar -xaf $tb -C $sys
+fi

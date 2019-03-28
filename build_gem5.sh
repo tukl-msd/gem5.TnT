@@ -58,8 +58,10 @@ opt
 fast
 "
 
-cd $ROOTDIR/gem5
-
+pushd $ROOTDIR/gem5
+# stash local changes
+printf "${Yellow}Stashing local changes...${NC}\n"
+git stash > /dev/null 2>&1
 # Check whether the 'gitbuildrev' variable is set or not
 if [ -z ${gitbuildrev+x} ]; then
 	# Variable 'gitbuildrev' is unset, use top of the master branch
@@ -93,4 +95,5 @@ for arch in $archs; do
                 build_libgem5 $arch $mode
 	done
 done
+popd
 echo -e "Done."

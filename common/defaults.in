@@ -34,6 +34,8 @@
 
 readonly ROOTDIR=$HOME/gem5_tnt
 
+readonly GEM5FORKS=$ROOTDIR/forks_gem5
+
 readonly MISCREPOS=$ROOTDIR/misc_repos
 
 readonly BENCHMARKSDIR=$ROOTDIR/benchmarks

@@ -76,7 +76,6 @@ kernel_opt="--kernel=${kernel}"
 
 cpu_opt="--cpu-type=AtomicSimpleCPU"
 #cpu_opt="--cpu-type=NonCachingSimpleCPU"
-#cpu_opt="--cpu-type=X86KvmCPU"
 
 pushd $ROOTDIR/gem5
 git checkout configs/common/FSConfig.py

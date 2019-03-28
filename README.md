@@ -14,7 +14,7 @@ accelerated.
 * [**get_benchmarks.sh**](get_benchmarks.sh): downloads some benchmarks.
 * [**build_gem5.sh**](build_gem5.sh): can be used for building gem5.
 * [**Boot Linux**](arch/alpha/README.md) here you'll find scripts and information for the ALPHA ISA.
-* [**Boot Linux**](arch/x86/README.md) here you'll find scripts and information for the x86 ISA.
+* [**Boot Linux, Boot Linux using KVM**](arch/x86/README.md) here you'll find scripts and information for the x86 ISA.
 * [**Boot Linux, Create Disk images, Run Benchmarks**](arch/arm/README.md) here you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
 * [**Basics**](doc/Gem5Basics.md) here you'll find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
 * [**Hints to Execute Android**](patches/gem5/asimbench/README.md) here you'll find how you can run android on your gem5.

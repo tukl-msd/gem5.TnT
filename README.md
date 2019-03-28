@@ -127,7 +127,7 @@ Restart your computer for the permissions to take effect.
 
 This may be necessary:
 
-```bash
+```
 $ sudo su
 # echo 1 > /proc/sys/kernel/perf_event_paranoid
 # exit

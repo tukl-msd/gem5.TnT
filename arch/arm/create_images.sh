@@ -37,14 +37,14 @@ TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
-sysver=20180409
+sysver="20180409"
 system="aarch-system-${sysver}"
 tarball="$FSDIRARM/${system}.tar.xz"
 dir=`expr ${tarball} : '\(.*\).tar.*'`
 if [[ ! -d ${dir} ]]; then
 	mkdir -p ${dir}
 	echo -ne "Uncompressing ${tarball} into ${dir}. Please wait.\n"
-	tar -xaf ${tarbll} -C ${dir}
+	tar -xaf ${tarball} -C ${dir}
 fi
 
 imgdir="$FSDIRARM/${system}/disks"

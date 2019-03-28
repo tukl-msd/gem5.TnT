@@ -115,8 +115,7 @@ $ cat build_opts/X86
 $ scons --ignore-style build/X86/gem5.opt -j`nproc`
 ```
 
-Some features may require you to have access to special files or devices, e.g.
-*/dev/kvm*.
+Access to */dev/kvm* is required.
 
 ```bash
 $ groups
@@ -124,9 +123,9 @@ $ grep kvm /etc/group
 $ sudo adduser $USER kvm
 ```
 
-Restart for the permissions to take effect.
+Restart your computer for the permissions to take effect.
 
-Now you may need this:
+This may be necessary:
 
 ```bash
 $ sudo su
@@ -135,7 +134,9 @@ $ sudo su
 $ cat /proc/sys/kernel/perf_event_paranoid
 ```
 
-Still it may fail. See also:
+Still it may fail.
+
+See also:
 
 [https://gem5-users.gem5.narkive.com/8DBihuUx/running-fs-py-with-x86kvmcpu-failed](https://gem5-users.gem5.narkive.com/8DBihuUx/running-fs-py-with-x86kvmcpu-failed)
 

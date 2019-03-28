@@ -32,9 +32,9 @@ $ telnet localhost 3456
 
 * [boot-linux-kvm.sh]: boots Linux (minimal, old, provided as
   example in [gem5.org](http://www.gem5.org/Download)) using [KVM]. This example
-  uses a fork of gem5 repository. The patch necessary to run this example was
-  created by the *UC Davis Computer Architecture Research Group* in
-  [https://github.com/darchr/gem5](https://github.com/darchr/gem5).
+  uses a fork of the main gem5 repository. The patch necessary to run this
+  example was created by the *UC Davis Computer Architecture Research Group*
+  in [https://github.com/darchr/gem5](https://github.com/darchr/gem5).
 
 #### **Run the script.**
 

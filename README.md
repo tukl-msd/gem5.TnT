@@ -301,6 +301,7 @@ throwing some light on this.
 This is a good one:
 [gem5 vs QEMU](https://github.com/cirosantilli/linux-kernel-module-cheat/tree/00d282d912173b72c63c0a2cc893a97d45498da5#gem5-vs-qemu)
 
+[https://gem5-users.gem5.narkive.com/](https://gem5-users.gem5.narkive.com/)
 
 ### More Resources, Useless Links
 

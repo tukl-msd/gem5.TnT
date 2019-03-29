@@ -65,10 +65,8 @@ popd
 
 sys='x86-system'
 tarball="${sys}.tar.bz2"
-if [[ ! -e $tarball ]]; then
-	wgethis=("$FSDIRX86:http://www.m5sim.org/dist/current/x86/$tarball")
-	wget_into_dir wgethis[@]
-fi
+wgethis=("$FSDIRX86:http://www.m5sim.org/dist/current/x86/$tarball")
+wget_into_dir wgethis[@]
 
 pushd ${FSDIRX86}
 if [[ ! -d ${sys} ]]; then

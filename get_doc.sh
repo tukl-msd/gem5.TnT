@@ -32,8 +32,10 @@
 #
 # Author: Éder F. Zulian
 
-source ./common/defaults.in
-source ./common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 wgethis=(
 "$TUTORIALSDIR:http://gem5.org/wiki/images/0/0e/ASPLOS2017_gem5_tutorial.pdf"

@@ -32,8 +32,10 @@
 #
 # Author: Éder F. Zulian
 
-source ./common/defaults.in
-source ./common/util.in
+DIR="$(cd "$(dirname "$0")" && pwd)"
+TOPDIR=$DIR
+source $TOPDIR/common/defaults.in
+source $TOPDIR/common/util.in
 
 wgethis=(
 "$BENCHMARKSDIR:http://parsec.cs.princeton.edu/download/3.0/parsec-3.0.tar.gz"

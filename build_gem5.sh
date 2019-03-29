@@ -59,9 +59,6 @@ fast
 "
 
 pushd $ROOTDIR/gem5
-# stash local changes
-printf "${Yellow}Stashing local changes...${NC}\n"
-git stash > /dev/null 2>&1
 # Check whether the 'gitbuildrev' variable is set or not
 if [ -z ${gitbuildrev+x} ]; then
 	# Variable 'gitbuildrev' is unset, use top of the master branch
@@ -80,7 +77,11 @@ else
 	buildrev=$(git rev-parse $gitbuildrev)
 	buildrevshort=$(git rev-parse --short $gitbuildrev)
 	if [[ "$chead" != "$buildrev" && "$cheadshort" != "$buildrevshort" ]]; then
-		# Delete the build folder if the desired and the current commit differ
+		# If the desired and the current commit differ
+		# Stash local changes
+		printf "${Yellow}Stashing local changes...${NC}\n"
+		git stash > /dev/null 2>&1
+		# Delete the build folder
 		rm -rf build
 		# Swtich to the target commit
 		git checkout --quiet $gitbuildrev > /dev/null 2>&1

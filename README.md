@@ -305,6 +305,8 @@ throwing some light on this.
 
 [https://gem5-users.gem5.narkive.com/](https://gem5-users.gem5.narkive.com/)
 
+[setting-up-gem5-full-system](http://www.lowepower.com/jason/setting-up-gem5-full-system.html)
+
 ### More Resources, Useless Links
 
 ```

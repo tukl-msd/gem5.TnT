@@ -18,6 +18,7 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**run_arm_fs_stream.sh**](run_arm_fs_stream.sh): Full-system mode executing stream app.
 * [**run_arm_fs_stride.sh**](run_arm_fs_stride.sh): Full-system mode executing stride v1.1 apps.
 * [**run_arm_fs_test_suite.sh**](run_arm_fs_test_suite.sh): Full-system mode executing some apps from LLVM test-suite.
+* [**run_arm_se_stream.sh**](run_arm_se_stream.sh): SE mode modified version of stream
 * [**run_arm_se_8_cores_with_different_workloads.sh**](run_arm_se_8_cores_with_different_workloads.sh): System call emulation mode, 8 cores with different workloads.
 * [**run_arm_se_benchmarks.sh**](run_arm_se_benchmarks.sh): System call emulation mode executing some apps.
 * [**run_arm_se_hbm_eltrace.sh**](run_arm_se_hbm_eltrace.sh): System call emulation mode HBM as main memory using elastic traces as stimuli.
@@ -52,13 +53,21 @@ $ ./run_arm_se_benchmarks.sh
 SE mode hello using [se.py].
 
 ```bash
-~/gem5_tnt/gem5$ build/ARM/gem5.opt configs/example/se.py -c ./tests/test-progs/hello/bin/arm/linux/hello
+$ cd $HOME/gem5_tnt/gem5
+$ ./build/ARM/gem5.opt configs/example/se.py -c ./tests/test-progs/hello/bin/arm/linux/hello
+```
+
+SE mode stream with [se.py].
+```bash
+$ cd $HOME/gem5_tnt/gem5
+$ ./build/ARM/gem5.opt configs/example/se.py --cpu-type="TimingSimpleCPU" -c $HOME/gem5_tnt/benchmarks/stream/stream_c.exe 
 ```
 
 SE mode hello in 8 cores using [starter_se.py].
 
 ```bash
-~/gem5_tnt/gem5$ build/ARM/gem5.opt \
+$ cd $HOME/gem5_tnt/gem5
+$ ./build/ARM/gem5.opt \
 	configs/example/arm/starter_se.py \
 	--cpu=hpi --num-cores=8 --mem-channels=1 \
 	./tests/test-progs/hello/bin/arm/linux/hello \

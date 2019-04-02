@@ -63,7 +63,8 @@ ncores="4"
 cpu_type="atomic"
 #cpu_type="minor"
 cpu_options="--cpu=${cpu_type} --num-cores=$ncores"
-mem_options="--mem-size=1GB"
+mem_size="1GB"
+mem_options="--mem-size=${mem_size}"
 #tlm_options="--tlm-memory=transactor"
 disk_options="--disk-image=$img"
 kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
@@ -76,7 +77,7 @@ printf '/sbin/m5 -h\n' >> $bootscript
 printf '/bin/bash\n' >> $bootscript
 bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 
-output_dir="${target}_${ncores}c_$currtime"
+output_dir="${target}_${cpu_type}_${ncores}c_${mem_size}_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}

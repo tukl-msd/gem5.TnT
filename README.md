@@ -116,12 +116,14 @@ Some scripts provide help.
 ```bash
 $ build/X86/gem5.opt configs/example/fs.py --help
 $ build/ARM/gem5.opt configs/example/arm/starter_fs.py --help
+$ build/ARM/gem5.opt configs/example/se.py --help
 ```
 
 Some scripts provide help for specific configurations.
 
 ```bash
 $ build/X86/gem5.opt configs/example/fs.py --list-cpu-types
+$ build/ARM/gem5.opt configs/example/se.py --list-mem-types
 ```
 
 ### Using [KVM]:

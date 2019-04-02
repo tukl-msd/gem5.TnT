@@ -96,11 +96,32 @@ Example:
 $ python2.7 `which scons` build/ARM/gem5.opt -j$(cat /proc/cpuinfo | grep processor | wc -l)
 ```
 
-#### Memory allocation error on Linux.
+#### Memory allocation error on Linux
 
 ```bash
 $ sudo su
 $ echo 1 > /proc/sys/vm/overcommit_memory
+```
+
+#### Configurations scripts provided as examples
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+$ ls configs/example
+$ ls configs/example/arm
+```
+
+Some scripts provide help.
+
+```bash
+$ build/X86/gem5.opt configs/example/fs.py --help
+$ build/ARM/gem5.opt configs/example/arm/starter_fs.py --help
+```
+
+Some scripts provide help for specific configurations.
+
+```bash
+$ build/X86/gem5.opt configs/example/fs.py --list-cpu-types
 ```
 
 ### Using [KVM]:

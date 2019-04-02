@@ -48,7 +48,8 @@ if [[ ! -e $gem5_elf ]]; then
 fi
 
 sysver="20180409"
-imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
+sysdir="$FSDIRARM/aarch-system-${sysver}"
+imgdir="${sysdir}/disks"
 img="$imgdir/linaro-minimal-aarch64.img"
 
 if [[ ! -e $img ]]; then
@@ -57,29 +58,33 @@ fi
 
 target="boot_linaro"
 config_script="configs/example/arm/starter_fs.py"
-ncores="2"
-cpu_options="--cpu=hpi --num-cores=$ncores"
+ncores="4"
+#cpu_type="hpi"
+cpu_type="atomic"
+#cpu_type="minor"
+cpu_options="--cpu=${cpu_type} --num-cores=$ncores"
 mem_options="--mem-size=1GB"
 #tlm_options="--tlm-memory=transactor"
 disk_options="--disk-image=$img"
-kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
-dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
+kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
+dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 
-call_m5_exit="no"
-sleep_before_exit="0"
-if [ "$call_m5_exit" == "yes" ]; then
-	bootscript="${target}_${ncores}c.rcS"
-	printf '#!/bin/bash\n' > $bootscript
-	printf "echo \"Executing $bootscript now\"\n" >> $bootscript
-	printf 'echo "Linux is already running."\n' >> $bootscript
-	printf "echo \"Calling m5 in $sleep_before_exit seconds from now...\"\n" >> $bootscript
-	printf "sleep ${sleep_before_exit}\n" >> $bootscript
-	printf 'm5 exit\n' >> $bootscript
-	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
-fi
+bootscript="${target}_${ncores}c.rcS"
+printf '#!/bin/bash\n' > $bootscript
+printf "echo \"Executing $bootscript now\"\n" >> $bootscript
+printf '/sbin/m5 -h\n' >> $bootscript
+printf '/bin/bash\n' >> $bootscript
+bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 
 output_dir="${target}_${ncores}c_$currtime"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options 2>&1 | tee $logfile
+$gem5_elf -d $output_dir \
+	$config_script \
+	$cpu_options \
+	$mem_options \
+	$tlm_options \
+	$kernel $dtb \
+	$disk_options \
+	$bootscript_options 2>&1 | tee $logfile

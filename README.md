@@ -241,6 +241,46 @@ TWO_BYTE_OP(m5_dump_stats, M5OP_DUMP_STATS)
 TWO_BYTE_OP(m5_checkpoint, M5OP_CHECKPOINT)
 ```
 
+### Using the M5 Binary
+
+The M5 binary has to be compiled for the guest machine (the one being
+simulated) and copied to the disk image. Usually it is found in */sbin/m5*.
+
+After booting the guest system, in a terminal:
+
+```
+#/sbin/m5 -h
+usage: /sbin/m5 exit [delay]
+       /sbin/m5 fail <code> [delay]
+       /sbin/m5 resetstats [delay [period]]
+       /sbin/m5 dumpstats [delay [period]]
+       /sbin/m5 dumpresetstats [delay [period]]
+       /sbin/m5 readfile 
+       /sbin/m5 writefile <filename> [host filename]
+       /sbin/m5 execfile 
+       /sbin/m5 checkpoint [delay [period]]
+       /sbin/m5 addsymbol <address> <symbol>
+       /sbin/m5 loadsymbol 
+       /sbin/m5 initparam [key] // key must be shorter than 16 chars
+       /sbin/m5 sw99param 
+       /sbin/m5 pin <cpu> <program> [args ...]
+
+All times in nanoseconds!
+```
+
+Calling */sbin/m5 dumpstats* appends new simulation statistics to the output
+file **stats.txt** that can be found in the output folder of the simuation
+(default output folder is m5out).
+
+```
+---------- Begin Simulation Statistics ----------
+...
+---------- End Simulation Statistics   ----------
+```
+
+Applications can also be linked to a library providing the m5 features.
+
+
 ### Syscall Emulation SE
 
 Emulation functions that are generic enough that they don't need to be

@@ -5,6 +5,10 @@ This repository contains tips and tricks about gem5. It is intended to gather
 and share useful hints about gem5, so that the learning process is
 accelerated.
 
+If you decide to use gem5.TnT or parts of it in your research, please add a
+reference this website
+[https://github.com/tukl-msd/gem5.TnT](https://github.com/tukl-msd/gem5.TnT).
+
 * [**dep_install.sh**](dep_install.sh): installs known dependencies for building gem5 and running the example scripts contained in this repository.
 * [**get_essential_repos.sh**](get_essential_repos.sh): clones gem5 essential repositories for running the examples.
 * [**get_extra_repos.sh**](get_extra_repos.sh): clones other gem5 related repositories.
@@ -389,6 +393,50 @@ SCOTT: System's coming back.
 ```
 [Source](http://chakoteya.net/StarTrek/53.htm)
 
+### Licensing:
+
+gem5.TnT and its parts are released under the BSD 3-Clause License. This gives
+the users and developers the flexibility to employ, develop and re-distribute
+the source code with minimal obligations. We only ask users to add a reference
+to [https://github.com/tukl-msd/gem5.TnT](https://github.com/tukl-msd/gem5.TnT).
+
+You may use the software subject to the license terms below provided that you
+ensure that this notice is replicated unmodified and in its entirety in all
+distributions of the software, modified or unmodified, in source code or in
+binary form.
+
+Copyright (c) TU Kaiserslautern
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    Neither the name of the copyright holders nor the names of its
+    contributors may be used to endorse or promote products derived from this
+    software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+### Download:
+
+By cloning the gem5.TnT repository or downloading its contents or copying
+gem5.TnT or copying portions of gem5.TnT, you acknowledge that you have read,
+understood and accepted to use gem5.TnT under the terms of license detailed
+above.
 
 [m5.c]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/m5/m5.c
 [m5_mmap.c]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/m5/m5_mmap.c

@@ -7,7 +7,8 @@ Before running the scripts below make sure everything else is setup! You're all 
 
 * [**boot_android.sh**](boot_android.sh): boots android.
 * [**boot_linaro.sh**](boot_linaro.sh): boots linaro.
-* [**boot_ubuntu.sh**](boot_ubuntu.sh): boots ubuntu.
+* [**boot_linaro_big_little.sh**](boot_linaro_big_little.sh): boots linaro.
+* [**boot_ubuntu.sh**](boot_ubuntu.sh): boots ubuntu with fs_bigLITTLE.py. Note that SimpleMemory is used, so you may want to change the example script fs_bigLITTLE.py.
 * [**build_llvm_test_suite_apps.sh**](build_llvm_test_suite_apps.sh): builds some apps from LLVM test-suite.
 * [**build_parsec_apps.sh**](build_parsec_apps.sh): builds some apps from parsec-3.0 benchmark suite.
 * [**build_stream_app.sh**](build_stream_app.sh): builds stream app.

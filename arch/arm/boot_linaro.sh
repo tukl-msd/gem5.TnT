@@ -42,10 +42,11 @@ arch="ARM"
 mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
-cd $ROOTDIR/gem5
+pushd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
 	$TOPDIR/build_gem5.sh
 fi
+popd
 
 sysver="20180409"
 sysdir="$FSDIRARM/aarch-system-${sysver}"
@@ -58,7 +59,7 @@ fi
 
 target="boot_linaro"
 config_script="configs/example/arm/starter_fs.py"
-ncores="8"
+ncores="2"
 #cpu_type="hpi"
 #cpu_type="atomic"
 cpu_type="minor"
@@ -70,14 +71,17 @@ disk_options="--disk-image=$img"
 kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 
-bootscript="${target}_${ncores}c.rcS"
+sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
+
+pushd $ROOTDIR/gem5
+bootscript="${sim_name}.rcS"
 printf '#!/bin/bash\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf '/sbin/m5 -h\n' >> $bootscript
 printf '/bin/bash\n' >> $bootscript
 bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
 
-output_dir="${target}_${cpu_type}_${ncores}c_${mem_size}_$currtime"
+output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
@@ -89,3 +93,5 @@ $gem5_elf -d $output_dir \
 	$kernel $dtb \
 	$disk_options \
 	$bootscript_options 2>&1 | tee $logfile
+
+popd

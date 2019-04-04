@@ -39,12 +39,12 @@ source $TOPDIR/common/util.in
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 arch="ARM"
-mode="opt"
+mode="fast"
 gem5_elf="build/$arch/gem5.$mode"
 
 pushd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
-	$TOPDIR/build_gem5.sh
+	build_gem5 $arch $mode
 fi
 popd
 
@@ -63,13 +63,15 @@ ncores="2"
 #cpu_type="hpi"
 #cpu_type="atomic"
 cpu_type="minor"
-cpu_options="--cpu=${cpu_type} --num-cores=$ncores"
+cpu_opts="--cpu=${cpu_type} --num-cores=$ncores"
 mem_size="8GB"
-mem_options="--mem-size=${mem_size}"
-#tlm_options="--tlm-memory=transactor"
-disk_options="--disk-image=$img"
+mem_opts="--mem-size=${mem_size}"
+#tlm_opts="--tlm-memory=transactor"
+disk_opts="--disk-image=$img"
 kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
+# remote gdb port (0: disable listening)
+gem5_opts="--remote-gdb-port=0"
 
 sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 
@@ -79,19 +81,20 @@ printf '#!/bin/bash\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf '/sbin/m5 -h\n' >> $bootscript
 printf '/bin/bash\n' >> $bootscript
-bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
+bootscript_opts="--script=$ROOTDIR/gem5/$bootscript"
 
 output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-$gem5_elf -d $output_dir \
+$gem5_elf $gem5_opts \
+	-d $output_dir \
 	$config_script \
-	$cpu_options \
-	$mem_options \
-	$tlm_options \
+	$cpu_opts \
+	$mem_opts \
+	$tlm_opts \
 	$kernel $dtb \
-	$disk_options \
-	$bootscript_options 2>&1 | tee $logfile
+	$disk_opts \
+	$bootscript_opts 2>&1 | tee $logfile
 
 popd

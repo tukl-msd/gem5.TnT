@@ -39,77 +39,70 @@ source $TOPDIR/common/util.in
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 arch="ARM"
-mode="opt"
+mode="fast"
 gem5_elf="build/$arch/gem5.$mode"
 
-cd $ROOTDIR/gem5
+pushd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
 	$TOPDIR/build_gem5.sh
 fi
+git checkout configs/example/arm/starter_fs.py
+git apply $DIR/boot-ubuntu.patch
+popd
 
 sysver="20180409"
-sf="$FSDIRARM/aarch-system-${sysver}"
-imgdir="$sf/disks"
-if [[ ! -d $sf ]]; then
+sysdir="$FSDIRARM/aarch-system-${sysver}"
+imgdir="$sysdir/disks"
+if [[ ! -d $sysdir ]]; then
 	$TOPDIR/get_essential_fs.sh
 fi
 
 target="boot_ubuntu"
 ncores="2"
-cpu_clk_freq="4GHz"
-mem_size="2GB"
+cpu_freq="4GHz"
+mem_size="8GB"
 
-#script="fs.py"
 script="starter_fs.py"
 
-#tlm_options="--tlm-memory=transactor"
+img="$imgdir/aarch64-ubuntu-trusty-headless.img"
+config_script="configs/example/arm/starter_fs.py"
+#cpu_type="hpi"
+cpu_type="atomic"
+#cpu_type="minor"
+cpu_opts="--cpu=${cpu_type} --num-cores=${ncores} --cpu-freq=${cpu_freq}"
+mem_opts="--mem-size=${mem_size}"
+disk_opts="--disk-image=$img"
+kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
+dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
+cmdline="console=ttyAMA0 lpj=19988480 norandmaps root=/dev/vda1 rw mem=8GB selinux=0"
+# remote gdb port (0: disable listening)
+gem5_opts="--remote-gdb-port=0"
+#tlm_opts="--tlm-memory=transactor"
 
-if [ "${script}" == "starter_fs.py" ]; then
-	img="$imgdir/aarch64-ubuntu-trusty-headless.img"
-	config_script="configs/example/arm/${script}"
-	cpu_options="--cpu=hpi --num-cores=${ncores} --cpu-freq=${cpu_clk_freq}"
-	mem_options="--mem-size=${mem_size}"
-	disk_options="--disk-image=$img"
-	kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
-	dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
-elif [ "${script}" == "fs.py" ]; then
-	img="$imgdir/aarch32-ubuntu-natty-headless.img"
-	config_script="configs/example/${script}"
-	cpu_options="--cpu-type=TimingSimpleCPU --num-cpu=${ncores} --cpu-clock=${cpu_clk_freq}"
-	other_options="--machine-type=VExpress_GEM5_V1 --root-device=/dev/vda1"
-	mem_options="--mem-size=${mem_size} --mem-type=DDR3_1600_8x8 --mem-channels=1 --caches --l2cache"
-	disk_options="--disk=$img"
-	dtb="--dtb-filename=$FSDIRARM/aarch-system-${sysver}/binaries/armv7_gem5_v1_${ncores}cpu.dtb"
-	kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1"
-else
-	printf "\nPlease define options for ${script}\n"
-	exit
-fi
+sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 
+pushd $ROOTDIR/gem5
+bootscript="${sim_name}.rcS"
+printf '#!/bin/bash\n' > $bootscript
+printf "echo \"Greetings from gem5.TnT!\"\n" >> $bootscript
+printf "echo \"Executing $bootscript now\"\n" >> $bootscript
+printf '/sbin/m5 -h\n' >> $bootscript
+printf '/bin/bash\n' >> $bootscript
+bootscript_opts="--script=$ROOTDIR/gem5/$bootscript"
 
-call_m5_exit="no"
-sleep_before_exit="0"
-
-restore_from_checkpoint="no"
-checkpoint_dir_timestamp=""
-checkpoint_tick_number=""
-checkpoint_dir="${target}_${ncores}c_${checkpoint_dir_timestamp}"
-
-if [ "$call_m5_exit" == "yes" ]; then
-	bootscript="${target}_${ncores}c.rcS"
-	printf '#!/bin/bash\n' > $bootscript
-	printf "echo \"Executing $bootscript now\"\n" >> $bootscript
-	printf 'echo "Linux is already running."\n' >> $bootscript
-	printf "echo \"Calling m5 exit in $sleep_before_exit seconds from now...\"\n" >> $bootscript
-	printf "sleep ${sleep_before_exit}\n" >> $bootscript
-	printf 'm5 exit\n' >> $bootscript
-	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
-elif [ "$restore_from_checkpoint" == "yes" ]; then
-	restore_checkpoint_options="--restore=${checkpoint_dir}/cpt.${checkpoint_tick_number}/"
-fi
-
-output_dir="${target}_${ncores}c_$currtime"
+output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-$gem5_elf -d $output_dir $config_script $restore_checkpoint_options $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options $other_options 2>&1 | tee $logfile
+$gem5_elf $gem5_opts \
+	-d $output_dir \
+	$config_script \
+	$cpu_opts \
+	$mem_opts \
+	$tlm_opts \
+	$kernel \
+	$dtb \
+	$disk_opts \
+	$bootscript_opts \
+	$other_opts 2>&1 | tee $logfile
+popd

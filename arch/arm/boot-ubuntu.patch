@@ -1,0 +1,12 @@
+diff --git a/configs/example/arm/starter_fs.py b/configs/example/arm/starter_fs.py
+index a199768..09b731b 100644
+--- a/configs/example/arm/starter_fs.py
++++ b/configs/example/arm/starter_fs.py
+@@ -168,6 +168,7 @@ def create(args):
+         "rw",
+         # Tell Linux about the amount of physical memory present.
+         "mem=%s" % args.mem_size,
++	"selinux=0",
+     ]
+     system.boot_osflags = " ".join(kernel_cmd)
+ 

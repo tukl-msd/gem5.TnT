@@ -44,7 +44,7 @@ gem5_elf="build/$arch/gem5.$mode"
 
 pushd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
-	build_gem5 $arch $mode
+	$TOPDIR/build_gem5.sh
 fi
 popd
 
@@ -78,6 +78,7 @@ sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 pushd $ROOTDIR/gem5
 bootscript="${sim_name}.rcS"
 printf '#!/bin/bash\n' > $bootscript
+printf "echo \"Greetings from gem5.TnT!\"\n" >> $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf '/sbin/m5 -h\n' >> $bootscript
 printf '/bin/bash\n' >> $bootscript

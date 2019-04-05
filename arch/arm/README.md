@@ -107,9 +107,13 @@ Connect with *vncviewer*.
 $ vncviewer localhost:5901
 ```
 
-### References:
+### More Resources, Useful Links
 
 [Arm Research Starter Kit](https://github.com/arm-university/arm-gem5-rsk)
+
+[WA-gem5](http://www.gem5.org/WA-gem5)
+
+[https://github.com/ARM-software/workload-automation](https://github.com/ARM-software/workload-automation)
 
 [https://bitbucket.org/yongbing_huang/asimbench](https://bitbucket.org/yongbing_huang/asimbench)
 

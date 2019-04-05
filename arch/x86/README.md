@@ -12,13 +12,6 @@ all done if you followed [**the steps described here**](../../README.md).
 $ ./boot-linux.sh
 ```
 
-Optionally, uncomment the variable *script_opt* in [boot-linux.sh] to use
-the initialization script [boot-linux.rcS](boot-linux.rcS)
-
-```
-#script_opt="--script=$DIR/boot-linux.rcS"
-```
-
 Open a new terminal and connect to gem5.
 
 ```bash
@@ -97,9 +90,9 @@ fail.
 
 [https://github.com/darchr/gem5/tree/master](https://github.com/darchr/gem5/tree/master)
 
-[**Creating disk images for gem5**](http://www.lowepower.com/jason/creating-disk-images-for-gem5.html).
+[Creating disk images for gem5](http://www.lowepower.com/jason/creating-disk-images-for-gem5.html).
 
-[**learning_gem5**](http://www.lowepower.com/jason/learning_gem5/).
+[learning_gem5](http://www.lowepower.com/jason/learning_gem5/).
 
 [gem5.org]: http://www.gem5.org/Download
 [KVM]: https://www.linux-kvm.org/page/Main_Page

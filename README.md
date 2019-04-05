@@ -89,6 +89,70 @@ etc. A convenience script is provided to mount disk images quickly.
 $ ./mount-img.sh <disk.img>
 ```
 
+Example of use:
+
+```bash
+$ ./mount-img.sh $HOME/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img 
+Salutation! You are using gem5.TnT!
+file: /home/eder/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img
+start sector: 63
+sector size: 512
+loop device: /dev/loop0
+offset: 32256
+Mounted at /tmp/tmp.6zJKTZMqfV
+Command to unmount: sudo umount /tmp/tmp.6zJKTZMqfV && sudo losetup --detach /dev/loop0
+```
+
+In this example the mount point is */tmp/tmp.6zJKTZMqfV*. The files there are
+the files used by gem5 during the simulation as root filesystem.
+
+```bash
+$ cd /tmp/tmp.6zJKTZMqfV
+$ ls
+bin  boot  dev  etc  home  lib  lost+found  media  mnt  proc  run  sbin  sys  tmp  usr  var
+```
+
+Switch to superuser and search for */sbin/m5*.
+
+```
+$ su
+# grep "/sbin/m5" * -nrIil
+usr/bin/auto-root-login
+```
+
+In this disk image the */sbin/m5* is referenced in *usr/bin/auto-root-login*.
+As root you shall be able to examine files, copy applications, etc.
+
+```
+# cat usr/bin/auto-root-login
+
+#!/bin/sh
+
+# Tony's modifications
+# check if we're automatically starting a run script
+/sbin/m5 readfile > /tmp/script
+chmod 755 /tmp/script
+if [ -s /tmp/script ]; then
+    exec /tmp/script
+fi
+
+exec /bin/login -f root
+```
+
+To exit superuser mode type *exit*.
+
+```
+# exit
+```
+
+Get out of the mount point and unmount the disk image with the command
+provided suggested by [mount-img.sh](mount-img.sh).
+
+```bash
+$ cd -
+$ sudo umount /tmp/tmp.6zJKTZMqfV && sudo losetup --detach /dev/loop0 
+```
+
 ### **Quick Hints**
 
 #### GEM5 Scons Build Options:

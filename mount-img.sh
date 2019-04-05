@@ -54,6 +54,12 @@ fi
 
 img="$1"
 
+if [ ! -e $img ]; then
+	printf "\n${Red}Error. File \"$img\" not found.${NC}\n\n"
+	echo "$usage"
+	exit 1
+fi
+
 printf "${Yellow}Salutation! You are using gem5.TnT!${NC}\n"
 echo "file: $img"
 dev=`sudo fdisk -l $img | tail -1 | awk '{ print $1 }'`

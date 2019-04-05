@@ -14,7 +14,6 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**build_stream_app.sh**](build_stream_app.sh): builds stream app.
 * [**build_stride_apps.sh**](build_stride_apps.sh): builds stride v1.1 apps.
 * [**create_images.sh**](create_images.sh): builds disk images containing the benchmark programs. It uses **sudo**.
-* [**run_arm_fs_android_ics.sh**](run_arm_fs_android_ics.sh): Full-system mode executing android ics.
 * [**run_arm_fs_parsec.sh**](run_arm_fs_parsec.sh): Full-system mode executing parsec-3.0 apps.
 * [**run_arm_fs_stream.sh**](run_arm_fs_stream.sh): Full-system mode executing stream app.
 * [**run_arm_fs_stride.sh**](run_arm_fs_stride.sh): Full-system mode executing stride v1.1 apps.

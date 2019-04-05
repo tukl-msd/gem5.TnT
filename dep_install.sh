@@ -67,6 +67,7 @@ instdep() {
 	parted
 	csh
 	lsb-core
+	xtightvncviewer
 	"
 
 	echo -e -n "This is a list of known dependencies:" && echo ""

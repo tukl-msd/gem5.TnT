@@ -30,6 +30,50 @@ Optionally, open a new terminal and connect to gem5.
 $ telnet localhost 3456
 ```
 
+After booting, in the guest system, you may want to mount some filesystems.
+
+```
+# mount -t proc proc proc/
+# mount -t sysfs sys sys/
+# mount -o bind /dev dev/
+```
+
+Now more commands will work, for example:
+
+```
+# free
+             total       used       free     shared    buffers     cached
+Mem:       1026016      12148    1013868          0        320       3592
+-/+ buffers/cache:       8236    1017780
+Swap:            0          0          0
+```
+
+```
+# ifconfig -a
+lo        Link encap:Local Loopback  
+          LOOPBACK  MTU:16436  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
+
+sit0      Link encap:IPv6-in-IPv4  
+          NOARP  MTU:1480  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
+```
+
+```
+# cat /proc/cmdline
+earlyprintk=ttyS0 console=ttyS0 lpj=7999923 root=/dev/hda1
+```
+
+You can also mount the disk image with [mount-img.sh](../../mount-img.sh) and
+edit the *etc/fstab* to mount automatically during initialization.
+
+
 * [boot-linux-kvm.sh]: boots Linux (minimal, old, provided as
   example in [gem5.org](http://www.gem5.org/Download)) using [KVM]. This example
   uses a fork of the main gem5 repository. The patch necessary to run this

@@ -74,7 +74,7 @@ mem_opts="--mem-size=${mem_size}"
 disk_opts="--disk-image=$img"
 kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
-cmdline="console=ttyAMA0 lpj=19988480 norandmaps root=/dev/vda1 rw mem=8GB selinux=0"
+cmdline="console=ttyAMA0 lpj=19988480 norandmaps root=/dev/vda1 rw mem=8GB selinux=0 init=/bin/bash"
 # remote gdb port (0: disable listening)
 gem5_opts="--remote-gdb-port=0"
 #tlm_opts="--tlm-memory=transactor"

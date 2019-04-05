@@ -104,7 +104,7 @@ Command to unmount: sudo umount /tmp/tmp.6zJKTZMqfV && sudo losetup --detach /de
 ```
 
 In this example the mount point is */tmp/tmp.6zJKTZMqfV*. The files there are
-the files used by gem5 during the simulation as root filesystem.
+the files used by gem5 during the simulation.
 
 ```bash
 $ cd /tmp/tmp.6zJKTZMqfV
@@ -146,7 +146,7 @@ To exit superuser mode type *exit*.
 ```
 
 Get out of the mount point and unmount the disk image with the command
-provided suggested by [mount-img.sh](mount-img.sh).
+suggested by [mount-img.sh](mount-img.sh).
 
 ```bash
 $ cd -

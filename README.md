@@ -94,7 +94,7 @@ Example of use:
 ```bash
 $ ./mount-img.sh $HOME/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img 
 Salutation! You are using gem5.TnT!
-file: /home/eder/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img
+file: $HOME/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img
 start sector: 63
 sector size: 512
 loop device: /dev/loop0

@@ -93,7 +93,8 @@ $ ./boot_android.sh
 Connect with *m5term*.
 
 ```bash
-$ cd $HOME/gem5_tnt/util/term
+$ cd $HOME/gem5_tnt/gem5
+$ cd util/term
 $ make
 $ ./m5term localhost 3456
 ```

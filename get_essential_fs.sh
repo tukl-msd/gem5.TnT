@@ -76,4 +76,16 @@ if [[ ! -d $sys ]]; then
 	mkdir -p $sys
 	tar -xaf $tb -C $sys
 fi
+
+sys="$FSDIRARM/asimbench"
+dpath="$sys/disks"
+mkdir -p $dpath
+if [[ ! -e $dpath/sdcard-1g-mxplayer.img ]]; then
+	tb="$sys/asimbench_disk_image/sdcard-1g.tar.gz"
+	tar -xaf $tb -C $dpath
+fi
+if [[ ! -e $dpath/ARMv7a-ICS-Android.SMP.Asimbench-v3.img ]]; then
+	tb="$sys/asimbench_disk_image/ARMv7a-ICS-Android.SMP.Asimbench.tar.gz"
+	tar -xaf $tb -C $dpath
+fi
 pulse off

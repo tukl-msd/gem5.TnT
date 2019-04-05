@@ -49,7 +49,7 @@ $ ./run_arm_fs_test_suite.sh
 $ ./run_arm_se_benchmarks.sh
 ```
 
-### Notes
+### SE Mode
 
 SE mode hello using [se.py].
 
@@ -81,9 +81,40 @@ $ ./build/ARM/gem5.opt \
 	./tests/test-progs/hello/bin/arm/linux/hello
 ```
 
-### **The Arm Research Starter Kit: System Modeling using gem5**
+### Android
 
-The [**Arm Research Starter Kit**](https://github.com/arm-university/arm-gem5-rsk) will guide you through Arm-based system modeling using the gem5 simulator.
+```bash
+$ ./boot_android.sh
+```
+
+Connect with *m5term*.
+
+```bash
+$ cd $HOME/gem5_tnt/util/term
+$ make
+$ ./m5term localhost 3456
+```
+
+Connect with *telnet*.
+
+```bash
+$ telnet localhost 3456
+```
+
+Connect with *vncviewer*.
+
+```bash
+$ vncviewer localhost:5901
+```
+
+### References:
+
+[Arm Research Starter Kit](https://github.com/arm-university/arm-gem5-rsk)
+
+[https://bitbucket.org/yongbing_huang/asimbench](https://bitbucket.org/yongbing_huang/asimbench)
+
+[http://www.gem5.org/BBench-gem5](http://www.gem5.org/BBench-gem5)
+
 
 [se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/se.py
 [starter_se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/arm/starter_se.py

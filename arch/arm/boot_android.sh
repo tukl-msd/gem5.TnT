@@ -39,63 +39,91 @@ source $TOPDIR/common/util.in
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 arch="ARM"
-mode="opt"
+mode="fast"
 gem5_elf="build/$arch/gem5.$mode"
 
-cd $ROOTDIR/gem5
+pushd $ROOTDIR/gem5
+# build gem5
 if [[ ! -e $gem5_elf ]]; then
 	$TOPDIR/build_gem5.sh
 fi
+# apply patch
+patchdir="$TOPDIR/patches/gem5/asimbench"
+p="gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch"
+pp="${patchdir}/${p}"
+printf "${Red}Stashing local changes...${NC}\n"
+git stash > /dev/null 2>&1
+printf "${Yellow}Applying a patch...${NC}\n"
+patch -fs -p1 < $pp &>/dev/null
+popd
 
-rm -rf build/ARM
-pfile="$TOPDIR/patches/gem5/asimbench/gem5_ARMv7a-ICS-Android.SMP.Asimbench-v3.patch"
-patch -fs -p1 < $pfile &>/dev/null
-build_gem5 $arch $mode
-
-sf="$FSDIRARM/asimbench"
-if [[ ! -d $sf ]]; then
+# make it sure all essential files are ready to use
+syspath="$FSDIRARM/asimbench"
+diskpath="${syspath}/disks"
+scriptspath="${syspath}/asimbench_boot_scripts"
+if [[ ! -d $syspath ]]; then
 	$TOPDIR/get_essential_fs.sh
 fi
 
-imgdir="$sf/disks"
-mkdir -p $imgdir
-
-if [[ ! -e $imgdir/sdcard-1g-mxplayer.img ]]; then
-	tar -xaf $sf/asimbench_disk_image/sdcard-1g.tar.gz -C $imgdir
-fi
-
-if [[ ! -e $imgdir/ARMv7a-ICS-Android.SMP.Asimbench-v3.img ]]; then
-	tar -xaf $sf/asimbench_disk_image/ARMv7a-ICS-Android.SMP.Asimbench.tar.gz -C $imgdir
-fi
-
-target="boot_android"
+# gem5 related configurations.
+target="android"
 config_script="configs/example/fs.py"
-ncores="2"
-cpu_options="--cpu-type=TimingSimpleCPU --num-cpu=$ncores"
-mem_options="--mem-size=256MB --mem-type=DDR3_1600_8x8 --mem-channels=1 --caches --l2cache"
-#tlm_options="--tlm-memory=transactor"
-machine_options="--machine-type=RealView_PBX"
-os_options="--os-type=android-ics"
-#misc_options="--frame-capture"
-disk_options="--disk=$FSDIRARM/asimbench/disks/ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
-kernel="--kernel=$FSDIRARM/asimbench/asimbench_android_arm_kernel/vmlinux.smp.ics.arm.asimbench.2.6.35"
+ncpus="2"
+cpu_clk="4GHz"
+#cpu_type="TimingSimpleCPU"
+cpu_type="AtomicSimpleCPU"
+cpu_opts="--cpu-type=${cpu_type} --num-cpu=$ncpus --cpu-clock=${cpu_clk}"
+mem_size="256MB"
+mem_opts="--mem-size=${mem_size} --mem-type=DDR3_1600_8x8 --mem-channels=1"
+cache_opts="--caches --l2cache"
+#tlm_opts="--tlm-memory=transactor"
+machine_opts="--machine-type=RealView_PBX"
+os_opts="--os-type=android-ics"
+#misc_opts="--frame-capture"
+disk_opts="--disk=${diskpath}/ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
+kernel="--kernel=${syspath}/asimbench_android_arm_kernel/vmlinux.smp.ics.arm.asimbench.2.6.35"
 
-call_m5_exit="no"
-sleep_before_exit="0"
-checkpoint_before_exit="no"
+sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 
-restore_from_checkpoint="no"
-checkpoint_dir="${target}_${ncores}c_"
-checkpoint_tick_number="0"
-if [ "$restore_from_checkpoint" == "yes" ]; then
-	restore_checkpoint_options="--restore=${checkpoint_dir}/cpt.${checkpoint_tick_number}/"
-fi
+pushd $ROOTDIR/gem5
 
-#bootscript="${target}_${ncores}c.rcS"
-#bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
-output_dir="${target}_${ncores}c_$currtime"
+bootscript="${sim_name}.rcS"
+printf '#!/system/bin/sh\n' > $bootscript
+printf "echo \"Greetings from gem5.TnT!\"\n" >> $bootscript
+printf "echo \"Executing $bootscript now\"\n" >> $bootscript
+printf '/sbin/m5 -h\n' >> $bootscript
+printf '/system/bin/sh\n' >> $bootscript
+script_opts="--script=$ROOTDIR/gem5/$bootscript"
+
+#script_opts="${scriptspath}/360buy.rcS"
+#script_opts="${scriptspath}/adobe.rcS"
+#script_opts="${scriptspath}/arm_ckpt_asim.rcS"
+#script_opts="${scriptspath}/baidumap.rcS"
+#script_opts="${scriptspath}/bbench.rcS"
+#script_opts="${scriptspath}/frozenbubble.rcS"
+#script_opts="${scriptspath}/k9mail.rcS"
+#script_opts="${scriptspath}/kingsoftoffice.rcS"
+#script_opts="${scriptspath}/mxplayer.rcS"
+#script_opts="${scriptspath}/netease.rcS"
+#script_opts="${scriptspath}/sinaweibo.rcS"
+#script_opts="${scriptspath}/ttpod.rcS"
+
+output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
-
-export M5_PATH=${M5_PATH}:"$FSDIRARM/asimbench":
-$gem5_elf -d $output_dir $config_script $restore_checkpoint_options $cpu_options $mem_options $tlm_options $kernel $disk_options $machine_options $os_options $misc_options $bootscript_options 2>&1 | tee $logfile
+export M5_PATH=${M5_PATH}:"${syspath}"
+# start simulation
+$gem5_elf -d $output_dir \
+	$config_script \
+	$restore_checkpoint_opts \
+	$cpu_opts \
+	$mem_opts \
+	$cache_opts \
+	$tlm_opts \
+	$kernel \
+	$disk_opts \
+	$machine_opts \
+	$os_opts \
+	$misc_opts \
+	$script_opts 2>&1 | tee $logfile
+popd

@@ -42,46 +42,67 @@ arch="X86"
 mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
+$TOPDIR/get_essential_fs.sh
+
 pushd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
-	build_gem5 $arch $mode
+	$TOPDIR/build_gem5.sh
 fi
 popd
 
 sys='x86-system'
-tarball="${sys}.tar.bz2"
-wgethis=("$FSDIRX86:http://www.m5sim.org/dist/current/x86/$tarball")
-wget_into_dir wgethis[@]
-
-pushd ${FSDIRX86}
-if [[ ! -d ${sys} ]]; then
-	mkdir -p ${sys}
-	tar -xaf ${tarball} -C ${sys}
-fi
-popd
-
 syspath="$FSDIRX86/${sys}"
 diskpath="${syspath}/disks"
-
 disk="${diskpath}/linux-x86.img"
 kernel="${syspath}/binaries/x86_64-vmlinux-2.6.22.9"
-
 cfgscript="configs/example/fs.py"
 disk_opt="--disk-image=${disk}"
 kernel_opt="--kernel=${kernel}"
+ncpus="2"
+cpu_type="AtomicSimpleCPU"
+#cpu_type="TimingSimpleCPU"
+#cpu_type="NonCachingSimpleCPU"
+cpu_opt="--cpu-type=${cpu_type} --num-cpus=${ncpus}"
+mem_size="1GB"
+mem_opt="--mem-size=${mem_size}"
+cache_opt="--caches --l2cache"
+l1_cache_opt="--l1d_size=64kB --l1i_size=64kB --l1d_assoc=4 --l1i_assoc=4"
+l2_cache_opt="--l2_size=1024kB --l2_assoc=8"
 
-#script_opt="--script=$DIR/boot-linux.rcS"
+target="x86_linux"
+sim_name="${target}_${cpu_type}_${ncpus}c_${mem_size}_${currtime}"
 
-cpu_opt="--cpu-type=AtomicSimpleCPU"
-#cpu_opt="--cpu-type=NonCachingSimpleCPU"
 
 pushd $ROOTDIR/gem5
+
+bootscript="${sim_name}.rcS"
+printf '#!/bin/bash\n' > $bootscript
+printf "echo \"Greetings from gem5.TnT!\"\n" >> $bootscript
+printf "echo \"Executing $bootscript now\"\n" >> $bootscript
+printf '/sbin/m5 -h\n' >> $bootscript
+printf '/bin/bash\n' >> $bootscript
+script_opt="--script=$ROOTDIR/gem5/$bootscript"
+#script_opt="--script=$DIR/boot-linux.rcS"
+
 git checkout configs/common/FSConfig.py
 git apply $DIR/boot-linux.patch
-output_dir="x86_linux_$currtime"
+
+output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
+
 export M5_PATH="${syspath}":${M5_PATH}
-$gem5_elf -d $output_dir $cfgscript $cpu_opt $tlm_options $kernel_opt $disk_opt $script_opt 2>&1 | tee $logfile
+
+$gem5_elf -d $output_dir \
+	$cfgscript \
+	$cpu_opt \
+	$cache_opt \
+	$l1_cache_opt \
+	$l2_cache_opt \
+	$mem_opt \
+	$tlm_options \
+	$kernel_opt \
+	$disk_opt \
+	$script_opt 2>&1 | tee $logfile
 popd
 

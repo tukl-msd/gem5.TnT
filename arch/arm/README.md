@@ -55,13 +55,16 @@ SE mode hello using [se.py].
 
 ```bash
 $ cd $HOME/gem5_tnt/gem5
-$ ./build/ARM/gem5.opt configs/example/se.py -c ./tests/test-progs/hello/bin/arm/linux/hello
+$ ./build/ARM/gem5.opt configs/example/se.py \
+		-c ./tests/test-progs/hello/bin/arm/linux/hello
 ```
 
 SE mode stream with [se.py].
 ```bash
 $ cd $HOME/gem5_tnt/gem5
-$ ./build/ARM/gem5.opt configs/example/se.py --cpu-type="TimingSimpleCPU" -c $HOME/gem5_tnt/benchmarks/stream/stream_c.exe 
+$ ./build/ARM/gem5.opt configs/example/se.py \
+		--cpu-type="TimingSimpleCPU" \
+		-c $HOME/gem5_tnt/benchmarks/stream/stream_c.exe 
 ```
 
 SE mode hello in 8 cores using [starter_se.py].
@@ -81,7 +84,7 @@ $ ./build/ARM/gem5.opt \
 	./tests/test-progs/hello/bin/arm/linux/hello
 ```
 
-### Android
+### Android FS Mode
 
 ```bash
 $ ./boot_android.sh

@@ -81,7 +81,8 @@ machine_opts="--machine-type=RealView_PBX"
 os_opts="--os-type=android-ics"
 #misc_opts="--frame-capture"
 disk_opts="--disk=${diskpath}/ARMv7a-ICS-Android.SMP.Asimbench-v3.img"
-kernel="--kernel=${syspath}/asimbench_android_arm_kernel/vmlinux.smp.ics.arm.asimbench.2.6.35"
+kernelpath="${syspath}/asimbench_android_arm_kernel"
+kernel="--kernel=${kernelpath}/vmlinux.smp.ics.arm.asimbench.2.6.35"
 
 sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 

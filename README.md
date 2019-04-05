@@ -24,6 +24,7 @@ reference this website
 * [**Hints to Execute Android**](patches/gem5/asimbench/README.md) here you'll find how you can run android on your gem5.
 * [**Elastic Trace and HBM as Main Memory**](patches/gem5/HBM_elastic_traces/README.md) here you'll find the steps to run elastic traces on gem5 using HBM as the main memory.
 * [**Bare Metal**](https://github.com/tukl-msd/gem5.bare-metal) here you'll find the steps to run an example gem5 ARM bare-metal implementation. 
+* [**mount-img.sh**](mount-img.sh): convenience script for mounting disk images.
 
 ### **Using gem5.TnT**
 
@@ -77,6 +78,15 @@ A convenient script [**do_it_for_me.sh**](do_it_for_me.sh) is provided.
 
 ```bash
 $ ./do_it_for_me.sh
+```
+
+### **Mounting Disk Images**
+
+One may want to copy files into a disk or from it, change configuration files,
+etc. A convenience script is provided to mount disk images quickly.
+
+```bash
+$ ./mount-img.sh <disk.img>
 ```
 
 ### **Quick Hints**

@@ -23,6 +23,7 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**run_arm_se_benchmarks.sh**](run_arm_se_benchmarks.sh): System call emulation mode executing some apps.
 * [**run_arm_se_hbm_eltrace.sh**](run_arm_se_hbm_eltrace.sh): System call emulation mode HBM as main memory using elastic traces as stimuli.
 * [**run_arm_se_hmc.sh**](run_arm_se_hmc.sh): System call emulation mode HMC as main memory.
+* [**Bare Metal**](https://github.com/tukl-msd/gem5.bare-metal) here you'll find the steps to run an example gem5 ARM bare-metal implementation. 
 
 #### **Run the scripts.**
 

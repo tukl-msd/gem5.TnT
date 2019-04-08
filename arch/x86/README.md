@@ -58,7 +58,7 @@ sit0      Link encap:IPv6-in-IPv4
 earlyprintk=ttyS0 console=ttyS0 lpj=7999923 root=/dev/hda1
 ```
 
-You can also mount the disk image with [mount-img.sh](../../mount-img.sh) and
+You can also mount the disk image with [mount-img.sh] and
 edit the *etc/fstab* to mount automatically during initialization.
 
 
@@ -98,3 +98,4 @@ fail.
 [KVM]: https://www.linux-kvm.org/page/Main_Page
 [boot-linux-kvm.sh]: boot-linux-kvm.sh
 [boot-linux.sh]: boot-linux.sh
+[mount-img.sh]: ../../disk-util/mount-img.sh

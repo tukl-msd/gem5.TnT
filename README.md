@@ -19,12 +19,10 @@ reference this website
 * [**build_gem5.sh**](build_gem5.sh): can be used for building gem5.
 * [**Boot Linux**](arch/alpha/README.md) here you'll find scripts and information for the ALPHA ISA.
 * [**Boot Linux, Boot Linux using KVM**](arch/x86/README.md) here you'll find scripts and information for the x86 ISA.
-* [**Boot Linux, Create Disk images, Run Benchmarks**](arch/arm/README.md) here you'll find some useful scripts and information for running benchmarks on gem5 for the arm architecture.
+* [**Boot Linux, Android, Run Benchmarks**](arch/arm/README.md) here you'll find some useful scripts and information for arm.
 * [**Basics**](doc/Gem5Basics.md) here you'll find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
-* [**Hints to Execute Android**](patches/gem5/asimbench/README.md) here you'll find how you can run android on your gem5.
 * [**Elastic Trace and HBM as Main Memory**](patches/gem5/HBM_elastic_traces/README.md) here you'll find the steps to run elastic traces on gem5 using HBM as the main memory.
-* [**Bare Metal**](https://github.com/tukl-msd/gem5.bare-metal) here you'll find the steps to run an example gem5 ARM bare-metal implementation. 
-* [**mount-img.sh**](mount-img.sh): convenience script for mounting disk images.
+* **[mount-img.sh]**: convenience script for mounting disk images.
 
 ### **Using gem5.TnT**
 
@@ -521,3 +519,4 @@ above.
 [syscall_emul.hh]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/sim/syscall_emul.hh
 [src/arch/x86/linux/process.cc]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/arch/x86/linux/process.cc
 [KVM]: https://www.linux-kvm.org/page/Main_Page
+[mount-img.sh]: disk-util/mount-img.sh

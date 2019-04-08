@@ -118,6 +118,12 @@ To execute the script type the following command:
 $ ./parsec.sh
 ```
 
+To connect to [gem5] use *telnet* or *m5term*.
+
+```bash
+$ telnet localhost 3456
+```
+
 If you decide to use this script in a publication, please cite [gem5.TnT], but
 most important please check
 [https://parsec.cs.princeton.edu/](https://parsec.cs.princeton.edu/)

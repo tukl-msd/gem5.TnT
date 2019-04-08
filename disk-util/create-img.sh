@@ -65,11 +65,11 @@ offset='1048576'
 if [[ ! -e ${disk} ]]; then
 	# create a zeroed file
 	sudo dd if=/dev/zero of=${disk} bs=${blocksize} count=${nblocks}
-	# create a new partition table (aka disklable) of msdos type
+	# create a new partition table (aka disklabel) of msdos type
 	sudo parted ${disk} mklabel msdos
 	# find the first unused loop device
 	loopdev=`sudo losetup -f`
-	# associtate loop device with file
+	# associate loop device with file
 	sudo losetup ${loopdev} ${disk}
 	# BASH(1)
 	# Here Documents

@@ -44,6 +44,12 @@ arch="X86"
 mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
+pushd $ROOTDIR/gem5
+if [[ ! -e $gem5_elf ]]; then
+	$TOPDIR/build_gem5.sh
+fi
+popd
+
 $TOPDIR/get_essential_fs.sh
 
 pushd ${FSDIRX86}
@@ -192,6 +198,7 @@ else
 	printf "${cmd}\n" >> $bootscript
 	printf 'echo \"Dumping and reseting stats\"\n' >> $bootscript
 	printf '/sbin/m5 dumpresetstats\n' >> $bootscript
+	printf '/bin/bash\n' >> $bootscript
 fi
 script_opt="--script=$bootscript"
 

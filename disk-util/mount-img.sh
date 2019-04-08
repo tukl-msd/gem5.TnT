@@ -33,7 +33,7 @@
 # Author: Éder F. Zulian
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-TOPDIR=$DIR
+TOPDIR="$DIR/.."
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 

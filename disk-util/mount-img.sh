@@ -60,7 +60,7 @@ if [ ! -e $img ]; then
 	exit 1
 fi
 
-printf "${Yellow}Salutation! You are using gem5.TnT!${NC}\n"
+printf "${Yellow}Salutations! You are using gem5.TnT!${NC}\n"
 echo "file: $img"
 dev=`sudo fdisk -l $img | tail -1 | awk '{ print $1 }'`
 startsector=`sudo fdisk -l $img | grep $dev | awk '{ print $2 }'`

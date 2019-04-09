@@ -1,7 +1,7 @@
 ## gem5 Tips & Tricks
 ### **Tips and tricks for the ARM architecture**
 
-Here you'll find tips and tricks for the ARM architecture.
+Here you will find tips and tricks for the ARM architecture.
 
 Before running the scripts below make sure everything else is setup! You're all done if you followed [**the steps described here**](../../README.md).
 
@@ -23,7 +23,8 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**run_arm_se_benchmarks.sh**](run_arm_se_benchmarks.sh): System call emulation mode executing some apps.
 * [**run_arm_se_hbm_eltrace.sh**](run_arm_se_hbm_eltrace.sh): System call emulation mode HBM as main memory using elastic traces as stimuli.
 * [**run_arm_se_hmc.sh**](run_arm_se_hmc.sh): System call emulation mode HMC as main memory.
-* [**Bare Metal**](https://github.com/tukl-msd/gem5.bare-metal) here you'll find the steps to run an example gem5 ARM bare-metal implementation. 
+* [**Bare Metal**](https://github.com/tukl-msd/gem5.bare-metal) here you will find the steps to run an example gem5 ARM bare-metal implementation. 
+* [**Elastic Trace + HBM Main Memory**](../../patches/gem5/HBM_elastic_traces/README.md) steps to run elastic traces on gem5 using HBM as main memory.
 
 #### **Run the scripts.**
 

@@ -37,9 +37,6 @@ TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
-# Set to "yes" or "no" in order to enable a spinner or not.
-spinner="no"
-
 sysver=20180409
 imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
 bmsuite="parsec-3.0"
@@ -87,11 +84,6 @@ apps=(
 "streamcluster:simlarge"
 )
 
-# start spinner
-if [ "$spinner" = "yes" ]; then
-	pulse &
-	pupid=$!
-fi
 declare -a pids
 for e in "${apps[@]}"; do
 	a=${e%%:*}
@@ -122,7 +114,3 @@ for e in "${apps[@]}"; do
 done
 wait "${pids[@]}"
 unset pids
-# stop spinner
-if [ "$spinner" = "yes" ]; then
-	kill $pupid &>/dev/null
-fi

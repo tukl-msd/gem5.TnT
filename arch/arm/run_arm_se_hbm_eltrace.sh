@@ -36,17 +36,15 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
+currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 arch="ARM"
 mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
-cd $ROOTDIR/gem5
+pushd $ROOTDIR/gem5
 
-currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 outdir="hbm_se_output_$currtime"
-
-cd $ROOTDIR/gem5
 
 printf "\n----------------------------------------------------------------------\n"
 printf "${Red}Patching the required gem5 files for running the current example"
@@ -58,13 +56,12 @@ printf "\n----------------------------------------------------------------------
 printf "${Red}Building gem5 after patching"
 printf "\n----------------------------------------------------------------------\n"
 
-get_num_procs np
-nj=`expr $np - 1`
-scons $gem5_elf -j$nj
+build_gem5 $arch $mode
 
 printf "\n----------------------------------------------------------------------\n"
 printf "${Red}Running basic Elastic trace HBM example"
 printf "\n----------------------------------------------------------------------\n"
+
 hbmscript="configs/example/hbm_hello.py"
 
 hbmopts="--mem-size=1GB --data-trace-file=$TOPDIR/elastic_traces/system.cpu.traceListener.random.data.gz --inst-trace-file=$TOPDIR/elastic_traces/system.cpu.traceListener.random.inst.gz"

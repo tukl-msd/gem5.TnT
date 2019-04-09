@@ -15,14 +15,14 @@ reference this website
 * [**get_essential_fs.sh**](get_essential_fs.sh): downloads essential full system files for running the examples.
 * [**get_extra_fs.sh**](get_extra_fs.sh): downloads full system files.
 * [**get_doc.sh**](get_doc.sh): downloads documentation and tutorials.
-* [**get_benchmarks.sh**](get_benchmarks.sh): downloads some benchmarks.
+* [**get_benchmarks.sh**](get_benchmarks.sh): downloads benchmarks.
 * [**build_gem5.sh**](build_gem5.sh): can be used for building gem5.
-* [**Boot Linux**](arch/alpha/README.md) here you'll find scripts and information for the ALPHA ISA.
-* [**Boot Linux, Boot Linux using KVM**](arch/x86/README.md) here you'll find scripts and information for the x86 ISA.
-* [**Boot Linux, Android, Run Benchmarks**](arch/arm/README.md) here you'll find some useful scripts and information for arm.
-* [**Basics**](doc/Gem5Basics.md) here you'll find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
-* [**Elastic Trace and HBM as Main Memory**](patches/gem5/HBM_elastic_traces/README.md) here you'll find the steps to run elastic traces on gem5 using HBM as the main memory.
+* [**ALPHA Boot Linux**](arch/alpha/README.md) scripts and information for the ALPHA.
+* [**X86 Boot Linux, Boot Linux using KVM, PARSEC**](arch/x86/README.md) scripts and information for x86.
+* [**ARM Boot Linux, Android, Benchmarks**](arch/arm/README.md) scripts and information for arm.
+* [**Basics**](doc/Gem5Basics.md) here you will find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
 * **[mount-img.sh]**: convenience script for mounting disk images.
+* **[create-img.sh]**: convenience script for creating disk images.
 
 ### **Using gem5.TnT**
 
@@ -68,9 +68,9 @@ $ ./get_doc.sh
 
 The default directory for downloads is **$HOME/gem5_tnt**. That means a new
 directory called **gem5_tnt** will be created in your home folder and
-populated with relevant files, documentation and repositories. In case you want to
-change the default paths edit the [defaults.in](common/defaults.in) file in your
-local repository before running the scripts.
+populated with relevant files, documentation and repositories. In case you
+want to change the default paths edit the [defaults.in](common/defaults.in)
+file in your local repository before running the scripts.
 
 A convenient script [**do_it_for_me.sh**](do_it_for_me.sh) is provided.
 
@@ -91,7 +91,7 @@ Example of use:
 
 ```bash
 $ ./mount-img.sh $HOME/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img 
-Salutation! You are using gem5.TnT!
+Salutations! You are using gem5.TnT!
 file: $HOME/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img
 start sector: 63
 sector size: 512
@@ -143,8 +143,8 @@ To exit superuser mode type *exit*.
 # exit
 ```
 
-Get out of the mount point and unmount the disk image with the command
-suggested by [mount-img.sh](mount-img.sh).
+Get out of the mount point, close any file you may have open, then unmount the
+disk image with the command suggested by [mount-img.sh].
 
 ```bash
 $ cd -
@@ -520,3 +520,4 @@ above.
 [src/arch/x86/linux/process.cc]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/arch/x86/linux/process.cc
 [KVM]: https://www.linux-kvm.org/page/Main_Page
 [mount-img.sh]: disk-util/mount-img.sh
+[create-img.sh]: disk-util/create-img.sh

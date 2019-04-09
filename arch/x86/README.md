@@ -59,7 +59,7 @@ earlyprintk=ttyS0 console=ttyS0 lpj=7999923 root=/dev/hda1
 ```
 
 You can also mount the disk image with [mount-img.sh] and
-edit the *etc/fstab* to mount automatically during initialization.
+edit the *etc/fstab*.
 
 
 ### Boot Linux (minimal, old, provided as example in [gem5.org]) using [KVM]

@@ -23,6 +23,7 @@ reference this website
 * [**Basics**](doc/Gem5Basics.md) here you'll find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
 * [**Elastic Trace and HBM as Main Memory**](patches/gem5/HBM_elastic_traces/README.md) here you'll find the steps to run elastic traces on gem5 using HBM as the main memory.
 * **[mount-img.sh]**: convenience script for mounting disk images.
+* **[create-img.sh]**: convenience script for creating disk images.
 
 ### **Using gem5.TnT**
 
@@ -91,7 +92,7 @@ Example of use:
 
 ```bash
 $ ./mount-img.sh $HOME/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img 
-Salutation! You are using gem5.TnT!
+Salutations! You are using gem5.TnT!
 file: $HOME/gem5_tnt/full_system/arm/aarch-system-20180409/disks/linaro-minimal-aarch64.img
 start sector: 63
 sector size: 512
@@ -143,8 +144,8 @@ To exit superuser mode type *exit*.
 # exit
 ```
 
-Get out of the mount point and unmount the disk image with the command
-suggested by [mount-img.sh](mount-img.sh).
+Get out of the mount point, close any file you may have open, then unmount the
+disk image with the command suggested by [mount-img.sh].
 
 ```bash
 $ cd -
@@ -520,3 +521,4 @@ above.
 [src/arch/x86/linux/process.cc]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/src/arch/x86/linux/process.cc
 [KVM]: https://www.linux-kvm.org/page/Main_Page
 [mount-img.sh]: disk-util/mount-img.sh
+[create-img.sh]: disk-util/create-img.sh

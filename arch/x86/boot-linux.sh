@@ -68,6 +68,8 @@ mem_opt="--mem-size=${mem_size}"
 cache_opt="--caches --l2cache"
 l1_cache_opt="--l1d_size=64kB --l1i_size=64kB --l1d_assoc=4 --l1i_assoc=4"
 l2_cache_opt="--l2_size=1024kB --l2_assoc=8"
+# remote gdb port (0: disable listening)
+gem5_opts="--remote-gdb-port=0"
 
 target="x86_linux"
 sim_name="${target}_${cpu_type}_${ncpus}c_${mem_size}_${currtime}"
@@ -93,7 +95,8 @@ logfile=${output_dir}/gem5.log
 
 export M5_PATH="${syspath}":${M5_PATH}
 
-$gem5_elf -d $output_dir \
+$gem5_elf $gem5_opts \
+	-d $output_dir \
 	$cfgscript \
 	$cpu_opt \
 	$cache_opt \

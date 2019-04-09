@@ -1,0 +1,39 @@
+diff --git a/configs/common/Benchmarks.py b/configs/common/Benchmarks.py
+index b7d10b5..f432d04 100644
+--- a/configs/common/Benchmarks.py
++++ b/configs/common/Benchmarks.py
+@@ -59,7 +59,7 @@ class SysConfig:
+         elif buildEnv['TARGET_ISA'] == 'alpha':
+             return env.get('LINUX_IMAGE', disk('linux-latest.img'))
+         elif buildEnv['TARGET_ISA'] == 'x86':
+-            return env.get('LINUX_IMAGE', disk('x86root.img'))
++            return env.get('LINUX_IMAGE', disk('x86root-parsec.img'))
+         elif buildEnv['TARGET_ISA'] == 'arm':
+             return env.get('LINUX_IMAGE', disk('linux-aarch32-ael.img'))
+         elif buildEnv['TARGET_ISA'] == 'sparc':
+diff --git a/configs/common/FSConfig.py b/configs/common/FSConfig.py
+index aa00efe..aa655da 100644
+--- a/configs/common/FSConfig.py
++++ b/configs/common/FSConfig.py
+@@ -678,7 +678,7 @@ def makeLinuxX86System(mem_mode, numCPUs=1, mdesc=None, Ruby=False,
+     if not cmdline:
+         cmdline = 'earlyprintk=ttyS0 console=ttyS0 lpj=7999923 root=/dev/hda1'
+     self.boot_osflags = fillInCmdline(mdesc, cmdline)
+-    self.kernel = binary('x86_64-vmlinux-2.6.22.9')
++    self.kernel = binary('x86_64-vmlinux-2.6.28.4-smp')
+     return self
+ 
+ 
+diff --git a/src/arch/x86/cpuid.cc b/src/arch/x86/cpuid.cc
+index 867087e..e6a898a 100644
+--- a/src/arch/x86/cpuid.cc
++++ b/src/arch/x86/cpuid.cc
+@@ -162,7 +162,7 @@ namespace X86ISA {
+                 break;
+               case FamilyModelStepping:
+                 result = CpuidResult(0x00020f51, 0x00000805,
+-                                     0xe7dbfbff, 0x04000209);
++                                     0xe7dbfbff, 0x00000209);
+                 break;
+               case ExtendedFeatures:
+                 result = CpuidResult(0x00000000, 0x01800000,

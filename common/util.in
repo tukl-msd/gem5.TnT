@@ -226,7 +226,7 @@ build() {
 	local target=$1
 	local buildopts=$2
 	get_num_procs np
-	local njobs=`expr $np / 2`
+	local njobs=`expr $np - 1`
 	local cmd="scons --ignore-style $buildopts $target -j$njobs"
 	printf "Building $target... "
 	pulse on

@@ -48,7 +48,6 @@ gitbuildrev="a470ef5"
 archs="
 ALPHA
 ARM
-RISCV
 X86
 "
 

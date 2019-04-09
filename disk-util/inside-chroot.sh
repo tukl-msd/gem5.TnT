@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Copyright (c) 2019, University of Kaiserslautern
 # All rights reserved.
@@ -32,48 +32,24 @@
 #
 # Author: Éder F. Zulian
 
-DIR="$(cd "$(dirname "$0")" && pwd)"
-TOPDIR=$DIR
-source $TOPDIR/common/defaults.in
-source $TOPDIR/common/util.in
+apt-get update
+apt-get install -y software-properties-common
+add-apt-repository universe
+apt-get update
+apt-get upgrade -y
 
-usage="Usage: $(basename "$0") {-h | FILE }
-Mount a disk image.
-	-h    display this help and exit
-	FILE  disk image file"
+# list installed packages before
+apt list --installed > apt-list-installed-before
 
-if [ "$#" != "1" ]; then
-	echo "$usage"
-	exit 1
-fi
+# install applications
+apt-get install -y stress
 
-if [ $1 = "-h" ]; then
-	echo "$usage"
-	exit 0
-fi
+# list installed packages after
+apt list --installed > apt-list-installed-after
 
-img="$1"
+# TODO:
+#service --status-all
+#sudo update-rc.d ... disable
 
-if [ ! -e $img ]; then
-	printf "\n${Red}Error. File \"$img\" not found.${NC}\n\n"
-	echo "$usage"
-	exit 1
-fi
-
-printf "${Yellow}Salutation! You are using gem5.TnT!${NC}\n"
-echo "file: $img"
-dev=`sudo fdisk -l $img | tail -1 | awk '{ print $1 }'`
-startsector=`sudo fdisk -l $img | grep $dev | awk '{ print $2 }'`
-echo "start sector: $startsector"
-sectorsize=`sudo fdisk -l $img | grep ^Units | awk '{ print $8 }'`
-echo "sector size: $sectorsize"
-ldev=`sudo losetup -f`
-echo "loop device: $ldev"
-offset=$(($startsector*$sectorsize))
-echo "offset: $offset"
-sudo losetup -o $offset $ldev $img
-tdir=`mktemp -d`
-sudo mount $ldev $tdir
-printf "${Yellow}Mounted at ${Green}$tdir${NC}\n"
-umcmd="sudo umount $tdir && sudo losetup --detach $ldev"
-printf "${Yellow}Command to unmount: ${Green}$umcmd${NC}\n"
+# exit chroot
+exit

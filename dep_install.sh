@@ -50,20 +50,21 @@ instdep() {
 	python-dev
 	python-pydot
 	python-protobuf
+	python-sphinx
+	python-pthreading
+	python-posix-ipc
+	ipython
 	libpython-dbg
 	libpython2.7-dbg
-	ipython
+	libgoogle-perftools-dev
 	gcc
 	g++
-	libgoogle-perftools-dev
 	protobuf-compiler
 	libprotobuf-dev
 	gcc-arm-linux-gnueabihf
 	gcc-aarch64-linux-gnu
 	device-tree-compiler
 	libzstd-dev
-	python-pthreading
-	python-posix-ipc
 	parted
 	csh
 	lsb-core

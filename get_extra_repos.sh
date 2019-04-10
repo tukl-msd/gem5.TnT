@@ -40,12 +40,13 @@ source $TOPDIR/common/util.in
 # git repositories
 gitrepos=(
 "$MISCREPOS:https://github.com/metempsy/gem5_arm_fullsystem_files_generator.git"
-"$MISCREPOS:git://linux-arm.org/linux-linaro-tracking-gem5.git"
-"$MISCREPOS:git://linux-arm.org/linux-aarch64-gem5.git"
-"$MISCREPOS:https://github.com/gem5/linux-arm-gem5.git"
 "$MISCREPOS:https://github.com/arm-university/arm-gem5-rsk.git"
 "$MISCREPOS:https://gem5.googlesource.com/public/m5threads.git"
 "$MISCREPOS:https://github.com/ARM-software/workload-automation.git"
+"$KERNELARM:git://linux-arm.org/linux-linaro-tracking-gem5.git"
+"$KERNELARM:git://linux-arm.org/linux-aarch64-gem5.git"
+"$KERNELARM:https://github.com/gem5/linux-arm-gem5.git"
+"$KERNELARM:https://gem5.googlesource.com/arm/linux"
 )
 
 greetings

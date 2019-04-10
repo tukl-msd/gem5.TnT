@@ -1,0 +1,13 @@
+diff --git a/configs/example/se.py b/configs/example/se.py
+index 804ef02..c98693e 100644
+--- a/configs/example/se.py
++++ b/configs/example/se.py
+@@ -263,6 +263,8 @@ else:
+     system.membus = SystemXBar()
+     system.system_port = system.membus.slave
+     CacheConfig.config_cache(options, system)
++    if options.tlm_memory:
++        system.physmem = SimpleMemory()
+     MemConfig.config_mem(options, system)
+ 
+ root = Root(full_system = False, system = system)

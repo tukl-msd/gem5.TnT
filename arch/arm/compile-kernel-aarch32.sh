@@ -76,7 +76,9 @@ mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
 sysver="20180409"
-sysdir="$FSDIRARM/aarch-system-${sysver}"
+syspath="$FSDIRARM/aarch-system-${sysver}"
+imgdir="${syspath}/disks"
+img="$imgdir/linux-aarch32-ael.img"
 
 target="test_kernel"
 config_script="configs/example/fs.py"
@@ -86,8 +88,9 @@ machine_opts="--machine-type=VExpress_GEM5_V1"
 cpu_type="AtomicSimpleCPU"
 cpu_opts="--cpu-type=${cpu_type} --num-cpu=$ncpus"
 cache_opts="--caches --l2cache"
+disk_opts="--disk-image=$img"
 kernel_opts="--kernel=${kernel}"
-dtb_opts="--dtb=${sysdir}/binaries/armv7_gem5_v1_${ncpus}cpu.dtb"
+dtb_opts="--dtb=${syspath}/binaries/armv7_gem5_v1_${ncpus}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
 
 sim_name="${target}_${cpu_type}_${ncores}c_${currtime}"
@@ -103,13 +106,13 @@ printf "echo \"Greetings from gem5.TnT!\"\n" >> $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf '/sbin/m5 -h\n' >> $bootscript
 printf '/bin/bash\n' >> $bootscript
-bootscript_opts="--script=$ROOTDIR/gem5/$bootscript"
+script_opt="--script=$ROOTDIR/gem5/$bootscript"
 
 output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 
-export M5_PATH="${sysdir}":${M5_PATH}
+export M5_PATH="${syspath}":${M5_PATH}
 
 # Start simulation
 $gem5_elf $gem5_opts \
@@ -120,6 +123,7 @@ $gem5_elf $gem5_opts \
 	$cache_opts \
 	$kernel_opts \
 	$dtb_opts \
-	$bootscript_opts 2>&1 | tee $logfile
+	$disk_opts \
+	$script_opt 2>&1 | tee $logfile
 
 popd

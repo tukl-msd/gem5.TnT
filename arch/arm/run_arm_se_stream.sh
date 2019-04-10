@@ -57,6 +57,15 @@ workload="$BENCHMARKSDIR/stream/stream_c.exe"
 
 pushd $ROOTDIR/gem5 
 
+# Check if 'tlm_options' variable is set
+if [ ! -z ${tlm_options+x} ]; then
+	# Variable 'tlm_options' is set, apply patch
+	printf "${Yellow}Stashing local changes...${NC}\n"
+	git stash > /dev/null 2>&1
+	printf "${Green}Applying TLM related patch...${NC}\n"
+	git apply $DIR/stream-se-tlm.patch  > /dev/null 2>&1
+fi
+
 mkdir -p ${outdir}
 logfile="${outdir}/gem5.log"
 

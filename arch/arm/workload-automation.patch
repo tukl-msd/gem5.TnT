@@ -1,0 +1,79 @@
+diff --git a/configs/common/Options.py b/configs/common/Options.py
+index aed888191..6b66fb515 100644
+--- a/configs/common/Options.py
++++ b/configs/common/Options.py
+@@ -370,3 +370,8 @@ def addFSOptions(parser):
+     parser.add_option("--command-line-file", action="store",
+                       default=None, type="string",
+                       help="File with a template for the kernel command line")
++
++    # Workload Automation options
++    parser.add_option("--workload-automation-vio", action="store", type="string",
++                      default=None, help="Enable the Virtio 9P device and set "
++                      "the path to use. Required to use Workload Automation")
+diff --git a/configs/example/fs.py b/configs/example/fs.py
+index 3997ed76c..3074046b9 100644
+--- a/configs/example/fs.py
++++ b/configs/example/fs.py
+@@ -212,6 +212,25 @@ def build_test_system(np):
+             not options.fast_forward:
+             CpuConfig.config_etrace(TestCPUClass, test_sys.cpu, options)
+ 
++        if buildEnv['TARGET_ISA'] != "arm" and options.workload_automation_vio:
++            warn("Ignoring --workload-automation-vio. It is unsupported on "
++                 "non-ARM systems.")
++        else:
++            from m5.objects import PciVirtIO, VirtIO9PDiod
++            viopci = PciVirtIO(pci_bus=0, pci_dev=test_sys.realview._num_pci_dev,
++                               pci_func=0, InterruptPin=1,
++                               InterruptLine=test_sys.realview._num_pci_int_line)
++
++            test_sys.realview._num_pci_dev = test_sys.realview._num_pci_dev + 1
++            test_sys.realview._num_pci_int_line = test_sys.realview._num_pci_int_line + 1
++
++            viopci.vio = VirtIO9PDiod()
++            viopci.vio.root = options.workload_automation_vio
++
++            test_sys.realview.viopci = viopci
++            test_sys.realview.viopci.dma = test_sys.iobus.slave
++            test_sys.realview.viopci.pio = test_sys.iobus.master
++
+         CacheConfig.config_cache(options, test_sys)
+ 
+         MemConfig.config_mem(options, test_sys)
+diff --git a/src/dev/arm/RealView.py b/src/dev/arm/RealView.py
+index e8a7cd6d4..7802d0401 100644
+--- a/src/dev/arm/RealView.py
++++ b/src/dev/arm/RealView.py
+@@ -534,6 +534,8 @@ class RealView(Platform):
+     cxx_header = "dev/arm/realview.hh"
+     system = Param.System(Parent.any, "system")
+     _mem_regions = [(Addr(0), Addr('256MB'))]
++    _num_pci_dev = 0
++    _num_pci_int_line = 0
+ 
+     def _on_chip_devices(self):
+         return []
+@@ -966,10 +968,18 @@ class VExpress_EMM(RealView):
+ 
+     # Attach any PCI devices that are supported
+     def attachPciDevices(self):
+-        self.ethernet = IGbE_e1000(pci_bus=0, pci_dev=0, pci_func=0,
+-                                   InterruptLine=1, InterruptPin=1)
+-        self.ide = IdeController(disks = [], pci_bus=0, pci_dev=1, pci_func=0,
+-                                 InterruptLine=2, InterruptPin=2)
++        self.ethernet = IGbE_e1000(pci_bus=0, pci_dev=self._num_pci_dev,
++                                   pci_func=0,
++                                   InterruptLine=self._num_pci_int_line,
++                                   InterruptPin=1)
++        self._num_pci_dev = self._num_pci_dev + 1
++        self._num_pci_int_line = self._num_pci_int_line + 1
++        self.ide = IdeController(disks = [], pci_bus=0,
++                                 pci_dev=self._num_pci_dev, pci_func=0,
++                                 InterruptLine=self._num_pci_int_line,
++                                 InterruptPin=2)
++        self._num_pci_dev = self._num_pci_dev + 1
++        self._num_pci_int_line = self._num_pci_int_line + 1
+ 
+     def enableMSIX(self):
+         self.gic = GicV2(dist_addr=0x2C001000, cpu_addr=0x2C002000, it_lines=512)

@@ -56,3 +56,7 @@ readonly FSDIRALPHA=$FSDIR/alpha
 
 readonly TOOLCHAINSDIR=$ROOTDIR/toolchains
 readonly TOOLCHAINSDIR_ARM=$TOOLCHAINSDIR/arm
+
+readonly KERNEL=$ROOTDIR/kernel
+readonly KERNELARM=$ROOTDIR/kernel/arm
+readonly KERNELX86=$ROOTDIR/kernel/x86

@@ -56,7 +56,7 @@ fi
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j `nproc`
 
 k="vmlinux"
-kernel="$ROOTDIR/gem5/${k}_aarch64_${currtime}"
+kernel="$ROOTDIR/gem5/${k}_aarch32_${currtime}"
 if [ -e "$k" ]; then
 	printf "\n${Yellow}$k was successfully built.${NC}\n"
 	printf "${Green}Copying $KERNELARM/linux/$k to $kernel.${NC}\n"
@@ -77,12 +77,10 @@ gem5_elf="build/$arch/gem5.$mode"
 
 sysver="20180409"
 sysdir="$FSDIRARM/aarch-system-${sysver}"
-imgdir="${sysdir}/disks"
-img="$imgdir/linaro-minimal-aarch64.img"
 
 target="test_kernel"
 config_script="configs/example/fs.py"
-ncpus="2"
+ncpus="1"
 cpu_clk="4GHz"
 machine_opts="--machine-type=VExpress_GEM5_V1"
 #cpu_type="TimingSimpleCPU"
@@ -91,7 +89,6 @@ cpu_opts="--cpu-type=${cpu_type} --num-cpu=$ncpus --cpu-clock=${cpu_clk}"
 mem_size="8GB"
 mem_opts="--mem-size=${mem_size}"
 cache_opts="--caches --l2cache"
-disk_opts="--disk-image=$img"
 kernel_opts="--kernel=${kernel}"
 dtb_opts="--dtb=${sysdir}/binaries/armv7_gem5_v1_${ncpus}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
@@ -127,7 +124,6 @@ $gem5_elf $gem5_opts \
 	$cache_opts \
 	$kernel_opts \
 	$dtb_opts \
-	$disk_opts \
 	$bootscript_opts 2>&1 | tee $logfile
 
 popd

@@ -81,19 +81,16 @@ sysdir="$FSDIRARM/aarch-system-${sysver}"
 target="test_kernel"
 config_script="configs/example/fs.py"
 ncpus="1"
-cpu_clk="4GHz"
 machine_opts="--machine-type=VExpress_GEM5_V1"
 #cpu_type="TimingSimpleCPU"
 cpu_type="AtomicSimpleCPU"
-cpu_opts="--cpu-type=${cpu_type} --num-cpu=$ncpus --cpu-clock=${cpu_clk}"
-mem_size="8GB"
-mem_opts="--mem-size=${mem_size}"
+cpu_opts="--cpu-type=${cpu_type} --num-cpu=$ncpus"
 cache_opts="--caches --l2cache"
 kernel_opts="--kernel=${kernel}"
 dtb_opts="--dtb=${sysdir}/binaries/armv7_gem5_v1_${ncpus}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
 
-sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
+sim_name="${target}_${cpu_type}_${ncores}c_${currtime}"
 
 pushd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
@@ -120,7 +117,6 @@ $gem5_elf $gem5_opts \
 	$config_script \
 	$machine_opts \
 	$cpu_opts \
-	$mem_opts \
 	$cache_opts \
 	$kernel_opts \
 	$dtb_opts \

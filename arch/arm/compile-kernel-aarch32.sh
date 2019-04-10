@@ -100,14 +100,6 @@ if [[ ! -e $gem5_elf ]]; then
 	$TOPDIR/build_gem5.sh
 fi
 
-bootscript="${sim_name}.rcS"
-printf '#!/bin/bash\n' > $bootscript
-printf "echo \"Greetings from gem5.TnT!\"\n" >> $bootscript
-printf "echo \"Executing $bootscript now\"\n" >> $bootscript
-printf '/sbin/m5 -h\n' >> $bootscript
-printf '/bin/bash\n' >> $bootscript
-script_opt="--script=$ROOTDIR/gem5/$bootscript"
-
 output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
@@ -123,7 +115,6 @@ $gem5_elf $gem5_opts \
 	$cache_opts \
 	$kernel_opts \
 	$dtb_opts \
-	$disk_opts \
-	$script_opt 2>&1 | tee $logfile
+	$disk_opts 2>&1 | tee $logfile
 
 popd

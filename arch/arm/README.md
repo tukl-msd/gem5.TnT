@@ -25,8 +25,8 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**run_arm_se_hmc.sh**](run_arm_se_hmc.sh): System call emulation mode HMC as main memory.
 * [**Bare Metal**](https://github.com/tukl-msd/gem5.bare-metal) here you will find the steps to run an example gem5 ARM bare-metal implementation. 
 * [**Elastic Trace + HBM Main Memory**](../../patches/gem5/HBM_elastic_traces/README.md) steps to run elastic traces on gem5 using HBM as main memory.
-* **[compile-kernel-aarch64]**: convenience script for compiling and testing a kernel
-* **[compile-kernel-aarch32]**: convenience script for compiling and testing a kernel
+* **[compile-kernel-aarch64.sh]**: convenience script for compiling and testing a kernel
+* **[compile-kernel-aarch32.sh]**: convenience script for compiling and testing a kernel
 
 #### **Run the scripts.**
 

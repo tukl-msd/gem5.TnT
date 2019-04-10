@@ -45,6 +45,7 @@ gitrepos=(
 "$MISCREPOS:https://github.com/gem5/linux-arm-gem5.git"
 "$MISCREPOS:https://github.com/arm-university/arm-gem5-rsk.git"
 "$MISCREPOS:https://gem5.googlesource.com/public/m5threads.git"
+"$MISCREPOS:https://github.com/ARM-software/workload-automation.git"
 )
 
 greetings

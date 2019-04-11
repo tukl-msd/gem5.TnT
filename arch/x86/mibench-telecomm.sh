@@ -84,22 +84,22 @@ outdir="se_mibench_${domain}_$currtime"
 # gsm encode small
 od="$outdir/gsm/encode/small"
 mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/toast -o "-fps -c $bdir/gsm/data/small.au" 2>&1 | tee $od/output_small.encode.gsm
+$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/toast -o "-fps -c $bdir/gsm/data/small.au" > $od/output_small.encode.gsm
 
 # gsm encode large
 od="$outdir/gsm/encode/large"
 mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/toast -o "-fps -c $bdir/gsm/data/large.au" 2>&1 | tee $od/output_large.encode.gsm
+$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/toast -o "-fps -c $bdir/gsm/data/large.au" > $od/output_large.encode.gsm
 
 # gsm decode small
 od="$outdir/gsm/decode/small"
 mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/small.au.run.gsm" 2>&1 | tee $od/output_small.decode.run
+$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/small.au.run.gsm" > $od/output_small.decode.run
 
 # gsm decode large
 od="$outdir/gsm/decode/large"
 mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/large.au.run.gsm" 2>&1 | tee $od/output_large.decode.run
+$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/large.au.run.gsm" > $od/output_large.decode.run
 
 
 

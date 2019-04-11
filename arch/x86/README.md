@@ -84,6 +84,46 @@ $ m5term localhost 3456
 Note that in this example *m5 operations*, e.g. dumpstat, exit, readfile,
 fail.
 
+### SE Mode
+
+SE mode hello using [se.py].
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+$ ./build/X86/gem5.opt configs/example/se.py \
+		-c ./tests/test-progs/hello/bin/x86/linux/hello
+```
+
+Trying to execute */bin/ls build* in SE mode. The output will be in the
+*se_ls_output* folder.
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+$ build/X86/gem5.opt -d se_ls_output \
+		configs/example/se.py \
+		--mem-type=DDR4_2400_8x8 \
+		--mem-size=4GB --cpu-type=TimingSimpleCPU \
+		--cacheline_size=64 \
+		--caches \
+		-c /bin/ls \
+		-o build
+```
+
+Another example: */bin/less* in a file.
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+$ build/X86/gem5.opt -d se_less_output \
+		configs/example/se.py \
+		--mem-type=DDR4_2400_8x8 \
+		--mem-size=4GB \
+		--cpu-type=TimingSimpleCPU \
+		--cacheline_size=64 \
+		--caches \
+		-c /bin/less \
+		-o MAINTAINERS
+```
+
 ### PARSEC
 
 Tweak the script [parsec.sh] to fit your purpose.
@@ -127,8 +167,7 @@ $ telnet localhost 3456
 If you decide to use this script in a publication, please cite [gem5.TnT], but
 most important please check
 [https://parsec.cs.princeton.edu/](https://parsec.cs.princeton.edu/)
-and
-[Running PARSEC v2.1 in the M5 Simulator](http://www.cs.utexas.edu/~cart/parsec_m5/)
+and [Running PARSEC v2.1 in the M5 Simulator](http://www.cs.utexas.edu/~cart/parsec_m5/)
 for information on how to proper cite the tools provided by them.
 
 ### **Resources**
@@ -149,3 +188,4 @@ for information on how to proper cite the tools provided by them.
 [mount-img.sh]: ../../disk-util/mount-img.sh
 [parsec.sh]: parsec.sh
 [gem5.TnT]: https://github.com/tukl-msd/gem5.TnT
+[se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/se.py

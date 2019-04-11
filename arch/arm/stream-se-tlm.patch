@@ -1,3 +1,25 @@
+diff --git a/configs/example/arm/starter_se.py b/configs/example/arm/starter_se.py
+index ef218d9..493fbe1 100644
+--- a/configs/example/arm/starter_se.py
++++ b/configs/example/arm/starter_se.py
+@@ -164,6 +164,8 @@ def create(args):
+     system.mem_ranges = [ AddrRange(start=0, size=args.mem_size) ]
+ 
+     # Configure the off-chip memory system.
++    if args.tlm_memory:
++        system.physmem = SimpleMemory()
+     MemConfig.config_mem(args, system)
+ 
+     # Parse the command line and get a list of Processes instances
+@@ -192,6 +194,8 @@ def main():
+     parser.add_argument("--cpu-freq", type=str, default="4GHz")
+     parser.add_argument("--num-cores", type=int, default=1,
+                         help="Number of CPU cores")
++    parser.add_argument("--tlm-memory", type=str,
++                        help="use external port for SystemC TLM cosimulation")
+     parser.add_argument("--mem-type", default="DDR3_1600_8x8",
+                         choices=MemConfig.mem_names(),
+                         help = "type of memory to use")
 diff --git a/configs/example/se.py b/configs/example/se.py
 index 804ef02..c98693e 100644
 --- a/configs/example/se.py

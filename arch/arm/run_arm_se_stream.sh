@@ -47,11 +47,24 @@ fi
 
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 outdir="stream_se_$currtime"
-script="configs/example/se.py"
-ncpus="1"
-cpu_type="TimingSimpleCPU"
-mem_size="512MB"
-mem_ch="1"
+
+#script="se.py"
+script="starter_se.py"
+
+ncores="1"
+
+if [ "$script" == "starter_se.py" ]; then
+	config_script="configs/example/arm/${script}"
+	cpu_options="--cpu=hpi --num-cores=$ncores"
+	mem_options="--mem-channels=1"
+elif [ "$script" == "se.py" ]; then
+	config_script="configs/example/${script}"
+	cpu_options="--cpu-type=TimingSimpleCPU --num-cpu=$ncores"
+	mem_options="--mem-size=512MB --mem-channels=1 --caches --l2cache --mem-type=SimpleMemory"
+else
+	echo && echo "Please define options for $script" && echo && exit
+fi
+
 workload="$BENCHMARKSDIR/stream/stream_c.exe"
 #tlm_options="--tlm-memory=transactor"
 
@@ -69,14 +82,12 @@ fi
 mkdir -p ${outdir}
 logfile="${outdir}/gem5.log"
 
-$gem5_elf -d $outdir \
-	$script \
-	--cpu-type=${cpu_type} \
-	--num-cpu=$ncpus \
-	--mem-size=${mem_size} \
-	--mem-channels=${mem_ch} \
-	--caches \
-	--l2cache \
-	$tlm_options \
-	-c $workload 2>&1 | tee $logfile
+if [ "$script" == "starter_se.py" ]; then
+	cmd="$gem5_elf -d $outdir $config_script $cpu_options $mem_options $tlm_options $workload"
+elif [ "$script" == "se.py" ]; then
+	cmd="$gem5_elf -d $outdir $config_script -c $workload $mem_options $cpu_options $tlm_options"
+else
+	echo && echo "Please define the command line for $script" && echo && exit
+fi
+$cmd 2>&1 | tee $logfile
 popd

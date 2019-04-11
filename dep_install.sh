@@ -61,6 +61,7 @@ instdep() {
 	g++
 	protobuf-compiler
 	libprotobuf-dev
+	gcc-arm-linux-gnueabi
 	gcc-arm-linux-gnueabihf
 	gcc-aarch64-linux-gnu
 	device-tree-compiler

@@ -138,6 +138,12 @@ Network.
 $ ./mibench-network.sh
 ```
 
+Telecom.
+
+```bash
+$ ./mibench-telecomm.sh
+```
+
 ### [PARSEC]
 
 Tweak the script [parsec.sh] to fit your purpose.

@@ -46,15 +46,17 @@ gem5_elf="build/$arch/gem5.$mode"
 $TOPDIR/get_benchmarks.sh
 
 basedir="$BENCHMARKSDIR/MiBench/benchmarks"
-domain="network"
+domain="telecomm"
 bdir="$basedir/${domain}"
 refbasedir="$BENCHMARKSDIR/MiBench/outputs/${domain}"
 
 # compile the programs
 pushd $bdir
 bmdirs="
-dijkstra
-patricia
+gsm
+FFT
+CRC32
+adpcm/src
 "
 for b in $bmdirs; do
 	make -C $b > /dev/null 2>&1
@@ -76,29 +78,29 @@ script_opts=" \
 "
 
 outdir="se_mibench_${domain}_$currtime"
-mkdir -p $outdir
-bmdirs="
-dijkstra
-patricia
-"
-for b in $bmdirs; do
-	mkdir -p $outdir/$b
-done
 
-# step 1: simulate
-# step 2: compare output with reference provided
+# simulate
 
-# dijkstra
-$gem5_elf -d $outdir/dijkstra $script $script_opts -c $bdir/dijkstra/dijkstra_small -o $bdir/dijkstra/input.dat 2>&1 | tee $outdir/dijkstra/output_small.dat
-diff $outdir/dijkstra/output_small.dat $refbasedir/dijkstra/output_small.dat > $outdir/dijkstra/output_small.dat.diff
-$gem5_elf -d $outdir/dijkstra $script $script_opts -c $bdir/dijkstra/dijkstra_large -o $bdir/dijkstra/input.dat 2>&1 | tee $outdir/dijkstra/output_large.dat
-diff $outdir/dijkstra/output_large.dat $refbasedir/dijkstra/output_large.dat > $outdir/dijkstra/output_large.dat.diff
+# gsm encode small
+od="$outdir/gsm/encode/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/toast -o "-fps -c $bdir/gsm/data/small.au" > $od/output_small.encode.gsm
 
-# patricia
-$gem5_elf -d $outdir/patricia $script $script_opts -c $bdir/patricia/patricia -o $bdir/patricia/small.udp 2>&1 | tee $outdir/patricia/output_small.txt
-diff $outdir/patricia/output_small.txt $refbasedir/patricia/output_small.txt > $outdir/patricia/output_small.txt.diff
-$gem5_elf -d $outdir/patricia $script $script_opts -c $bdir/patricia/patricia -o $bdir/patricia/large.udp 2>&1 | tee $outdir/patricia/output_large.txt
-diff $outdir/patricia/output_large.txt $refbasedir/patricia/output_large.txt > $outdir/patricia/output_large.txt.diff
+# gsm encode large
+od="$outdir/gsm/encode/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/toast -o "-fps -c $bdir/gsm/data/large.au" > $od/output_large.encode.gsm
+
+# gsm decode small
+od="$outdir/gsm/decode/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/small.au.run.gsm" > $od/output_small.decode.run
+
+# gsm decode large
+od="$outdir/gsm/decode/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/large.au.run.gsm" > $od/output_large.decode.run
+
 
 printf "${Yellow}Done.${NC}\n"
 printf "${Yellow}The outputs can be found in $outdir ${NC}\n"

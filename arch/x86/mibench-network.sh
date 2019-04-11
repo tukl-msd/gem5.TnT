@@ -46,8 +46,9 @@ gem5_elf="build/$arch/gem5.$mode"
 $TOPDIR/get_benchmarks.sh
 
 basedir="$BENCHMARKSDIR/MiBench/benchmarks"
-bdir="$basedir/network"
-refbasedir="$BENCHMARKSDIR/MiBench/outputs/network"
+domain="network"
+bdir="$basedir/${domain}"
+refbasedir="$BENCHMARKSDIR/MiBench/outputs/${domain}"
 
 # compile the programs
 pushd $bdir
@@ -74,7 +75,7 @@ script_opts=" \
 --caches \
 "
 
-outdir="se_mibench_automotive_$currtime"
+outdir="se_mibench_${domain}_$currtime"
 mkdir -p $outdir
 bmdirs="
 dijkstra

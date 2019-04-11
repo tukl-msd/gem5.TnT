@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2017, University of Kaiserslautern
+# Copyright (c) 2019, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -37,21 +37,52 @@ TOPDIR=$DIR
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
-wgethis=(
-"$BENCHMARKSDIR:http://parsec.cs.princeton.edu/download/3.0/parsec-3.0.tar.gz"
-)
+pushd $BENCHMARKSDIR
 
-# Mercurial repositories
-hgrepos=(
-"$BENCHMARKSDIR,https://bitbucket.org/atgutier/bbench"
-)
+mkdir -p MiBench
+pushd MiBench
 
-greetings
-wget_into_dir wgethis[@]
-hg_clone_into_dir hgrepos[@]
+benchmarks="
+automotive.tar.gz
+consumer.tar.gz
+network.tar.gz
+office.tar.gz
+security.tar.gz
+telecomm.tar.gz
+"
 
-printf "${Green}Downloading MiBench files...${NC}"
-pulse on
-$TOPDIR/get-mibench.sh > /dev/null 2>&1
-pulse off
+url=http://vhosts.eecs.umich.edu/mibench//
 
+bmdir="benchmarks"
+mkdir -p $bmdir
+for b in $benchmarks; do
+	wget -N $url/$b
+	tar -xaf $b -C $bmdir
+done
+
+outputs="
+automotive_output.tar.gz
+consumer_output.tar.gz
+network_output.tar.gz
+office_output.tar.gz
+security_output.tar.gz
+telecomm_output.tar.gz
+"
+
+outdir="outputs"
+mkdir -p $outdir
+for o in $outputs; do
+	wget -N $url/$o
+	tar -xaf $o -C $outdir
+done
+
+wget -N http://vhosts.eecs.umich.edu/mibench//Publications/MiBench.pdf
+
+git init
+git add .
+git commit -m "Initial commit. Files from http://vhosts.eecs.umich.edu/mibench"
+
+git apply $DIR/mibench.patch
+
+popd
+popd

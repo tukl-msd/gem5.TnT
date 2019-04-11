@@ -18,7 +18,7 @@ reference this website
 * [**get_benchmarks.sh**](get_benchmarks.sh): downloads benchmarks.
 * [**build_gem5.sh**](build_gem5.sh): can be used for building gem5.
 * [**ALPHA Boot Linux**](arch/alpha/README.md) scripts and information for the ALPHA.
-* [**X86 Boot Linux, Boot Linux using KVM, PARSEC**](arch/x86/README.md) scripts and information for x86.
+* [**X86 Boot Linux, Boot Linux using KVM, PARSEC, MiBench**](arch/x86/README.md) scripts and information for x86.
 * [**ARM Boot Linux, Android, Benchmarks**](arch/arm/README.md) scripts and information for arm.
 * [**Basics**](doc/Gem5Basics.md) here you will find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
 * **[mount-img.sh]**: convenience script for mounting disk images.

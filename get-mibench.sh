@@ -39,6 +39,10 @@ source $TOPDIR/common/util.in
 
 pushd $BENCHMARKSDIR
 
+if [ -d "MiBench" ]; then
+	exit 0
+fi
+
 mkdir -p MiBench
 pushd MiBench
 

@@ -131,6 +131,25 @@ od="$outdir/adpcm/decoder/large"
 mkdir -p $od
 $gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawdaudio -o " < $bdir/adpcm/data/large.adpcm" > $od/output_large.pcm
 
+# fft small
+od="$outdir/fft/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "4 4096" > $od/output_small.txt
+
+# fft large
+od="$outdir/fft/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "8 32768" > $od/output_large.txt
+
+# fft inv small
+od="$outdir/fft-inv/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "4 8192 -i" > $od/output_small.inv.txt
+
+# fft inv large
+od="$outdir/fft-inv/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "8 32768 -i" > $od/output_large.inv.txt
 
 printf "${Yellow}Done.${NC}\n"
 printf "${Yellow}The outputs can be found in $outdir ${NC}\n"

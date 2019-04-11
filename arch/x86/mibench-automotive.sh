@@ -92,35 +92,44 @@ done
 # step 2: compare output with reference provided
 
 # basicmath
-$gem5_elf -d $outdir $script $script_opts -c $bdir/basicmath/basicmath_small | tee $outdir/basicmath/output_small.txt
+$gem5_elf -d $outdir/basicmath $script $script_opts -c $bdir/basicmath/basicmath_small 2>&1 | tee $outdir/basicmath/output_small.txt
 diff $outdir/basicmath/output_small.txt $refbasedir/basicmath/output_small.txt > $outdir/basicmath/output_small.txt.diff
-$gem5_elf -d $outdir $script $script_opts -c $bdir/basicmath/basicmath_large | tee $outdir/basicmath/output_large.txt
+$gem5_elf -d $outdir/basicmath $script $script_opts -c $bdir/basicmath/basicmath_large 2>&1 | tee $outdir/basicmath/output_large.txt
 diff $outdir/basicmath/output_large.txt $refbasedir/basicmath/output_large.txt > $outdir/basicmath/output_large.txt.diff
 
 # bitcnts
-$gem5_elf -d $outdir $script $script_opts -c $bdir/bitcount/bitcnts -o 75000 | tee $outdir/bitcount/output_small.txt
+$gem5_elf -d $outdir/bitcount $script $script_opts -c $bdir/bitcount/bitcnts -o 75000 2>&1 | tee $outdir/bitcount/output_small.txt
 diff $outdir/bitcount/output_small.txt $refbasedir/bitcount/output_small.txt > $outdir/bitcount/output_small.txt.diff
-$gem5_elf -d $outdir $script $script_opts -c $bdir/bitcount/bitcnts -o 1125000 | tee $outdir/bitcount/output_large.txt
+$gem5_elf -d $outdir/bitcount $script $script_opts -c $bdir/bitcount/bitcnts -o 1125000 2>&1 | tee $outdir/bitcount/output_large.txt
 diff $outdir/bitcount/output_large.txt $refbasedir/bitcount/output_large.txt > $outdir/bitcount/output_large.txt.diff
 
 # qsort
-$gem5_elf -d $outdir $script $script_opts -c $bdir/qsort/qsort_small -o $bdir/qsort/input_small.dat | tee $outdir/qsort/output_small.txt
+$gem5_elf -d $outdir/qsort $script $script_opts -c $bdir/qsort/qsort_small -o $bdir/qsort/input_small.dat 2>&1 | tee $outdir/qsort/output_small.txt
 diff $outdir/qsort/output_small.txt $refbasedir/qsort/output_small.txt > $outdir/qsort/output_small.txt.diff
-$gem5_elf -d $outdir $script $script_opts -c $bdir/qsort/qsort_large -o $bdir/qsort/input_large.dat | tee $outdir/qsort/output_large.txt
+$gem5_elf -d $outdir/qsort $script $script_opts -c $bdir/qsort/qsort_large -o $bdir/qsort/input_large.dat 2>&1 | tee $outdir/qsort/output_large.txt
 diff $outdir/qsort/output_large.txt $refbasedir/qsort/output_large.txt > $outdir/qsort/output_large.txt.diff
 
 # susan
-$gem5_elf -d $outdir $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_small.pgm $outdir/susan/output_small.smoothing.pgm -s"
+$gem5_elf -d $outdir/susan $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_small.pgm $outdir/susan/output_small.smoothing.pgm -s"
 diff $outdir/susan/output_small.smoothing.pgm $refbasedir/susan/output_small.smoothing.pgm > $outdir/susan/output_small.smoothing.pgm.diff
-$gem5_elf -d $outdir $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_small.pgm $outdir/susan/output_small.edges.pgm -e"
+$gem5_elf -d $outdir/susan $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_small.pgm $outdir/susan/output_small.edges.pgm -e"
 diff $outdir/susan/output_small.edges.pgm $refbasedir/susan/output_small.edges.pgm > $outdir/susan/output_small.edges.pgm.diff
-$gem5_elf -d $outdir $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_small.pgm $outdir/susan/output_small.corners.pgm -c"
+$gem5_elf -d $outdir/susan $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_small.pgm $outdir/susan/output_small.corners.pgm -c"
 diff $outdir/susan/output_small.corners.pgm $refbasedir/susan/output_small.corners.pgm > $outdir/susan/output_small.corners.pgm.diff
-$gem5_elf -d $outdir $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_large.pgm $outdir/susan/output_large.smoothing.pgm -s"
+$gem5_elf -d $outdir/susan $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_large.pgm $outdir/susan/output_large.smoothing.pgm -s"
 diff $outdir/susan/output_large.smoothing.pgm $refbasedir/susan/output_large.smoothing.pgm > $outdir/susan/output_large.smoothing.pgm.diff
-$gem5_elf -d $outdir $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_large.pgm $outdir/susan/output_large.edges.pgm -e"
+$gem5_elf -d $outdir/susan $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_large.pgm $outdir/susan/output_large.edges.pgm -e"
 diff $outdir/susan/output_large.edges.pgm $refbasedir/susan/output_large.edges.pgm > $outdir/susan/output_large.edges.pgm.diff
-$gem5_elf -d $outdir $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_large.pgm $outdir/susan/output_large.corners.pgm -c"
+$gem5_elf -d $outdir/susan $script $script_opts -c $bdir/susan/susan -o "$bdir/susan/input_large.pgm $outdir/susan/output_large.corners.pgm -c"
 diff $outdir/susan/output_large.corners.pgm $refbasedir/susan/output_large.corners.pgm > $outdir/susan/output_large.corners.pgm.diff
+
+printf "${Yellow}Done.${NC}\n"
+printf "${Yellow}The outputs can be found in $outdir ${NC}\n"
+
+pushd $outdir
+printf "${Yellow}Searching for ${Red}\"unimplemented\"...${NC}\n"
+grep "unimplemented" * -nrI > gem5-unimplemented-problems-found.txt
+printf "${Yellow}Result saved in ${Green}$outdir/gem5-unimplemented-problems-found.txt${NC}\n"
+popd
 
 popd

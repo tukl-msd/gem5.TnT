@@ -1,0 +1,256 @@
+diff --git a/benchmarks/automotive/basicmath/runme_large.sh b/benchmarks/automotive/basicmath/runme_large.sh
+index 55e1faf..815d240 100755
+--- a/benchmarks/automotive/basicmath/runme_large.sh
++++ b/benchmarks/automotive/basicmath/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-basicmath_large > output_large.txt
++./basicmath_large > output_large.txt
+diff --git a/benchmarks/automotive/basicmath/runme_small.sh b/benchmarks/automotive/basicmath/runme_small.sh
+index 536de39..60bb187 100755
+--- a/benchmarks/automotive/basicmath/runme_small.sh
++++ b/benchmarks/automotive/basicmath/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-basicmath_small > output_small.txt
++./basicmath_small > output_small.txt
+diff --git a/benchmarks/automotive/bitcount/runme_large.sh b/benchmarks/automotive/bitcount/runme_large.sh
+index 8fe1a78..da9ff53 100755
+--- a/benchmarks/automotive/bitcount/runme_large.sh
++++ b/benchmarks/automotive/bitcount/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-bitcnts 1125000 > output_large.txt
++./bitcnts 1125000 > output_large.txt
+diff --git a/benchmarks/automotive/bitcount/runme_small.sh b/benchmarks/automotive/bitcount/runme_small.sh
+index 525e6b8..f38be1b 100755
+--- a/benchmarks/automotive/bitcount/runme_small.sh
++++ b/benchmarks/automotive/bitcount/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-bitcnts 75000 > output_small.txt
++./bitcnts 75000 > output_small.txt
+diff --git a/benchmarks/automotive/qsort/runme_large.sh b/benchmarks/automotive/qsort/runme_large.sh
+index dc19217..f04a1be 100755
+--- a/benchmarks/automotive/qsort/runme_large.sh
++++ b/benchmarks/automotive/qsort/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-qsort_large input_large.dat > output_large.txt
++./qsort_large input_large.dat > output_large.txt
+diff --git a/benchmarks/automotive/qsort/runme_small.sh b/benchmarks/automotive/qsort/runme_small.sh
+index 08edcdc..2ba4984 100755
+--- a/benchmarks/automotive/qsort/runme_small.sh
++++ b/benchmarks/automotive/qsort/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-qsort_small input_small.dat > output_small.txt
++./qsort_small input_small.dat > output_small.txt
+diff --git a/benchmarks/automotive/susan/runme_large.sh b/benchmarks/automotive/susan/runme_large.sh
+index 312ceae..6aea852 100755
+--- a/benchmarks/automotive/susan/runme_large.sh
++++ b/benchmarks/automotive/susan/runme_large.sh
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-susan input_large.pgm output_large.smoothing.pgm -s
+-susan input_large.pgm output_large.edges.pgm -e
+-susan input_large.pgm output_large.corners.pgm -c
++./susan input_large.pgm output_large.smoothing.pgm -s
++./susan input_large.pgm output_large.edges.pgm -e
++./susan input_large.pgm output_large.corners.pgm -c
+ 
+diff --git a/benchmarks/automotive/susan/runme_small.sh b/benchmarks/automotive/susan/runme_small.sh
+index 449cb5d..e3f1fd0 100755
+--- a/benchmarks/automotive/susan/runme_small.sh
++++ b/benchmarks/automotive/susan/runme_small.sh
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-susan input_small.pgm output_small.smoothing.pgm -s
+-susan input_small.pgm output_small.edges.pgm -e
+-susan input_small.pgm output_small.corners.pgm -c
++./susan input_small.pgm output_small.smoothing.pgm -s
++./susan input_small.pgm output_small.edges.pgm -e
++./susan input_small.pgm output_small.corners.pgm -c
+ 
+diff --git a/benchmarks/consumer/mad/runme_small.sh b/benchmarks/consumer/mad/runme_small.sh
+index 15c006c..82b1970 100755
+--- a/benchmarks/consumer/mad/runme_small.sh
++++ b/benchmarks/consumer/mad/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-mad-0.14.2b/madplay --time=4 --output=wave:output_small.wav -v small.mp3
++./mad-0.14.2b/madplay --time=4 --output=wave:output_small.wav -v small.mp3
+diff --git a/benchmarks/network/dijkstra/runme_large.sh b/benchmarks/network/dijkstra/runme_large.sh
+index 3a0b35f..01fc8d0 100755
+--- a/benchmarks/network/dijkstra/runme_large.sh
++++ b/benchmarks/network/dijkstra/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-dijkstra_large input.dat > output_large.dat
++./dijkstra_large input.dat > output_large.dat
+diff --git a/benchmarks/network/dijkstra/runme_small.sh b/benchmarks/network/dijkstra/runme_small.sh
+index d9eae6e..cf95a9f 100755
+--- a/benchmarks/network/dijkstra/runme_small.sh
++++ b/benchmarks/network/dijkstra/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-dijkstra_small input.dat > output_small.dat
++./dijkstra_small input.dat > output_small.dat
+diff --git a/benchmarks/network/patricia/runme_large.sh b/benchmarks/network/patricia/runme_large.sh
+index 13b9e7b..e34bfaf 100755
+--- a/benchmarks/network/patricia/runme_large.sh
++++ b/benchmarks/network/patricia/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-patricia large.udp > output_large.txt
++./patricia large.udp > output_large.txt
+diff --git a/benchmarks/network/patricia/runme_small.sh b/benchmarks/network/patricia/runme_small.sh
+index 9ac6ad2..db26af4 100755
+--- a/benchmarks/network/patricia/runme_small.sh
++++ b/benchmarks/network/patricia/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-patricia small.udp > output_small.txt
++./patricia small.udp > output_small.txt
+diff --git a/benchmarks/office/ispell/runme_large.sh b/benchmarks/office/ispell/runme_large.sh
+index 114ff1e..784f988 100755
+--- a/benchmarks/office/ispell/runme_large.sh
++++ b/benchmarks/office/ispell/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-ispell -a -d tests/americanmed+ < tests/large.txt > tests/output_large.txt
++./ispell -a -d tests/americanmed+ < tests/large.txt > tests/output_large.txt
+diff --git a/benchmarks/office/ispell/runme_small.sh b/benchmarks/office/ispell/runme_small.sh
+index 62d99af..58177f6 100755
+--- a/benchmarks/office/ispell/runme_small.sh
++++ b/benchmarks/office/ispell/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-ispell -a -d tests/americanmed+ < tests/small.txt > tests/output_small.txt
++./ispell -a -d tests/americanmed+ < tests/small.txt > tests/output_small.txt
+diff --git a/benchmarks/office/rsynth/runme_large.sh b/benchmarks/office/rsynth/runme_large.sh
+index e615681..bd09cdb 100755
+--- a/benchmarks/office/rsynth/runme_large.sh
++++ b/benchmarks/office/rsynth/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-say -a -q -o large_output.au < largeinput.txt
++./say -a -q -o large_output.au < largeinput.txt
+diff --git a/benchmarks/office/rsynth/runme_small.sh b/benchmarks/office/rsynth/runme_small.sh
+index f7f41d8..ab4c1d4 100755
+--- a/benchmarks/office/rsynth/runme_small.sh
++++ b/benchmarks/office/rsynth/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-say -a -q -o small_output.au < smallinput.txt
++./say -a -q -o small_output.au < smallinput.txt
+diff --git a/benchmarks/office/stringsearch/runme_large.sh b/benchmarks/office/stringsearch/runme_large.sh
+index 338d497..f646792 100755
+--- a/benchmarks/office/stringsearch/runme_large.sh
++++ b/benchmarks/office/stringsearch/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-search_large > output_large.txt
++./search_large > output_large.txt
+diff --git a/benchmarks/office/stringsearch/runme_small.sh b/benchmarks/office/stringsearch/runme_small.sh
+index 99b403b..eaa2c88 100755
+--- a/benchmarks/office/stringsearch/runme_small.sh
++++ b/benchmarks/office/stringsearch/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-search_small > output_small.txt
++./search_small > output_small.txt
+diff --git a/benchmarks/security/blowfish/runme_large.sh b/benchmarks/security/blowfish/runme_large.sh
+index 03aabb0..7595d38 100755
+--- a/benchmarks/security/blowfish/runme_large.sh
++++ b/benchmarks/security/blowfish/runme_large.sh
+@@ -1,3 +1,3 @@
+ #!/bin/sh
+-bf e input_large.asc output_large.enc 1234567890abcdeffedcba0987654321
+-bf d output_large.enc output_large.asc 1234567890abcdeffedcba0987654321
++./bf e input_large.asc output_large.enc 1234567890abcdeffedcba0987654321
++./bf d output_large.enc output_large.asc 1234567890abcdeffedcba0987654321
+diff --git a/benchmarks/security/blowfish/runme_small.sh b/benchmarks/security/blowfish/runme_small.sh
+index 7c66847..4926806 100755
+--- a/benchmarks/security/blowfish/runme_small.sh
++++ b/benchmarks/security/blowfish/runme_small.sh
+@@ -1,3 +1,3 @@
+ #!/bin/sh
+-bf e input_small.asc output_small.enc 1234567890abcdeffedcba0987654321
+-bf d output_small.enc output_small.asc 1234567890abcdeffedcba0987654321
++./bf e input_small.asc output_small.enc 1234567890abcdeffedcba0987654321
++./bf d output_small.enc output_small.asc 1234567890abcdeffedcba0987654321
+diff --git a/benchmarks/security/rijndael/runme_large.sh b/benchmarks/security/rijndael/runme_large.sh
+index bf5884c..4f7a664 100755
+--- a/benchmarks/security/rijndael/runme_large.sh
++++ b/benchmarks/security/rijndael/runme_large.sh
+@@ -1,4 +1,4 @@
+ #!/bin/sh
+-rijndael input_large.asc output_large.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321
+-rijndael output_large.enc output_large.dec d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321
++./rijndael input_large.asc output_large.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321
++./rijndael output_large.enc output_large.dec d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321
+ 
+diff --git a/benchmarks/security/rijndael/runme_small.sh b/benchmarks/security/rijndael/runme_small.sh
+index 9db6f87..2447cd0 100755
+--- a/benchmarks/security/rijndael/runme_small.sh
++++ b/benchmarks/security/rijndael/runme_small.sh
+@@ -1,4 +1,4 @@
+ #!/bin/sh
+-rijndael input_small.asc output_small.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321
+-rijndael output_small.enc output_small.dec d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321
++./rijndael input_small.asc output_small.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321
++./rijndael output_small.enc output_small.dec d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321
+ 
+diff --git a/benchmarks/security/sha/runme_large.sh b/benchmarks/security/sha/runme_large.sh
+index a14c8ba..15f34d9 100755
+--- a/benchmarks/security/sha/runme_large.sh
++++ b/benchmarks/security/sha/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-sha input_large.asc > output_large.txt
++./sha input_large.asc > output_large.txt
+diff --git a/benchmarks/security/sha/runme_small.sh b/benchmarks/security/sha/runme_small.sh
+index 859e8e8..5e5d6d5 100755
+--- a/benchmarks/security/sha/runme_small.sh
++++ b/benchmarks/security/sha/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-sha input_small.asc > output_small.txt
++./sha input_small.asc > output_small.txt
+diff --git a/benchmarks/telecomm/CRC32/runme_large.sh b/benchmarks/telecomm/CRC32/runme_large.sh
+index f6c9ffd..61b2524 100755
+--- a/benchmarks/telecomm/CRC32/runme_large.sh
++++ b/benchmarks/telecomm/CRC32/runme_large.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-crc ../adpcm/data/large.pcm > output_large.txt
++./crc ../adpcm/data/large.pcm > output_large.txt
+diff --git a/benchmarks/telecomm/CRC32/runme_small.sh b/benchmarks/telecomm/CRC32/runme_small.sh
+index dc389e2..14b1695 100755
+--- a/benchmarks/telecomm/CRC32/runme_small.sh
++++ b/benchmarks/telecomm/CRC32/runme_small.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-crc ../adpcm/data/large.pcm > output_small.txt
++./crc ../adpcm/data/large.pcm > output_small.txt
+diff --git a/benchmarks/telecomm/FFT/runme_large.sh b/benchmarks/telecomm/FFT/runme_large.sh
+index 556edd0..26c58c7 100755
+--- a/benchmarks/telecomm/FFT/runme_large.sh
++++ b/benchmarks/telecomm/FFT/runme_large.sh
+@@ -1,3 +1,3 @@
+ #!/bin/sh
+-fft 8 32768 > output_large.txt
+-fft 8 32768 -i > output_large.inv.txt
++./fft 8 32768 > output_large.txt
++./fft 8 32768 -i > output_large.inv.txt
+diff --git a/benchmarks/telecomm/FFT/runme_small.sh b/benchmarks/telecomm/FFT/runme_small.sh
+index 352f36b..0ff510d 100755
+--- a/benchmarks/telecomm/FFT/runme_small.sh
++++ b/benchmarks/telecomm/FFT/runme_small.sh
+@@ -1,3 +1,3 @@
+ #!/bin/sh
+-fft 4 4096 > output_small.txt
+-fft 4 8192 -i > output_small.inv.txt
++./fft 4 4096 > output_small.txt
++./fft 4 8192 -i > output_small.inv.txt

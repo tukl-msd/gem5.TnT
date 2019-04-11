@@ -46,18 +46,18 @@ gem5_elf="build/$arch/gem5.$mode"
 $TOPDIR/get_benchmarks.sh
 
 basedir="$BENCHMARKSDIR/MiBench/benchmarks"
-domain="telecomm"
+domain="security"
 bdir="$basedir/${domain}"
 refbasedir="$BENCHMARKSDIR/MiBench/outputs/${domain}"
 
 # compile the programs
 pushd $bdir
 bmdirs="
-gsm
-FFT
-CRC32
-adpcm/src
+sha
+blowfish
+rijndael
 "
+
 for b in $bmdirs; do
 	make -C $b > /dev/null 2>&1
 done
@@ -81,75 +81,55 @@ outdir="se_mibench_${domain}_$currtime"
 
 # simulate
 
-# gsm encode small
-od="$outdir/gsm/encode/small"
+# blowfish encode small
+ode="$outdir/blowfish/encode/small"
+mkdir -p $ode
+$gem5_elf -d $ode $script $script_opts -c $bdir/blowfish/bf -o "e $bdir/blowfish/input_small.asc $ode/output_small.enc 1234567890abcdeffedcba0987654321"
+
+# blowfish decode small
+odd="$outdir/blowfish/decode/small"
+mkdir -p $odd
+$gem5_elf -d $odd $script $script_opts -c $bdir/blowfish/bf -o "d $ode/output_small.enc $odd/output_small.asc 1234567890abcdeffedcba0987654321"
+
+# blowfish encode large
+ode="$outdir/blowfish/encode/large"
+mkdir -p $ode
+$gem5_elf -d $ode $script $script_opts -c $bdir/blowfish/bf -o "e $bdir/blowfish/input_large.asc $ode/output_large.enc 1234567890abcdeffedcba0987654321"
+
+# blowfish decode small
+odd="$outdir/blowfish/decode/large"
+mkdir -p $odd
+$gem5_elf -d $odd $script $script_opts -c $bdir/blowfish/bf -o "d $ode/output_large.enc $odd/output_large.asc 1234567890abcdeffedcba0987654321"
+
+# rijndael encode small
+ode="$outdir/rijndael/encode/small"
+mkdir -p $ode
+$gem5_elf -d $ode $script $script_opts -c $bdir/rijndael/rijndael -o "$bdir/rijndael/input_small.asc $ode/output_small.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
+
+# rijndael decode small
+odd="$outdir/rijndael/decode/small"
+mkdir -p $odd
+$gem5_elf -d $odd $script $script_opts -c $bdir/rijndael/rijndael -o "$ode/output_small.enc $odd/output_small.asc d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
+
+# rijndael encode large
+ode="$outdir/rijndael/encode/large"
+mkdir -p $ode
+$gem5_elf -d $ode $script $script_opts -c $bdir/rijndael/rijndael -o "e $bdir/rijndael/input_large.asc $ode/output_large.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
+
+# rijndael decode small
+odd="$outdir/rijndael/decode/large"
+mkdir -p $odd
+$gem5_elf -d $odd $script $script_opts -c $bdir/rijndael/rijndael -o "d $ode/output_large.enc $odd/output_large.asc d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
+
+# sha small
+od="$outdir/sha/small"
 mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/toast -o "-fps -c $bdir/gsm/data/small.au" > $od/output_small.encode.gsm
+$gem5_elf -d $od $script $script_opts -c $bdir/sha/sha -o "$bdir/sha/input_small.asc" > $od/output_small.txt
 
-# gsm encode large
-od="$outdir/gsm/encode/large"
+# sha large
+od="$outdir/sha/large"
 mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/toast -o "-fps -c $bdir/gsm/data/large.au" > $od/output_large.encode.gsm
-
-# gsm decode small
-od="$outdir/gsm/decode/small"
-mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/small.au.run.gsm" > $od/output_small.decode.run
-
-# gsm decode large
-od="$outdir/gsm/decode/large"
-mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/large.au.run.gsm" > $od/output_large.decode.run
-
-# crc32 small
-od="$outdir/crc32/small"
-mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/CRC32/crc -o "$bdir/adpcm/data/small.pcm" > $od/output_small.txt
-
-# crc32 large
-od="$outdir/crc32/large"
-mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/CRC32/crc -o "$bdir/adpcm/data/large.pcm" > $od/output_large.txt
-
-# adpcm encoder small
-#od="$outdir/adpcm/encoder/small"
-#mkdir -p $od
-#$gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawcaudio -o " < $bdir/adpcm/data/small.pcm" > $od/output_small.adpcm
-
-# adpcm encoder large
-#od="$outdir/adpcm/encoder/large"
-#mkdir -p $od
-#$gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawcaudio -o " < $bdir/adpcm/data/large.pcm" > $od/output_large.adpcm
-
-# adpcm decoder small
-#od="$outdir/adpcm/decoder/small"
-#mkdir -p $od
-#$gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawdaudio -o " < $bdir/adpcm/data/small.adpcm" > $od/output_small.pcm
-
-# adpcm decoder large
-#od="$outdir/adpcm/decoder/large"
-#mkdir -p $od
-#$gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawdaudio -o " < $bdir/adpcm/data/large.adpcm" > $od/output_large.pcm
-
-# fft small
-od="$outdir/fft/small"
-mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "4 4096" > $od/output_small.txt
-
-# fft large
-od="$outdir/fft/large"
-mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "8 32768" > $od/output_large.txt
-
-# fft inv small
-od="$outdir/fft-inv/small"
-mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "4 8192 -i" > $od/output_small.inv.txt
-
-# fft inv large
-od="$outdir/fft-inv/large"
-mkdir -p $od
-$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "8 32768 -i" > $od/output_large.inv.txt
+$gem5_elf -d $od $script $script_opts -c $bdir/sha/sha -o "$bdir/sha/input_large.asc" > $od/output_large.txt
 
 printf "${Yellow}Done.${NC}\n"
 printf "${Yellow}The outputs can be found in $outdir ${NC}\n"

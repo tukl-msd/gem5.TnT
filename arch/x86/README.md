@@ -144,6 +144,12 @@ Telecom.
 $ ./mibench-telecomm.sh
 ```
 
+Security.
+
+```bash
+$ ./mibench-security.sh
+```
+
 ### [PARSEC]
 
 Tweak the script [parsec.sh] to fit your purpose.

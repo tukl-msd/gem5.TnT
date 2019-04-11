@@ -102,15 +102,15 @@ mkdir -p $od
 $gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/large.au.run.gsm" > $od/output_large.decode.run
 
 
-
 printf "${Yellow}Done.${NC}\n"
 printf "${Yellow}The outputs can be found in $outdir ${NC}\n"
 
-# search for unimplemented functionalities
 pushd $outdir
-printf "${Yellow}Searching for ${Red}\"unimplemented\"...${NC}\n"
-grep "unimplemented" * -nrI > gem5-unimplemented-problems-found.txt
-printf "${Yellow}Result saved in ${Green}$outdir/gem5-unimplemented-problems-found.txt${NC}\n"
+pattern="warn:"
+printf "${Yellow}Searching for ${Red}\"$pattern\"...${NC}\n"
+report="Attention-Read-This.txt"
+grep "$pattern" * -nrI > $report
+printf "${Yellow}Results saved in ${Green}$outdir/${report}${NC}\n"
 popd
 
 popd

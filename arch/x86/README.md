@@ -84,7 +84,7 @@ $ m5term localhost 3456
 Note that in this example *m5 operations*, e.g. dumpstat, exit, readfile,
 fail.
 
-### SE Mode
+### Syscall Emulation SE
 
 SE mode hello using [se.py].
 
@@ -122,6 +122,12 @@ $ build/X86/gem5.opt -d se_less_output \
 		--caches \
 		-c /bin/less \
 		-o MAINTAINERS
+```
+
+### [MiBench]
+
+```bash
+$ ./mibench-automotive.sh
 ```
 
 ### PARSEC
@@ -189,3 +195,4 @@ for information on how to proper cite the tools provided by them.
 [parsec.sh]: parsec.sh
 [gem5.TnT]: https://github.com/tukl-msd/gem5.TnT
 [se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/se.py
+[MiBench]: http://vhosts.eecs.umich.edu/mibench/

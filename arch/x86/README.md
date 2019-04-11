@@ -126,11 +126,19 @@ $ build/X86/gem5.opt -d se_less_output \
 
 ### [MiBench]
 
+Automotive.
+
 ```bash
 $ ./mibench-automotive.sh
 ```
 
-### PARSEC
+Network.
+
+```bash
+$ ./mibench-network.sh
+```
+
+### [PARSEC]
 
 Tweak the script [parsec.sh] to fit your purpose.
 
@@ -196,3 +204,4 @@ for information on how to proper cite the tools provided by them.
 [gem5.TnT]: https://github.com/tukl-msd/gem5.TnT
 [se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/se.py
 [MiBench]: http://vhosts.eecs.umich.edu/mibench/
+[PARSEC]: https://parsec.cs.princeton.edu/

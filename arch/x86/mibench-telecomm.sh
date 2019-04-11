@@ -101,6 +101,55 @@ od="$outdir/gsm/decode/large"
 mkdir -p $od
 $gem5_elf -d $od $script $script_opts -c $bdir/gsm/bin/untoast -o "-fps -c $bdir/gsm/data/large.au.run.gsm" > $od/output_large.decode.run
 
+# crc32 small
+od="$outdir/crc32/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/CRC32/crc -o "$bdir/adpcm/data/small.pcm" > $od/output_small.txt
+
+# crc32 large
+od="$outdir/crc32/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/CRC32/crc -o "$bdir/adpcm/data/large.pcm" > $od/output_large.txt
+
+# adpcm encoder small
+od="$outdir/adpcm/encoder/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawcaudio -o " < $bdir/adpcm/data/small.pcm" > $od/output_small.adpcm
+
+# adpcm encoder large
+od="$outdir/adpcm/encoder/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawcaudio -o " < $bdir/adpcm/data/large.pcm" > $od/output_large.adpcm
+
+# adpcm decoder small
+od="$outdir/adpcm/decoder/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawdaudio -o " < $bdir/adpcm/data/small.adpcm" > $od/output_small.pcm
+
+# adpcm decoder large
+od="$outdir/adpcm/decoder/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/adpcm/bin/rawdaudio -o " < $bdir/adpcm/data/large.adpcm" > $od/output_large.pcm
+
+# fft small
+od="$outdir/fft/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "4 4096" > $od/output_small.txt
+
+# fft large
+od="$outdir/fft/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "8 32768" > $od/output_large.txt
+
+# fft inv small
+od="$outdir/fft-inv/small"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "4 8192 -i" > $od/output_small.inv.txt
+
+# fft inv large
+od="$outdir/fft-inv/large"
+mkdir -p $od
+$gem5_elf -d $od $script $script_opts -c $bdir/fft -o "8 32768 -i" > $od/output_large.inv.txt
 
 printf "${Yellow}Done.${NC}\n"
 printf "${Yellow}The outputs can be found in $outdir ${NC}\n"

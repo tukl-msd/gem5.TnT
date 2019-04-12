@@ -102,24 +102,24 @@ mkdir -p $odd
 $gem5_elf -d $odd $script $script_opts -c $bdir/blowfish/bf -o "d $ode/output_large.enc $odd/output_large.asc 1234567890abcdeffedcba0987654321"
 
 # rijndael encode small
-ode="$outdir/rijndael/encode/small"
-mkdir -p $ode
-$gem5_elf -d $ode $script $script_opts -c $bdir/rijndael/rijndael -o "$bdir/rijndael/input_small.asc $ode/output_small.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
+#ode="$outdir/rijndael/encode/small"
+#mkdir -p $ode
+#$gem5_elf -d $ode $script $script_opts -c $bdir/rijndael/rijndael -o "$bdir/rijndael/input_small.asc $ode/output_small.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
 
 # rijndael decode small
-odd="$outdir/rijndael/decode/small"
-mkdir -p $odd
-$gem5_elf -d $odd $script $script_opts -c $bdir/rijndael/rijndael -o "$ode/output_small.enc $odd/output_small.asc d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
+#odd="$outdir/rijndael/decode/small"
+#mkdir -p $odd
+#$gem5_elf -d $odd $script $script_opts -c $bdir/rijndael/rijndael -o "$ode/output_small.enc $odd/output_small.asc d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
 
 # rijndael encode large
-ode="$outdir/rijndael/encode/large"
-mkdir -p $ode
-$gem5_elf -d $ode $script $script_opts -c $bdir/rijndael/rijndael -o "e $bdir/rijndael/input_large.asc $ode/output_large.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
+#ode="$outdir/rijndael/encode/large"
+#mkdir -p $ode
+#$gem5_elf -d $ode $script $script_opts -c $bdir/rijndael/rijndael -o "e $bdir/rijndael/input_large.asc $ode/output_large.enc e 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
 
 # rijndael decode small
-odd="$outdir/rijndael/decode/large"
-mkdir -p $odd
-$gem5_elf -d $odd $script $script_opts -c $bdir/rijndael/rijndael -o "d $ode/output_large.enc $odd/output_large.asc d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
+#odd="$outdir/rijndael/decode/large"
+#mkdir -p $odd
+#$gem5_elf -d $odd $script $script_opts -c $bdir/rijndael/rijndael -o "d $ode/output_large.enc $odd/output_large.asc d 1234567890abcdeffedcba09876543211234567890abcdeffedcba0987654321"
 
 # sha small
 od="$outdir/sha/small"

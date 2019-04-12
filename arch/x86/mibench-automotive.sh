@@ -74,14 +74,14 @@ script="configs/example/se.py"
 script_opts=" \
 --cpu-type=TimingSimpleCPU \
 --mem-type=DDR4_2400_8x8 \
---mem-size=4GB --cacheline_size=64 \
+--mem-size=4GB \
 --caches \
+--cacheline_size=64 \
 "
 
 #script_opts=" \
 #--cpu-type=TimingSimpleCPU \
 #--caches \
-#--l2cache \
 #--cacheline_size=64 \
 #--mem-type=SimpleMemory \
 #--mem-channels=1 \
@@ -96,7 +96,7 @@ outdir="se_mibench_automotive_$currtime"
 # basicmath small
 od="$outdir/basicmath/small"
 mkdir -p $od
-$gem5_elf -d  $od $script $script_opts -c $bdir/basicmath/basicmath_small 2>&1 | tee $od/output_small.txt
+$gem5_elf -d $od $script $script_opts -c $bdir/basicmath/basicmath_small 2>&1 | tee $od/output_small.txt
 diff $od/output_small.txt $refbasedir/basicmath/output_small.txt > $od/output_small.txt.diff
 
 # basicmath large

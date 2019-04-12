@@ -71,14 +71,14 @@ script="configs/example/se.py"
 script_opts=" \
 --cpu-type=TimingSimpleCPU \
 --mem-type=DDR4_2400_8x8 \
---mem-size=4GB --cacheline_size=64 \
+--mem-size=4GB
 --caches \
+--cacheline_size=64 \
 "
 
 #script_opts=" \
 #--cpu-type=TimingSimpleCPU \
 #--caches \
-#--l2cache \
 #--cacheline_size=64 \
 #--mem-type=SimpleMemory \
 #--mem-channels=1 \
@@ -93,26 +93,26 @@ outdir="se_mibench_${domain}_$currtime"
 # dijkstra small
 od="$outdir/dijkstra/small"
 mkdir -p $od
-$gem5_elf -d $outdir/dijkstra $script $script_opts -c $bdir/dijkstra/dijkstra_small -o $bdir/dijkstra/input.dat 2>&1 | tee $outdir/dijkstra/output_small.dat
-diff $outdir/dijkstra/output_small.dat $refbasedir/dijkstra/output_small.dat > $outdir/dijkstra/output_small.dat.diff
+$gem5_elf -d $od $script $script_opts -c $bdir/dijkstra/dijkstra_small -o $bdir/dijkstra/input.dat 2>&1 | tee $od/output_small.dat
+diff $od/output_small.dat $refbasedir/dijkstra/output_small.dat > $od/output_small.dat.diff
 
 # dijkstra large
 od="$outdir/dijkstra/large"
 mkdir -p $od
-$gem5_elf -d $outdir/dijkstra $script $script_opts -c $bdir/dijkstra/dijkstra_large -o $bdir/dijkstra/input.dat 2>&1 | tee $outdir/dijkstra/output_large.dat
-diff $outdir/dijkstra/output_large.dat $refbasedir/dijkstra/output_large.dat > $outdir/dijkstra/output_large.dat.diff
+$gem5_elf -d $od $script $script_opts -c $bdir/dijkstra/dijkstra_large -o $bdir/dijkstra/input.dat 2>&1 | tee $od/output_large.dat
+diff $od/output_large.dat $refbasedir/dijkstra/output_large.dat > $od/output_large.dat.diff
 
 # patricia small
 od="$outdir/patricia/small"
 mkdir -p $od
-$gem5_elf -d $outdir/patricia $script $script_opts -c $bdir/patricia/patricia -o $bdir/patricia/small.udp 2>&1 | tee $outdir/patricia/output_small.txt
-diff $outdir/patricia/output_small.txt $refbasedir/patricia/output_small.txt > $outdir/patricia/output_small.txt.diff
+$gem5_elf -d $od $script $script_opts -c $bdir/patricia/patricia -o $bdir/patricia/small.udp 2>&1 | tee $od/output_small.txt
+diff $od/output_small.txt $refbasedir/patricia/output_small.txt > $od/output_small.txt.diff
 
 # patricia large
 od="$outdir/patricia/large"
 mkdir -p $od
-$gem5_elf -d $outdir/patricia $script $script_opts -c $bdir/patricia/patricia -o $bdir/patricia/large.udp 2>&1 | tee $outdir/patricia/output_large.txt
-diff $outdir/patricia/output_large.txt $refbasedir/patricia/output_large.txt > $outdir/patricia/output_large.txt.diff
+$gem5_elf -d $od $script $script_opts -c $bdir/patricia/patricia -o $bdir/patricia/large.udp 2>&1 | tee $od/output_large.txt
+diff $od/output_large.txt $refbasedir/patricia/output_large.txt > $od/output_large.txt.diff
 
 printf "${Yellow}Done.${NC}\n"
 printf "${Yellow}The outputs can be found in $outdir ${NC}\n"

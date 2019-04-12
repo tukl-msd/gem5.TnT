@@ -75,28 +75,42 @@ script_opts=" \
 --caches \
 "
 
+#script_opts=" \
+#--cpu-type=TimingSimpleCPU \
+#--caches \
+#--l2cache \
+#--cacheline_size=64 \
+#--mem-type=SimpleMemory \
+#--mem-channels=1 \
+#--tlm-memory=transactor
+#"
+
 outdir="se_mibench_${domain}_$currtime"
-mkdir -p $outdir
-bmdirs="
-dijkstra
-patricia
-"
-for b in $bmdirs; do
-	mkdir -p $outdir/$b
-done
 
 # step 1: simulate
 # step 2: compare output with reference provided
 
-# dijkstra
+# dijkstra small
+od="$outdir/dijkstra/small"
+mkdir -p $od
 $gem5_elf -d $outdir/dijkstra $script $script_opts -c $bdir/dijkstra/dijkstra_small -o $bdir/dijkstra/input.dat 2>&1 | tee $outdir/dijkstra/output_small.dat
 diff $outdir/dijkstra/output_small.dat $refbasedir/dijkstra/output_small.dat > $outdir/dijkstra/output_small.dat.diff
+
+# dijkstra large
+od="$outdir/dijkstra/large"
+mkdir -p $od
 $gem5_elf -d $outdir/dijkstra $script $script_opts -c $bdir/dijkstra/dijkstra_large -o $bdir/dijkstra/input.dat 2>&1 | tee $outdir/dijkstra/output_large.dat
 diff $outdir/dijkstra/output_large.dat $refbasedir/dijkstra/output_large.dat > $outdir/dijkstra/output_large.dat.diff
 
-# patricia
+# patricia small
+od="$outdir/patricia/small"
+mkdir -p $od
 $gem5_elf -d $outdir/patricia $script $script_opts -c $bdir/patricia/patricia -o $bdir/patricia/small.udp 2>&1 | tee $outdir/patricia/output_small.txt
 diff $outdir/patricia/output_small.txt $refbasedir/patricia/output_small.txt > $outdir/patricia/output_small.txt.diff
+
+# patricia large
+od="$outdir/patricia/large"
+mkdir -p $od
 $gem5_elf -d $outdir/patricia $script $script_opts -c $bdir/patricia/patricia -o $bdir/patricia/large.udp 2>&1 | tee $outdir/patricia/output_large.txt
 diff $outdir/patricia/output_large.txt $refbasedir/patricia/output_large.txt > $outdir/patricia/output_large.txt.diff
 

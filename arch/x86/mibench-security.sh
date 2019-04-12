@@ -77,6 +77,16 @@ script_opts=" \
 --caches \
 "
 
+#script_opts=" \
+#--cpu-type=TimingSimpleCPU \
+#--caches \
+#--l2cache \
+#--cacheline_size=64 \
+#--mem-type=SimpleMemory \
+#--mem-channels=1 \
+#--tlm-memory=transactor
+#"
+
 outdir="se_mibench_${domain}_$currtime"
 
 # simulate

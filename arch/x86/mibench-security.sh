@@ -73,14 +73,14 @@ script="configs/example/se.py"
 script_opts=" \
 --cpu-type=TimingSimpleCPU \
 --mem-type=DDR4_2400_8x8 \
---mem-size=4GB --cacheline_size=64 \
+--mem-size=4GB \
 --caches \
+--cacheline_size=64 \
 "
 
 #script_opts=" \
 #--cpu-type=TimingSimpleCPU \
 #--caches \
-#--l2cache \
 #--cacheline_size=64 \
 #--mem-type=SimpleMemory \
 #--mem-channels=1 \

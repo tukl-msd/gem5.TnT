@@ -118,7 +118,7 @@ $ su
 usr/bin/auto-root-login
 ```
 
-In this disk image the */sbin/m5* is referenced in *usr/bin/auto-root-login*.
+In this disk image the */sbin/m5* is used in *usr/bin/auto-root-login*.
 As root you shall be able to examine files, copy applications, etc.
 
 ```

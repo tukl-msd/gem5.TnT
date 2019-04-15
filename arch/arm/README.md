@@ -114,6 +114,35 @@ Connect with *vncviewer*.
 $ vncviewer localhost:5901
 ```
 
+### Kernel
+
+Loading default configuration *gem5_defconfig*:
+
+```bash
+$ cd $HOME/gem5_tnt/kernel/arm/linux
+$ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- gem5_defconfig
+```
+
+The default configuration will be written to *.config*.
+
+Open interface to edit/view configuration:
+
+```bash
+$ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+```
+
+or
+
+```bash
+$ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- xmenuconfig
+```
+
+After saving changes, to compile:
+
+```bash
+$ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j `nproc`
+```
+
 ### More Resources, Useful Links
 
 [Arm Research Starter Kit](https://github.com/arm-university/arm-gem5-rsk)

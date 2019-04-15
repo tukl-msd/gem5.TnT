@@ -134,7 +134,7 @@ $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
 or
 
 ```bash
-$ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- xmenuconfig
+$ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- xconfig
 ```
 
 After saving changes, to compile:

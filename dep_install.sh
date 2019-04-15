@@ -67,10 +67,12 @@ instdep() {
 	device-tree-compiler
 	libzstd-dev
 	parted
+	kpartx
 	csh
 	lsb-core
 	xtightvncviewer
 	diod
+	libncurses5-dev
 	"
 
 	echo -e -n "This is a list of known dependencies:" && echo ""

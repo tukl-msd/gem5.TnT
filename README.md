@@ -143,7 +143,7 @@ To exit superuser mode type *exit*.
 # exit
 ```
 
-Get out of the mount point, close any file you may have open, then unmount the
+Get out of the mount point, close any files you may have open, then unmount the
 disk image with the command suggested by [mount-img.sh].
 
 ```bash

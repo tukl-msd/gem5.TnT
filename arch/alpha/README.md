@@ -9,9 +9,9 @@ all done if you followed [**the steps described here**](../../README.md).
 * [boot-linux.sh]: boots Linux (old, provided as example in
   [gem5.org](http://www.gem5.org/Download)).
 
-#### **Run the scripts.**
+### Boot Linux
 
-A suggestion on how to run the scripts follows.
+A suggestion on how to use the script follows.
 
 ```bash
 $ ./boot-linux.sh
@@ -29,4 +29,51 @@ Optionally, open a new terminal and connect to gem5.
 ```bash
 $ telnet localhost 3456
 ```
+
+### Full System Benchmarks
+
+```bash
+cd $HOME/gem5_tnt/gem5
+```
+
+```bash
+$ export M5_PATH=$HOME/gem5_tnt/full_system/alpha/m5_system_2.0b3
+```
+
+```bash
+$ ./build/ALPHA/gem5.opt configs/example/fs.py -b NetperfMaerts 
+```
+
+```bash
+$ ./build/ALPHA/gem5.opt configs/example/fs.py -help
+
+...
+-b BENCHMARK, --benchmark=BENCHMARK
+                        Specify the benchmark to run. Available benchmarks:
+                        ArmAndroid-GB, ArmAndroid-ICS, IScsiInitiator,
+                        IScsiTarget, MutexTest, NetperfMaerts, NetperfStream,
+                        NetperfStreamNT, NetperfStreamUdp, NetperfUdpLocal,
+                        Nfs, NfsTcp, Nhfsstone, Ping, PovrayAutumn,
+                        PovrayBench, SurgeSpecweb, SurgeStandard, ValAccDelay,
+                        ValAccDelay2, ValCtxLat, ValMemLat, ValMemLat2MB,
+                        ValMemLat8MB, ValStream, ValStreamCopy,
+                        ValStreamScale, ValSysLat, ValTlbLat, Validation,
+                        bbench-gb, bbench-ics
+
+...
+
+```
+
+Boot scripts available in:
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+$ ls configs/boot
+```
+
+See also:
+
+[Running_gem5]
+
 [boot-linux.sh]: boot-linux.sh
+[Running_gem5]: http://www.gem5.org/Running_gem5

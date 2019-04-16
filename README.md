@@ -178,6 +178,20 @@ $ sudo su
 $ echo 1 > /proc/sys/vm/overcommit_memory
 ```
 
+#### GEM5 Help
+
+```bash
+$ build/X86/gem5.opt --help
+$ build/X86/gem5.opt --debug-help
+```
+
+Try also the *fast* version for comparision:
+
+```bash
+$ build/X86/gem5.fast --help
+$ build/X86/gem5.fast --debug-help
+```
+
 #### Configurations scripts provided as examples
 
 ```bash

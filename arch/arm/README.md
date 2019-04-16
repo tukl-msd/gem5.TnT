@@ -143,6 +143,30 @@ After saving changes, to compile:
 $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j `nproc`
 ```
 
+### Bootloader
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+```
+
+```bash
+$ make -C system/arm/simple_bootloader
+```
+
+```bash
+$ make -C system/arm/aarch64_bootloader
+```
+
+### DTB
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+```
+
+```bash
+$ make -C system/arm/dt
+```
+
 ### More Resources, Useful Links
 
 [Arm Research Starter Kit](https://github.com/arm-university/arm-gem5-rsk)

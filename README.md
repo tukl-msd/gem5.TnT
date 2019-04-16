@@ -5,8 +5,7 @@ This repository contains tips and tricks about gem5. It is intended to gather
 and share useful hints about gem5, so that the learning process is
 accelerated.
 
-If you decide to use gem5.TnT or parts of it in your research, please add a
-reference this website
+If you decide to use gem5.TnT or parts of it, please cite this website
 [https://github.com/tukl-msd/gem5.TnT](https://github.com/tukl-msd/gem5.TnT).
 
 * [**dep_install.sh**](dep_install.sh): installs known dependencies for building gem5 and running the example scripts contained in this repository.
@@ -177,6 +176,20 @@ $ python2.7 `which scons` build/ARM/gem5.opt -j$(cat /proc/cpuinfo | grep proces
 ```bash
 $ sudo su
 $ echo 1 > /proc/sys/vm/overcommit_memory
+```
+
+#### GEM5 Help
+
+```bash
+$ build/X86/gem5.opt --help
+$ build/X86/gem5.opt --debug-help
+```
+
+Try also the *fast* version for comparision:
+
+```bash
+$ build/X86/gem5.fast --help
+$ build/X86/gem5.fast --debug-help
 ```
 
 #### Configurations scripts provided as examples
@@ -432,6 +445,8 @@ you can find information for ARM, and so on.
 Here some links you may consider useful. Many thanks to the respective authors for
 throwing some light on this.
 
+[http://www.gem5.org/Special:AllPages](http://www.gem5.org/Special:AllPages)
+
 [Learning gem5](http://www.lowepower.com/jason/learning_gem5/)
 
 [Tutorials gem5 wiki](http://www.m5sim.org/Tutorials)
@@ -469,8 +484,8 @@ SCOTT: System's coming back.
 
 gem5.TnT and its parts are released under the BSD 3-Clause License. This gives
 the users and developers the flexibility to employ, develop and re-distribute
-the source code with minimal obligations. We only ask users to add a reference
-to [https://github.com/tukl-msd/gem5.TnT](https://github.com/tukl-msd/gem5.TnT).
+the source code with minimal obligations. We only ask users to cite
+[https://github.com/tukl-msd/gem5.TnT](https://github.com/tukl-msd/gem5.TnT).
 
 You may use the software subject to the license terms below provided that you
 ensure that this notice is replicated unmodified and in its entirety in all

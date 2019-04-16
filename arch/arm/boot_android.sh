@@ -112,7 +112,7 @@ script_opts="--script=$ROOTDIR/gem5/$bootscript"
 output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
-export M5_PATH=${M5_PATH}:"${syspath}"
+export M5_PATH=${M5_PATH}:"${syspath}":$FSDIRARM/aarch-system-20180409
 # start simulation
 $gem5_elf -d $output_dir \
 	$config_script \

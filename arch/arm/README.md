@@ -143,6 +143,36 @@ After saving changes, to compile:
 $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j `nproc`
 ```
 
+See also: [gen_arm_fs_files.py]
+
+### Bootloader
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+```
+
+```bash
+$ make -C system/arm/simple_bootloader
+```
+
+```bash
+$ make -C system/arm/aarch64_bootloader
+```
+
+See also: [gen_arm_fs_files.py]
+
+### DTB
+
+```bash
+$ cd $HOME/gem5_tnt/gem5
+```
+
+```bash
+$ make -C system/arm/dt
+```
+
+See also: [gen_arm_fs_files.py]
+
 ### More Resources, Useful Links
 
 [Arm Research Starter Kit](https://github.com/arm-university/arm-gem5-rsk)
@@ -155,8 +185,11 @@ $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j `nproc`
 
 [http://www.gem5.org/BBench-gem5](http://www.gem5.org/BBench-gem5)
 
+[http://www.gem5.org/dist/current/arm/](http://www.gem5.org/dist/current/arm/)
+
 
 [se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/se.py
 [starter_se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/arm/starter_se.py
 [compile-kernel-aarch32.sh]: compile-kernel-aarch32.sh
 [compile-kernel-aarch64.sh]: compile-kernel-aarch64.sh
+[gen_arm_fs_files.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/gen_arm_fs_files.py

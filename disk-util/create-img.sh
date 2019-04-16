@@ -110,7 +110,7 @@ fi
 loopdev=`sudo losetup -f`
 # associate loop device with file using an offset
 sudo losetup -o $offset $loopdev $disk
-# create a temporary directory to server as mount point
+# create a temporary directory to serve as mount point
 mpoint=`mktemp -d`
 # mount the filesystem
 sudo mount $loopdev $mpoint

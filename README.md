@@ -5,8 +5,7 @@ This repository contains tips and tricks about gem5. It is intended to gather
 and share useful hints about gem5, so that the learning process is
 accelerated.
 
-If you decide to use gem5.TnT or parts of it in your research, please add a
-reference this website
+If you decide to use gem5.TnT or parts of it, please cite this website
 [https://github.com/tukl-msd/gem5.TnT](https://github.com/tukl-msd/gem5.TnT).
 
 * [**dep_install.sh**](dep_install.sh): installs known dependencies for building gem5 and running the example scripts contained in this repository.
@@ -469,8 +468,8 @@ SCOTT: System's coming back.
 
 gem5.TnT and its parts are released under the BSD 3-Clause License. This gives
 the users and developers the flexibility to employ, develop and re-distribute
-the source code with minimal obligations. We only ask users to add a reference
-to [https://github.com/tukl-msd/gem5.TnT](https://github.com/tukl-msd/gem5.TnT).
+the source code with minimal obligations. We only ask users to cite
+[https://github.com/tukl-msd/gem5.TnT](https://github.com/tukl-msd/gem5.TnT).
 
 You may use the software subject to the license terms below provided that you
 ensure that this notice is replicated unmodified and in its entirety in all

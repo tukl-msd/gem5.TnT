@@ -143,6 +143,8 @@ After saving changes, to compile:
 $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j `nproc`
 ```
 
+See also: [gen_arm_fs_files.py]
+
 ### Bootloader
 
 ```bash
@@ -157,6 +159,8 @@ $ make -C system/arm/simple_bootloader
 $ make -C system/arm/aarch64_bootloader
 ```
 
+See also: [gen_arm_fs_files.py]
+
 ### DTB
 
 ```bash
@@ -166,6 +170,8 @@ $ cd $HOME/gem5_tnt/gem5
 ```bash
 $ make -C system/arm/dt
 ```
+
+See also: [gen_arm_fs_files.py]
 
 ### More Resources, Useful Links
 
@@ -184,3 +190,4 @@ $ make -C system/arm/dt
 [starter_se.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/arm/starter_se.py
 [compile-kernel-aarch32.sh]: compile-kernel-aarch32.sh
 [compile-kernel-aarch64.sh]: compile-kernel-aarch64.sh
+[gen_arm_fs_files.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/gen_arm_fs_files.py

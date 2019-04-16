@@ -73,7 +73,10 @@ $ ls configs/boot
 
 See also:
 
+[Benchmarks.py]
+
 [Running_gem5]
 
 [boot-linux.sh]: boot-linux.sh
 [Running_gem5]: http://www.gem5.org/Running_gem5
+[Benchmarks.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/common/Benchmarks.py

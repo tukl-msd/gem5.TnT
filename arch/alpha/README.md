@@ -77,6 +77,55 @@ See also:
 
 [Running_gem5]
 
+The disk image can be mounted with [mount-img.sh] as follows.
+
+```bash
+$ mount-img.sh $HOME/gem5_tnt/full_system/alpha/m5_system_2.0b3/disks/linux-latest.img
+```
+
+Example:
+
+```bash
+$ mount-img.sh $HOME/gem5_tnt/full_system/alpha/m5_system_2.0b3/disks/linux-latest.img
+Salutations! You are using gem5.TnT!
+file: ./linux-latest.img
+start sector: 63
+sector size: 512
+loop device: /dev/loop0
+offset: 32256
+Mounted at /tmp/tmp.Zmt0BMnE3p
+Command to unmount: sudo umount /tmp/tmp.Zmt0BMnE3p && sudo losetup --detach /dev/loop0
+```
+
+```bash
+$ cd /tmp/tmp.Zmt0BMnE3p
+```
+
+```bash
+$ ls
+benchmarks  bin  dev  etc  iscsi  lib  linuxrc  lost+found  mnt  modules  proc  sbin  sys  tmp  usr  var
+```
+
+```bash
+$ ls benchmarks/*
+benchmarks/aio-bench  benchmarks/pthread_mutex_test
+
+benchmarks/micros:
+lmbench  simstream  simstreamcopy  simstreamscale
+
+benchmarks/netperf-bin:
+netperf  netserver
+
+benchmarks/surge:
+cnt.txt  mout.txt  name.txt  objout.txt  off.txt  spec-m5  Surge
+```
+
+```bash
+$ cd -
+$ sudo umount /tmp/tmp.Zmt0BMnE3p && sudo losetup --detach /dev/loop0
+```
+
 [boot-linux.sh]: boot-linux.sh
 [Running_gem5]: http://www.gem5.org/Running_gem5
 [Benchmarks.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/common/Benchmarks.py
+[mount-img.sh]: ../../disk-util/mount-img.sh

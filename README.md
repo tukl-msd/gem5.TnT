@@ -16,12 +16,13 @@ If you decide to use gem5.TnT or parts of it, please cite this website
 * [**get_doc.sh**](get_doc.sh): downloads documentation and tutorials.
 * [**get_benchmarks.sh**](get_benchmarks.sh): downloads benchmarks.
 * [**build_gem5.sh**](build_gem5.sh): can be used for building gem5.
-* [**ALPHA Boot Linux**](arch/alpha/README.md) scripts and information for the ALPHA.
+* [**ALPHA Boot Linux, Benchmarks**](arch/alpha/README.md) scripts and information for the ALPHA.
 * [**X86 Boot Linux, Boot Linux using KVM, PARSEC, MiBench**](arch/x86/README.md) scripts and information for x86.
 * [**ARM Boot Linux, Android, Benchmarks**](arch/arm/README.md) scripts and information for arm.
 * [**Basics**](doc/Gem5Basics.md) here you will find some gem5 basics just to warmup. Remember, though, to take a look at [**gem5's website**](http://www.gem5.org/Main_Page).
 * **[mount-img.sh]**: convenience script for mounting disk images.
 * **[create-img.sh]**: convenience script for creating disk images.
+* **[copy-into-img.sh]**: convenience script for copying a folder into a disk image.
 
 ### **Using gem5.TnT**
 
@@ -536,3 +537,4 @@ above.
 [KVM]: https://www.linux-kvm.org/page/Main_Page
 [mount-img.sh]: disk-util/mount-img.sh
 [create-img.sh]: disk-util/create-img.sh
+[copy-into-img.sh]: disk-util/copy-into-img.sh

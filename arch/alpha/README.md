@@ -80,15 +80,15 @@ See also:
 The disk image can be mounted with [mount-img.sh] as follows.
 
 ```bash
-$ mount-img.sh $HOME/gem5_tnt/full_system/alpha/m5_system_2.0b3/disks/linux-latest.img
+$ ./mount-img.sh $HOME/gem5_tnt/full_system/alpha/m5_system_2.0b3/disks/linux-latest.img
 ```
 
 Example:
 
 ```bash
-$ mount-img.sh $HOME/gem5_tnt/full_system/alpha/m5_system_2.0b3/disks/linux-latest.img
+$ ./mount-img.sh $HOME/gem5_tnt/full_system/alpha/m5_system_2.0b3/disks/linux-latest.img
 Salutations! You are using gem5.TnT!
-file: ./linux-latest.img
+file: $HOME/gem5_tnt/full_system/alpha/m5_system_2.0b3/disks/linux-latest.img
 start sector: 63
 sector size: 512
 loop device: /dev/loop0

@@ -73,6 +73,9 @@ instdep() {
 	xtightvncviewer
 	diod
 	libncurses5-dev
+	qemu
+	binfmt-support
+	qemu-user-static
 	"
 
 	echo -e -n "This is a list of known dependencies:" && echo ""

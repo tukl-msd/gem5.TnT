@@ -43,13 +43,20 @@ apt list --installed > apt-list-installed-before
 
 # install applications
 apt-get install -y stress
+apt-get install -y sysbench
 
 # list installed packages after
 apt list --installed > apt-list-installed-after
 
-# TODO:
-#service --status-all
-#sudo update-rc.d ... disable
+# man systemctl
+systemctl isolate multi-user.target --force
+systemctl enable multi-user.target --force
+systemctl set-default multi-user.target --force
+
+#chmod +x /etc/init.d/<script>
+#chown root:root /etc/init.d/<script>
+#update-rc.d <script> defaults
+#update-rc.d <script> enable
 
 # exit chroot
 exit

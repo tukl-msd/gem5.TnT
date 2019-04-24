@@ -39,7 +39,12 @@ source $TOPDIR/common/util.in
 
 printf "${Yellow}Salutations! You are using gem5.TnT!${NC}\n"
 
-tb="ubuntu-base-16.04-core-amd64.tar.gz"
+#arch="x86"
+#arch="arm"
+arch="aarch64"
+
+#tb="ubuntu-base-16.04-core-amd64.tar.gz"
+tb="ubuntu-base-16.04-core-arm64.tar.gz"
 url="http://cdimage.ubuntu.com/ubuntu-base/releases/16.04/release/"
 
 printf "Downloading $tb..."
@@ -47,7 +52,7 @@ pulse on
 wget -N "$url/$tb" > /dev/null 2>&1
 pulse off
 
-disk="ubu.img"
+disk="ubuntu-${arch}.img"
 chroot_script="inside-chroot.sh"
 
 # This give us a file with size 'nblocks * blocksize'
@@ -101,7 +106,7 @@ if [[ ! -e ${disk} ]]; then
 	# associtate loop device with file using an offset
 	sudo losetup -o ${offset} ${loopdev} ${disk}
 	# create a filesystem in the file
-	sudo mke2fs ${loopdev}
+	sudo mke2fs -t ext4 ${loopdev}
 	# detach loop device
 	sudo losetup -d ${loopdev}
 fi
@@ -122,13 +127,27 @@ sudo cp /etc/resolv.conf ${mpoint}/etc/
 sudo cp hosts ${mpoint}/etc/
 # etc/fstab
 sudo cp fstab ${mpoint}/etc/
-# M5 binary.
+# etc/init/tty1.conf
+sudo cp tty1.conf ${mpoint}/etc/init/
+# Build M5 binary
+pushd $ROOTDIR/gem5/util/m5 > /dev/null 
+make -f Makefile.${arch} clean
+make -f Makefile.${arch}
+popd > /dev/null
+# Copy M5 binary
 m5="$ROOTDIR/gem5/util/m5/m5"
 if [[ -e $m5 ]]; then
 	sudo cp ${m5} ${mpoint}/sbin/
 else
 	printf "\n${Red}$m5 not found.${NC}\n"
 	printf "${Red}You should make sure the proper m5 exists.${NC}\n\n"
+fi
+if [ $arch == "aarch64" ] || [ $arch == "arm" ]; then
+	# Copy qemu-${arch}-static
+	if [ ! -e "/usr/bin/qemu-${arch}-static" ]; then
+		$TOPDIR/dep_install.sh
+	fi
+	sudo cp /usr/bin/qemu-${arch}-static ${mpoint}/usr/bin/
 fi
 # copy script to be executed inside chroot
 sudo cp ${chroot_script} ${mpoint}
@@ -143,11 +162,13 @@ sudo mount -o bind /sys ${mpoint}/sys
 # /dev is tmpfs managed by udev
 # use the same as the host
 sudo mount -o bind /dev ${mpoint}/dev
+sudo mount -o bind /dev/pts ${mpoint}/dev/pts
 # chroot - run command or interactive shell with special root directory
 sudo chroot ${mpoint} ./${chroot_script}
 # unmount /proc, /sys and /dev
 sudo umount ${mpoint}/sys
 sudo umount ${mpoint}/proc
+sudo umount ${mpoint}/dev/pts
 sudo umount ${mpoint}/dev
 # unmount
 sudo umount ${loopdev} 

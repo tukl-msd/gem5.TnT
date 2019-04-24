@@ -76,3 +76,65 @@ wgethis=(
 
 greetings
 wget_into_dir wgethis[@]
+
+printf "Uncompressing files..."
+pulse on
+releases="
+aarch-system-2014-10
+aarch-system-20170421
+aarch-system-20170616
+"
+for rel in $releases; do
+	sys="$FSDIRARM/$rel"
+	tb="$sys.tar.xz"
+	if [[ ! -d $sys ]]; then
+		mkdir -p $sys
+		tar -xaf $tb -C $sys
+	fi
+done
+
+pushd $FSDIRARMBBENCH > /dev/null
+tbs=(
+"disks:Gingerbread_disk_image_clean.tgz"
+"disks:ICS_disk_image_clean.tgz"
+"disks:Gingerbread_disk_image.tgz"
+"disks:ICS_disk_image.tgz"
+"binaries:vmlinux_and_config_arm.tgz"
+)
+for e in "${tbs[@]}"; do
+	dir=${e%%:*}
+	tb=${e#*:}
+	mkdir -p $dir
+	tar -xaf $tb -C $dir
+done
+popd > /dev/null
+
+release="arm64-system-02-2014"
+sys="$FSDIRARMLEGACY/$release"
+tb="$sys.tgz"
+if [[ ! -d $sys ]]; then
+	mkdir -p $sys
+	tar -xaf $tb -C $sys
+fi
+
+release="arm-system-2011-08"
+sys="$FSDIRARMLEGACY/$release"
+tb="$sys.tar.bz2"
+if [[ ! -d $sys ]]; then
+	mkdir -p $sys
+	tar -xaf $tb -C $sys
+fi
+
+release="arm-system"
+sys="$FSDIRARMLEGACY/$release"
+tb="$sys.tar.bz2"
+if [[ ! -d $sys ]]; then
+	mkdir -p $sys
+	tar -xaf $tb -C $sys
+fi
+
+pushd $FSDIRARMLEGACY > /dev/null
+tar -xaf vmlinux-emm-pcie-3.3.tar.bz2
+popd > /dev/null
+
+pulse off

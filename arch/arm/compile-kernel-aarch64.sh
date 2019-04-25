@@ -39,13 +39,14 @@ source $TOPDIR/common/util.in
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 # Set the full path to a kernel configuration file here
-#kernel_config="<path>/<file>"
+kernel_config="$DIR/linux-config-workload-automation"
 
 $TOPDIR/get_extra_repos.sh
 
 # Compiling the new kernel
 
 pushd $KERNELARM/linux
+make mrproper
 if [ ! -z ${kernel_config+x} ]; then
 	# use specified config
 	cp $kernel_config .config

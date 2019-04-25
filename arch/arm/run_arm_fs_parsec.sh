@@ -36,32 +36,46 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
-
-sysver=20180409
-imgdir="$FSDIRARM/aarch-system-${sysver}/disks"
-bmsuite="parsec-3.0"
-imgname="$imgdir/linaro-minimal-aarch64-${bmsuite}-inside"
-bmsuiteroot="home"
+currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 arch="ARM"
-mode="opt"
+mode="fast"
 gem5_elf="build/$arch/gem5.$mode"
-cd $ROOTDIR/gem5
+
+pushd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
-	build_gem5 $arch $mode
+	$TOPDIR/build_gem5.sh
+fi
+popd
+
+sysver="20180409"
+sysdir="$FSDIRARM/aarch-system-${sysver}"
+imgdir="${sysdir}/disks"
+bmsuite="parsec-3.0"
+img="$imgdir/linaro-minimal-aarch64-${bmsuite}-inside.img"
+
+if [[ ! -e $img ]]; then
+	$TOPDIR/get_essential_fs.sh
 fi
 
-currtime=$(date "+%Y.%m.%d-%H.%M.%S")
+target="parsec_arm"
 config_script="configs/example/arm/starter_fs.py"
 ncores="2"
-cpu_options="--cpu=hpi --num-cores=$ncores"
-mem_options="--mem-size=1GB"
-#tlm_options="--tlm-memory=transactor"
-kernel="--kernel=$FSDIRARM/aarch-system-${sysver}/binaries/vmlinux.vexpress_gem5_v1_64"
-dtb="--dtb=$FSDIRARM/aarch-system-${sysver}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
+#cpu_type="hpi"
+#cpu_type="atomic"
+cpu_type="minor"
+cpu_opts="--cpu=${cpu_type} --num-cores=$ncores"
+mem_size="8GB"
+mem_opts="--mem-size=${mem_size}"
+#tlm_opts="--tlm-memory=transactor"
+disk_opts="--disk-image=$img"
+kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
+dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
+# remote gdb port (0: disable listening)
+gem5_opts="--remote-gdb-port=0"
 
-bmsuitedir="/$bmsuiteroot/$bmsuite"
-parsec_nthreads="$ncores"
+sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
+
 
 # Application : Input size
 # Input sizes are test, simdev, simsmall, simmedium, simlarge or native.
@@ -84,33 +98,42 @@ apps=(
 "streamcluster:simlarge"
 )
 
-declare -a pids
+bmsuiteroot="home"
+bmsuitedir="/$bmsuiteroot/$bmsuite"
+parsec_nthreads="$ncores"
+
+pushd $ROOTDIR/gem5
+bootscript="${sim_name}.rcS"
+printf '#!/bin/bash\n' > $bootscript
+printf "echo \"Greetings from gem5.TnT!\"\n" >> $bootscript
+printf "echo \"Executing $bootscript now\"\n" >> $bootscript
+printf '/sbin/m5 -h\n' >> $bootscript
+printf "cd $bmsuitedir\n" >> $bootscript
+printf 'source ./env.sh\n' >> $bootscript
 for e in "${apps[@]}"; do
 	a=${e%%:*}
 	in=${e#*:}
-	img="${imgname}-${in}-${a}.img"
-	if [[ ! -e ${img} ]]; then
-		rsync -a ${imgname}.img ${img}
-	fi
-	disk_options="--disk-image=$img"
-	bootscript=${a}_${in}_${parsec_nthreads}.rcS
-	cat > $bootscript <<- EOM
-	#!/bin/bash
-	cd $bmsuitedir
-	source ./env.sh
-	echo "Running parsec $a input $in threads $parsec_nthreads"
-	parsecmgmt -a run -p $a -c gcc-hooks -i $in -n $parsec_nthreads
-	echo "Benchmark finished."
-	sleep 1
-	m5 exit
-	EOM
-	bootscript_options="--script=$ROOTDIR/gem5/$bootscript"
-	output_rootdir="fs_output_${bmsuite}_${in}_${currtime}"
-	output_dir="$output_rootdir/$a"
-	mkdir -p ${output_dir}
-	logfile=${output_dir}/gem5.log
-	export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-	$gem5_elf -d $output_dir $config_script $cpu_options $mem_options $tlm_options $kernel $dtb $disk_options $bootscript_options > $logfile 2>&1 & pids+=($!)
+	printf '/sbin/m5 checkpoint\n' >> $bootscript
+	printf "echo \"Running parsec $a input $in threads $parsec_nthreads\"\n" >> $bootscript
+	printf "parsecmgmt -a run -p $a -c gcc-hooks -i $in -n $parsec_nthreads\n" >> $bootscript
+	printf "echo \"--- Done ---\"\n" >> $bootscript
+	printf '/sbin/m5 dumpresetstats\n' >> $bootscript
 done
-wait "${pids[@]}"
-unset pids
+printf '/bin/bash\n' >> $bootscript
+bootscript_opts="--script=$ROOTDIR/gem5/$bootscript"
+
+output_dir="${sim_name}"
+mkdir -p ${output_dir}
+logfile=${output_dir}/gem5.log
+export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
+$gem5_elf $gem5_opts \
+	-d $output_dir \
+	$config_script \
+	$cpu_opts \
+	$mem_opts \
+	$tlm_opts \
+	$kernel $dtb \
+	$disk_opts \
+	$bootscript_opts 2>&1 | tee $logfile
+
+popd

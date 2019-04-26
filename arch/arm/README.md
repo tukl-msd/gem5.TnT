@@ -10,7 +10,7 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**boot_linaro_big_little.sh**](boot_linaro_big_little.sh): boots linaro with fs_bigLITTLE.py. Note that SimpleMemory is used, so you may want to change the example script fs_bigLITTLE.py.
 * [**boot_ubuntu.sh**](boot_ubuntu.sh): boots ubuntu (*experimental*). It is necessary to change */etc/fstab* inside the disk, check [boot-ubuntu-fstab](boot-ubuntu-fstab) to get ideas. You may also want to change the kernel command line and/or Ubuntu initialization files.
 * [**build_llvm_test_suite_apps.sh**](build_llvm_test_suite_apps.sh): builds some apps from LLVM test-suite.
-* [**build_parsec_apps.sh**](build_parsec_apps.sh): builds some apps from parsec-3.0 benchmark suite.
+* [**build-parsec.sh**](build-parsec.sh): builds some apps from parsec-3.0 benchmark suite.
 * [**build_stream_app.sh**](build_stream_app.sh): builds stream app.
 * [**build_stride_apps.sh**](build_stride_apps.sh): builds stride v1.1 apps.
 * [**create_images.sh**](create_images.sh): builds disk images containing the benchmark programs. It uses **sudo**.
@@ -35,7 +35,7 @@ A suggestion on how to run the scripts follows:
 Build some benchmark programs:
 ```bash
 $ ./build_llvm_test_suite_apps.sh
-$ ./build_parsec_apps.sh
+$ ./build-parsec.sh
 $ ./build_stream_app.sh
 $ ./build_stride_apps.sh
 ```

@@ -33,10 +33,7 @@
 # Author: Éder F. Zulian
 
 # yes: easier to track changes, but takes more space on disk. Default: no.
-track_with_git="no"
-# yes: remove some apps and kernels to reduce the required space on disk
-# considerably.
-lean_version="yes"
+track_with_git="yes"
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 TOPDIR=$DIR/../..
@@ -64,22 +61,22 @@ if [[ ! -d $parsecdir ]]; then
 	echo -ne "Uncompressing $tarball. Please wait.\n"
 	tar -xaf $tarball -C $BENCHMARKSDIR
 	if [ $track_with_git == "yes" ]; then
-		cd $parsecdir
+		pushd $parsecdir > /dev/null
 		git init
 		git add .
 		git commit -m "Adding files to repository"
-		cd -
+		popd > /dev/null
 	fi
 else
 	if [ $track_with_git == "yes" ]; then
-		cd $parsecdir
+		pushd $parsecdir > /dev/null
 		git checkout .
 		git clean -fdx
-		cd -
+		popd
 	fi
 fi
 
-patchfile="$TOPDIR/patches/parsec/x86_host_cross_aarch64-linux-gnu.patch"
+patchfile="$DIR/parsec.patch"
 patch -fs -d $parsecdir -p1 < $patchfile &>/dev/null
 
 tempdir=`mktemp -d`
@@ -107,50 +104,31 @@ sed -i "s@CC=\"\${CC_HOME}/bin/gcc\"@CC=\"$cc\"@g" $sedfile
 sed -i "s@CXX=\"\${CC_HOME}/bin/g++\"@CXX=\"$cxx\"@g" $sedfile
 sed -i "s@CPP=\"\${CC_HOME}/bin/cpp\"@CPP=\"$cpp\"@g" $sedfile
 
-cd $parsecdir
-
-rm_apps="
-raytrace
-vips
-x264
-"
-rm_kernels="
-canneal
-dedup
-"
-if [ $lean_version == "yes" ]; then
-	# Remove some apps and kernels to save space on disk
-	for a in $rm_apps; do
-		rm -rf pkgs/apps/$a
-	done
-	for k in $rm_kernels; do
-		rm -rf pkgs/kernels/$k
-	done
-fi
-
+# Build
+pushd $parsecdir > /dev/null
 source env.sh
 export PARSECPLAT="aarch64-linux"
 
 apps="
 blackscholes
-bodytrack
 facesim
 ferret
 fluidanimate
 freqmine
 swaptions
 "
+for a in $apps; do
+	parsecmgmt -a build -c gcc-hooks -p $a 2>&1 | tee $DIR/parsec-abuild.log
+done
 
 kernels="
 streamcluster
+canneal
 "
-for a in $apps; do
-	parsecmgmt -a build -c gcc-hooks -p $a
-done
-
 for k in $kernels; do
-	parsecmgmt -a build -c gcc-hooks -p $k
+	parsecmgmt -a build -c gcc-hooks -p $k 2>&1 | tee $DIR/parsec-kbuild.log
 done
+popd > /dev/null
 
 basepath="$parsecdir/pkgs/apps"
 for a in $apps; do

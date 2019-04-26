@@ -71,31 +71,22 @@ mem_opts="--mem-size=${mem_size}"
 disk_opts="--disk-image=$img"
 kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
-# remote gdb port (0: disable listening)
 gem5_opts="--remote-gdb-port=0"
 
 sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 
-
-# Application : Input size
+# PARSEC suite benchmarks
+# Application:Input
 # Input sizes are test, simdev, simsmall, simmedium, simlarge or native.
 apps=(
-"blackscholes:simdev"
-"fluidanimate:simdev"
-"swaptions:simdev"
-"streamcluster:simdev"
 "blackscholes:simsmall"
-"bodytrack:simsmall"
+"facesim:simsmall"
 "ferret:simsmall"
 "fluidanimate:simsmall"
+"freqmine:simsmall"
 "swaptions:simsmall"
 "streamcluster:simsmall"
-"blackscholes:simmedium"
-"ferret:simmedium"
-"swaptions:simmedium"
-"streamcluster:simmedium"
-"swaptions:simlarge"
-"streamcluster:simlarge"
+"canneal:simsmall"
 )
 
 bmsuiteroot="home"
@@ -110,13 +101,12 @@ printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf '/sbin/m5 -h\n' >> $bootscript
 printf "cd $bmsuitedir\n" >> $bootscript
 printf 'source ./env.sh\n' >> $bootscript
+printf 'parsecmgmt -a status –p all\n' >> $bootscript
 for e in "${apps[@]}"; do
 	a=${e%%:*}
 	in=${e#*:}
 	printf '/sbin/m5 checkpoint\n' >> $bootscript
-	printf "echo \"Running parsec $a input $in threads $parsec_nthreads\"\n" >> $bootscript
 	printf "parsecmgmt -a run -p $a -c gcc-hooks -i $in -n $parsec_nthreads\n" >> $bootscript
-	printf "echo \"--- Done ---\"\n" >> $bootscript
 	printf '/sbin/m5 dumpresetstats\n' >> $bootscript
 done
 printf '/bin/bash\n' >> $bootscript

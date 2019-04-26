@@ -78,15 +78,16 @@ sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 # PARSEC suite benchmarks
 # Application:Input
 # Input sizes are test, simdev, simsmall, simmedium, simlarge or native.
+input="simsmall"
 apps=(
-"blackscholes:simsmall"
-"facesim:simsmall"
-"ferret:simsmall"
-"fluidanimate:simsmall"
-"freqmine:simsmall"
-"swaptions:simsmall"
-"streamcluster:simsmall"
-"canneal:simsmall"
+"blackscholes:${input}"
+"facesim:${input}"
+"ferret:${input}"
+"fluidanimate:${input}"
+"freqmine:${input}"
+"swaptions:${input}"
+"streamcluster:${input}"
+"canneal:${input}"
 )
 
 bmsuiteroot="home"

@@ -33,7 +33,8 @@
 # Author: Éder F. Zulian
 
 # yes: easier to track changes, but takes more space on disk. Default: no.
-track_with_git="yes"
+track_with_git="no"
+lean_version="yes"
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 TOPDIR=$DIR/../..
@@ -103,6 +104,27 @@ sed -i "s@BINUTIL_HOME=\"/usr\"@BINUTIL_HOME=\"$binutilhome\"@g" $sedfile
 sed -i "s@CC=\"\${CC_HOME}/bin/gcc\"@CC=\"$cc\"@g" $sedfile
 sed -i "s@CXX=\"\${CC_HOME}/bin/g++\"@CXX=\"$cxx\"@g" $sedfile
 sed -i "s@CPP=\"\${CC_HOME}/bin/cpp\"@CPP=\"$cpp\"@g" $sedfile
+
+pushd $parsecdir
+rm_apps="
+raytrace
+vips
+x264
+"
+rm_kernels="
+dedup
+"
+if [ $lean_version == "yes" ]; then
+	# Remove some apps and kernels to save space on disk
+	for a in $rm_apps; do
+		rm -rf pkgs/apps/$a
+	done
+	for k in $rm_kernels; do
+		rm -rf pkgs/kernels/$k
+	done
+fi
+popd
+
 
 # Build
 pushd $parsecdir > /dev/null

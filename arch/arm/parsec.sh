@@ -102,7 +102,6 @@ printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf '/sbin/m5 -h\n' >> $bootscript
 printf "cd $bmsuitedir\n" >> $bootscript
 printf 'source ./env.sh\n' >> $bootscript
-printf 'parsecmgmt -a status –p all\n' >> $bootscript
 for e in "${apps[@]}"; do
 	a=${e%%:*}
 	in=${e#*:}

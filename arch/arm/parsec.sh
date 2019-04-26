@@ -108,7 +108,6 @@ for e in "${apps[@]}"; do
 	in=${e#*:}
 	printf '/sbin/m5 checkpoint\n' >> $bootscript
 	printf "parsecmgmt -a run -p $a -c gcc-hooks -i $in -n $parsec_nthreads\n" >> $bootscript
-	printf '/sbin/m5 dumpresetstats\n' >> $bootscript
 done
 printf '/bin/bash\n' >> $bootscript
 bootscript_opts="--script=$ROOTDIR/gem5/$bootscript"

@@ -46,12 +46,16 @@ hgrepos=(
 "$BENCHMARKSDIR,https://bitbucket.org/atgutier/bbench"
 )
 
+gitrepos=(
+"$BENCHMARKSDIR:http://llvm.org/git/test-suite.git"
+)
+
 greetings
 wget_into_dir wgethis[@]
 hg_clone_into_dir hgrepos[@]
+git_clone_into_dir gitrepos[@]
 
 printf "${Green}Downloading MiBench files...${NC}"
 pulse on
 $TOPDIR/get-mibench.sh > /dev/null 2>&1
 pulse off
-

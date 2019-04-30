@@ -40,6 +40,7 @@ currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 arch="ARM"
 mode="fast"
+#mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
 pushd $ROOTDIR/gem5
@@ -56,6 +57,9 @@ img="$imgdir/linaro-minimal-aarch64-${bmsuite}-inside.img"
 
 if [[ ! -e $img ]]; then
 	$TOPDIR/get_essential_fs.sh
+	$TOPDIR/get_benchmarks.sh
+	$DIR/build-parsec.sh
+	$DIR/create_images.sh
 fi
 
 target="parsec_arm"
@@ -72,6 +76,7 @@ disk_opts="--disk-image=$img"
 kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
+#gem5_opts="--remote-gdb-port=0 --debug-flags=DRAM"
 
 sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 

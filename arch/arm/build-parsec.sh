@@ -41,6 +41,7 @@ TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
+
 toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
 toolchaintarball=$toolchain.tar.xz
 wgethis=(
@@ -57,6 +58,9 @@ fi
 
 parsecdir="$BENCHMARKSDIR/parsec-3.0"
 parsectarball="parsec-3.0.tar.gz"
+if [[ ! -e $parsectarball ]]; then
+	$TOPDIR/get_benchmarks.sh
+fi
 if [[ ! -d $parsecdir ]]; then
 	tarball=$BENCHMARKSDIR/$parsectarball
 	echo -ne "Uncompressing $tarball. Please wait.\n"

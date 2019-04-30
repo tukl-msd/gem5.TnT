@@ -37,6 +37,13 @@ TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
+$TOPDIR/get_essential_fs.sh
+$TOPDIR/get_benchmarks.sh
+$DIR/build_llvm_test_suite_apps.sh
+$DIR/build-parsec.sh
+$DIR/build_stream_app.sh
+$DIR/build_stride_apps.sh
+
 sysver="20180409"
 system="aarch-system-${sysver}"
 tarball="$FSDIRARM/${system}.tar.xz"

@@ -37,6 +37,9 @@ TOPDIR=$DIR
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
+toolchain=gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu
+toolchaintarball=$toolchain.tar.xz
+
 wgethis=(
 # ALPHA full system files
 "$FSDIRALPHA:http://www.m5sim.org/dist/current/m5_system_2.0b3.tar.bz2"
@@ -44,6 +47,8 @@ wgethis=(
 "$FSDIRARM:http://www.gem5.org/dist/current/arm/aarch-system-20180409.tar.xz"
 # X86 full system files
 "$FSDIRX86:http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2"
+# A toolchain for ARM
+"$TOOLCHAINSDIR_ARM:https://releases.linaro.org/components/toolchain/binaries/5.4-2017.05/aarch64-linux-gnu/$toolchaintarball"
 )
 
 hgrepos=(
@@ -87,5 +92,10 @@ fi
 if [[ ! -e $dpath/ARMv7a-ICS-Android.SMP.Asimbench-v3.img ]]; then
 	tb="$sys/asimbench_disk_image/ARMv7a-ICS-Android.SMP.Asimbench.tar.gz"
 	tar -xaf $tb -C $dpath
+fi
+
+toolchaindir=$TOOLCHAINSDIR_ARM/$toolchain
+if [[ ! -d $toolchaindir ]]; then
+	tar -xaf $TOOLCHAINSDIR_ARM/$toolchaintarball -C $TOOLCHAINSDIR_ARM
 fi
 pulse off

@@ -1,0 +1,13 @@
+diff --git a/configs/example/arm/starter_fs.py b/configs/example/arm/starter_fs.py
+index a199768..07fda2b 100644
+--- a/configs/example/arm/starter_fs.py
++++ b/configs/example/arm/starter_fs.py
+@@ -212,6 +212,8 @@ def main():
+     parser.add_argument("--cpu-freq", type=str, default="4GHz")
+     parser.add_argument("--num-cores", type=int, default=1,
+                         help="Number of CPU cores")
++    parser.add_argument("--tlm-memory", type=str,
++                        help="use external port for SystemC TLM cosimulation")
+     parser.add_argument("--mem-type", default="DDR3_1600_8x8",
+                         choices=MemConfig.mem_names(),
+                         help = "type of memory to use")

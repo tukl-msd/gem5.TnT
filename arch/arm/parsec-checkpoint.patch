@@ -748,7 +748,7 @@ index 9658425..6227e4a 100644
    #endif //ENABLE_PTLSIM_TRIGGER
 +
 +  printf("[GEM5]  Beginning of ROI\n");
-+  m5_dump_stats(0,0);
++  m5_checkpoint(0,0);
 +  m5_reset_stats(0,0);
  }
  

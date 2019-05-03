@@ -77,6 +77,7 @@ kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
 dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_${ncores}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
 #gem5_opts="--remote-gdb-port=0 --debug-flags=DRAM"
+#gem5_opts="--remote-gdb-port=0 --debug-flags=MemoryAccess"
 
 sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
 

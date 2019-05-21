@@ -44,12 +44,24 @@ arch="ARM"
 mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
+#pushd $ROOTDIR/gem5
+## apply workload automation patch
+#p="$DIR/workload-automation.patch"
+#printf "${Red}Stashing local changes...${NC}\n"
+#git stash > /dev/null 2>&1
+#printf "${Yellow}Applying patch...${NC}\n"
+#patch -fs -p1 < $p &>/dev/null
+## build gem5
+#rm -rf build/$arch
+#build_gem5 $arch $mode
+#popd
+
 sysver="20180409"
 syspath="$FSDIRARM/aarch-system-${sysver}"
 imgdir="${syspath}/disks"
 img="$imgdir/linaro-minimal-aarch64.img"
 
-target="test_kernel"
+target="boot-linux"
 config_script="configs/example/fs.py"
 ncpus="1"
 cpu_clk="4GHz"
@@ -65,7 +77,9 @@ kernel_opts="--kernel=${kernel}"
 dtb_opts="--dtb=${syspath}/binaries/armv8_gem5_v1_${ncpus}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
 
-sim_name="${target}_${cpu_type}_${ncores}c_${mem_size}_${currtime}"
+#wa_opts="--workload-automation-vio=/tmp"
+
+sim_name="${target}-${cpu_type}-${ncpus}c-${mem_size}-${currtime}"
 
 pushd $ROOTDIR/gem5
 if [[ ! -e $gem5_elf ]]; then
@@ -90,6 +104,7 @@ export M5_PATH="${syspath}":${M5_PATH}
 time $gem5_elf $gem5_opts \
 	-d $output_dir \
 	$config_script \
+	${wa_opts} \
 	$machine_opts \
 	$cpu_opts \
 	$mem_opts \

@@ -40,7 +40,7 @@ source $TOPDIR/common/util.in
 # git repositories
 gitrepos=(
 "$ROOTDIR:https://gem5.googlesource.com/public/gem5"
-"$GEM5FORKS:https://github.com/efzulian/gem5-1.git"
+"$GEM5FORKS:https://github.com/darchr/gem5.git"
 )
 
 greetings

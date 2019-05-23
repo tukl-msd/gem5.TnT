@@ -39,14 +39,14 @@ source $TOPDIR/common/util.in
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 # This example uses a fork of the main gem5 repository
-gem5_dir="$GEM5FORKS/gem5-1"
+gem5_dir="$GEM5FORKS/gem5"
 # It also uses an specific branch with a patch created by the UC Davis
 # Computer Architecture Research Group originally in
 # https://github.com/darchr/gem5.
 git_branch="for-upstream/real-kvm-fixes"
 
 gitrepos=(
-"$GEM5FORKS:https://github.com/efzulian/gem5-1.git"
+"$GEM5FORKS:https://github.com/darchr/gem5.git"
 )
 git_clone_into_dir gitrepos[@]
 

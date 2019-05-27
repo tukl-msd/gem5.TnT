@@ -37,8 +37,6 @@ TOPDIR=$DIR
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
-$TOPDIR/dep_install.sh
-
 gitrepos=(
 "$ROOTDIR:https://github.com/ARM-software/workload-automation.git"
 )
@@ -49,6 +47,19 @@ pushd $ROOTDIR/workload-automation
 git checkout legacy
 sudo -H python setup.py install
 wa -h
+popd
+
+printf "\n${Yellow}Suggested commands to start:${NC}\n"
+echo "wa -h"
+echo "wa list commands"
+echo "wa list instruments"
+echo "wa list workloads"
+
+printf "${Yellow}See also:${NC}\n"
+echo "$ROOTDIR/workload-automation"
+
+printf "${Yellow}See also:${NC}\n"
+echo "$HOME/.workload-automation"
 
 # See also:
 # https://workload-automation.readthedocs.io/en/latest/user_information.html#prerequisites

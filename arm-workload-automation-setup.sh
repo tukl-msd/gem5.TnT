@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2016, University of Kaiserslautern
+# Copyright (c) 2019, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -37,17 +37,45 @@ TOPDIR=$DIR
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
-# git repositories
-gitrepos=(
-"$MISCREPOS:https://github.com/metempsy/gem5_arm_fullsystem_files_generator.git"
-"$MISCREPOS:https://github.com/arm-university/arm-gem5-rsk.git"
-"$MISCREPOS:https://gem5.googlesource.com/public/m5threads.git"
-"$ROOTDIR:https://github.com/ARM-software/workload-automation.git"
-"$KERNELARM:git://linux-arm.org/linux-linaro-tracking-gem5.git"
-"$KERNELARM:git://linux-arm.org/linux-aarch64-gem5.git"
-"$KERNELARM:https://github.com/gem5/linux-arm-gem5.git"
-"$KERNELARM:https://gem5.googlesource.com/arm/linux"
-)
+$TOPDIR/dep_install.sh
 
+gitrepos=(
+"$ROOTDIR:https://github.com/ARM-software/workload-automation.git"
+)
 greetings
 git_clone_into_dir gitrepos[@]
+
+pushd $ROOTDIR/workload-automation
+git checkout legacy
+sudo -H python setup.py install
+wa -h
+
+# See also:
+# https://workload-automation.readthedocs.io/en/latest/user_information.html#prerequisites
+# https://github.com/ARM-software/devlib
+#sudo apt-get install python-pip
+#sudo -H pip install --upgrade pip
+#sudo -H pip install testresources
+#sudo -H pip install --upgrade setuptools
+#sudo chmod -R a+r /usr/local/lib/python2.7/dist-packages
+#sudo find /usr/local/lib/python2.7/dist-packages -type d -exec chmod a+x {} \;
+#sudo -H pip install pexpect
+#sudo -H pip install pyserial
+#sudo -H pip install pyyaml
+#sudo -H pip install docutils
+#sudo -H pip install python-dateutil
+#sudo -H pip install devlib
+#sudo -H pip install pandas
+#sudo -H pip install louie
+#sudo -H pip install wrapt
+#sudo -H pip install requests
+#sudo -H pip install colorama
+#sudo -H pip install future
+#sudo apt-get install python-serial
+#sudo -H pip install nose
+#sudo -H pip install PyDAQmx
+#sudo -H pip install pymongo
+#sudo -H pip install jinja2
+#sudo -H pip install wa
+#sudo -H pip install wa[all]
+

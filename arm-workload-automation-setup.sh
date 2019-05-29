@@ -37,33 +37,72 @@ TOPDIR=$DIR
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
+wa_branch="master"
+#wa_branch="legacy"
+
 gitrepos=(
 "$ROOTDIR:https://github.com/ARM-software/workload-automation.git"
 )
 greetings
 git_clone_into_dir gitrepos[@]
 
-pushd $ROOTDIR/workload-automation
-git checkout legacy
-sudo -H python setup.py install
-wa -h
-popd
+pushd $ROOTDIR/workload-automation > /dev/null 2>&1
+git checkout ${wa_branch} > /dev/null 2>&1
+sudo -H python setup.py install > /dev/null 2>&1
+wa -h > /dev/null 2>&1
+popd > /dev/null 2>&1
 
-printf "\n${Yellow}Suggested commands to start:${NC}\n"
-echo "wa -h"
-echo "wa list commands"
-echo "wa list instruments"
-echo "wa list workloads"
+#printf "\n${Yellow}Suggested commands to start:${NC}\n"
+#echo "wa -h"
+#echo "wa list targets"
+#echo "wa list commands"
+#echo "wa list instruments"
+#echo "wa list workloads"
+#
+#printf "${Yellow}See also:${NC}\n"
+#echo "$ROOTDIR/workload-automation"
+#
+#printf "${Yellow}See also:${NC}\n"
+#echo "$HOME/.workload-automation"
 
-printf "${Yellow}See also:${NC}\n"
-echo "$ROOTDIR/workload-automation"
+dir="$ROOTDIR/workload-automation/build/lib.linux-x86_64-2.7/wa/workloads"
+bins="
+lmbench
+dhrystone
+hackbench
+stress_ng
+rt_app
+sysbench
+memcpy
+"
+archs="
+arm64
+armeabi
+"
 
-printf "${Yellow}See also:${NC}\n"
-echo "$HOME/.workload-automation"
+tdir=`mktemp -d`
+for bin in $bins; do
+	for arch in $archs; do
+		sudo cp -R $dir/$bin/bin/$arch $tdir
+	done
+done
+
+for arch in $archs; do
+	sudo chown -R $USER:$USER $tdir/$arch
+	chmod u+x $tdir/$arch/*
+done
+
+#
+#wa create agenda gem5_linux dhrystone execution_time trace-cmd csv -o my_agenda.yaml
+#cd /media/disk2/gem5_tnt/workload-automation/extras
+#sudo docker build -t wa .
+#docker run -it --privileged -v /dev/bus/usb:/dev/bus/usb --volume ${PWD}:/workspace --workdir /workspace wa
+#
 
 # See also:
 # https://workload-automation.readthedocs.io/en/latest/user_information.html#prerequisites
 # https://github.com/ARM-software/devlib
+
 #sudo apt-get install python-pip
 #sudo -H pip install --upgrade pip
 #sudo -H pip install testresources
@@ -89,4 +128,15 @@ echo "$HOME/.workload-automation"
 #sudo -H pip install jinja2
 #sudo -H pip install wa
 #sudo -H pip install wa[all]
+
+ver="20180409"
+pushd $tdir > /dev/null 2>&1
+$TOPDIR/disk-util/copy-into-img.sh $FSDIRARM/aarch-system-${ver}/disks/linaro-minimal-aarch64.img arm64
+$TOPDIR/disk-util/copy-into-img.sh $FSDIRARM/aarch-system-${ver}/disks/linux-aarch32-ael.img armeabi
+popd > /dev/null 2>&1
+mv $tdir/linaro-minimal-aarch64-arm64-inside.img $FSDIRARM/aarch-system-${ver}/disks
+mv $tdir/linux-aarch32-ael-armeabi-inside.img $FSDIRARM/aarch-system-${ver}/disks && rm -rf $tdir
+
+
+
 

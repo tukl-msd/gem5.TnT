@@ -196,3 +196,6 @@ See also: [gen_arm_fs_files.py]
 [compile-kernel-aarch32.sh]: compile-kernel-aarch32.sh
 [compile-kernel-aarch64.sh]: compile-kernel-aarch64.sh
 [gen_arm_fs_files.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/util/gen_arm_fs_files.py
+[boot-linux-aarch64.sh]: boot-linux-aarch64.sh
+[boot-linux-aarch32.sh]: boot-linux-aarch32.sh
+[wa-setup.sh]: wa-setup.sh

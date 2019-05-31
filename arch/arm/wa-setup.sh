@@ -33,7 +33,7 @@
 # Author: Éder F. Zulian
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-TOPDIR=$DIR
+TOPDIR=$DIR/../..
 source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
@@ -99,4 +99,17 @@ fi
 rm -rf $tdir && echo "Done."
 printf "Disk images in ${Yellow}$FSDIRARM/aarch-system-${ver}/disks${NC}\n"
 
+printf "\nInstructions:\n\n"
+printf "${Yellow}./boot-linux-arch32.sh ${img32}${NC}\n\n"
+printf "1. Connect to gem5 using telnet.\n"
+printf "2. Login as root (no password required).\n"
+printf "3. Go to the \'/armeabi\' folder.\n"
+printf "4. Choose an application and execute it.\n"
+printf "\n"
+printf "${Yellow}./boot-linux-arch64.sh ${img64}${NC}\n\n"
+printf "1. Connect to gem5 using telnet.\n"
+printf "2. Login as root (no password required).\n"
+printf "3. Go to the \'/arm64\' folder.\n"
+printf "4. Choose an application and execute it.\n"
+printf "\n"
 

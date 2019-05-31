@@ -70,7 +70,7 @@ fi
 
 disk_opts="--disk-image=$img"
 
-target="boot-linux"
+target="boot-linux-aarch32"
 config_script="configs/example/fs.py"
 ncpus="1"
 cpu_clk="4GHz"

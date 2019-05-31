@@ -45,7 +45,29 @@ gem5_elf="build/$arch/gem5.$mode"
 sysver="2014-10"
 syspath="$FSDIRARM/aarch-system-${sysver}"
 imgdir="${syspath}/disks"
-img="$imgdir/linux-aarch32-ael.img"
+
+usage="Usage: $(basename "$0") {-h | [DISK]}
+Boot Linux aarch32. Optionally, a DISK image can be specified.
+	-h    display this help and exit
+	DISK  raw disk image file (.img)"
+
+if [ "$1" = "-h" ]; then
+	echo "$usage"
+	exit 0
+fi
+
+if [ "$#" = "1" ]; then
+	img="$1"
+else
+	img="$imgdir/linux-aarch32-ael.img"
+fi
+
+if [ ! -e "$img" ]; then
+	printf "\n${Red}Error. File \"$img\" not found.${NC}\n\n"
+	echo "$usage"
+	exit 1
+fi
+
 disk_opts="--disk-image=$img"
 
 target="boot-linux"
@@ -64,7 +86,6 @@ kernel="${syspath}/binaries/vmlinux.aarch32.ll_20131205.0-gem5"
 kernel_opts="--kernel=${kernel}"
 dtb_opts="--dtb=${syspath}/binaries/vexpress.aarch32.ll_20131205.0-gem5.${ncpus}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
-
 #wa_opts="--workload-automation-vio=/tmp"
 
 sim_name="${target}-${cpu_type}-${ncpus}c-${mem_size}-${currtime}"

@@ -44,18 +44,6 @@ arch="ARM"
 mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
-#pushd $ROOTDIR/gem5
-## apply workload automation patch
-#p="$DIR/workload-automation.patch"
-#printf "${Red}Stashing local changes...${NC}\n"
-#git stash > /dev/null 2>&1
-#printf "${Yellow}Applying patch...${NC}\n"
-#patch -fs -p1 < $p &>/dev/null
-## build gem5
-#rm -rf build/$arch
-#build_gem5 $arch $mode
-#popd
-
 sysver="20180409"
 syspath="$FSDIRARM/aarch-system-${sysver}"
 imgdir="${syspath}/disks"

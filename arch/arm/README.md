@@ -27,6 +27,9 @@ Before running the scripts below make sure everything else is setup! You're all 
 * [**Elastic Trace + HBM Main Memory**](../../patches/gem5/HBM_elastic_traces/README.md) steps to run elastic traces on gem5 using HBM as main memory.
 * **[compile-kernel-aarch64.sh]**: convenience script for compiling and testing a kernel
 * **[compile-kernel-aarch32.sh]**: convenience script for compiling and testing a kernel
+* **[boot-linux-aarch64.sh]**: convenience script for booting Linux.
+* **[boot-linux-aarch32.sh]**: convenience script for booting Linux.
+* **[wa-setup.sh]**: creates disk images with applications inside (bw_mem, dhrystone, hackbench, lat_mem_rd, memcpy, rt-app, stress-ng, sysbench).
 
 #### **Run the scripts.**
 

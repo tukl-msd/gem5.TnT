@@ -38,45 +38,54 @@ source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 currtime=$(date "+%Y.%m.%d-%H.%M.%S")
 
-kernel="$ROOTDIR/gem5/vmlinux_aarch64"
-
 arch="ARM"
 mode="opt"
 gem5_elf="build/$arch/gem5.$mode"
 
-#pushd $ROOTDIR/gem5
-## apply workload automation patch
-#p="$DIR/workload-automation.patch"
-#printf "${Red}Stashing local changes...${NC}\n"
-#git stash > /dev/null 2>&1
-#printf "${Yellow}Applying patch...${NC}\n"
-#patch -fs -p1 < $p &>/dev/null
-## build gem5
-#rm -rf build/$arch
-#build_gem5 $arch $mode
-#popd
-
-sysver="20180409"
+sysver="2014-10"
 syspath="$FSDIRARM/aarch-system-${sysver}"
 imgdir="${syspath}/disks"
-img="$imgdir/linaro-minimal-aarch64.img"
+
+usage="Usage: $(basename "$0") {-h | [DISK]}
+Boot Linux aarch32. Optionally, a DISK image can be specified.
+	-h    display this help and exit
+	DISK  raw disk image file (.img)"
+
+if [ "$1" = "-h" ]; then
+	echo "$usage"
+	exit 0
+fi
+
+if [ "$#" = "1" ]; then
+	img="$1"
+else
+	img="$imgdir/linux-aarch32-ael.img"
+fi
+
+if [ ! -e "$img" ]; then
+	printf "\n${Red}Error. File \"$img\" not found.${NC}\n\n"
+	echo "$usage"
+	exit 1
+fi
+
+disk_opts="--disk-image=$img"
 
 target="boot-linux"
 config_script="configs/example/fs.py"
 ncpus="1"
 cpu_clk="4GHz"
-machine_opts="--machine-type=VExpress_GEM5_V1"
+machine_opts="--machine-type=VExpress_EMM"
 #cpu_type="TimingSimpleCPU"
 cpu_type="AtomicSimpleCPU"
 cpu_opts="--cpu-type=${cpu_type} --num-cpu=$ncpus --cpu-clock=${cpu_clk}"
-mem_size="8GB"
+mem_size="256MB"
+#mem_type="SimpleMemory"
 mem_opts="--mem-size=${mem_size}"
 cache_opts="--caches --l2cache"
-disk_opts="--disk-image=$img"
+kernel="${syspath}/binaries/vmlinux.aarch32.ll_20131205.0-gem5"
 kernel_opts="--kernel=${kernel}"
-dtb_opts="--dtb=${syspath}/binaries/armv8_gem5_v1_${ncpus}cpu.dtb"
+dtb_opts="--dtb=${syspath}/binaries/vexpress.aarch32.ll_20131205.0-gem5.${ncpus}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
-
 #wa_opts="--workload-automation-vio=/tmp"
 
 sim_name="${target}-${cpu_type}-${ncpus}c-${mem_size}-${currtime}"

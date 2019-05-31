@@ -38,7 +38,7 @@ source $TOPDIR/common/defaults.in
 source $TOPDIR/common/util.in
 
 wa_branch="master"
-#wa_branch="legacy"
+ver="20180409"
 
 gitrepos=(
 "$ROOTDIR:https://github.com/ARM-software/workload-automation.git"
@@ -51,19 +51,6 @@ git checkout ${wa_branch} > /dev/null 2>&1
 sudo -H python setup.py install > /dev/null 2>&1
 wa -h > /dev/null 2>&1
 popd > /dev/null 2>&1
-
-#printf "\n${Yellow}Suggested commands to start:${NC}\n"
-#echo "wa -h"
-#echo "wa list targets"
-#echo "wa list commands"
-#echo "wa list instruments"
-#echo "wa list workloads"
-#
-#printf "${Yellow}See also:${NC}\n"
-#echo "$ROOTDIR/workload-automation"
-#
-#printf "${Yellow}See also:${NC}\n"
-#echo "$HOME/.workload-automation"
 
 dir="$ROOTDIR/workload-automation/build/lib.linux-x86_64-2.7/wa/workloads"
 bins="
@@ -81,62 +68,35 @@ armeabi
 "
 
 tdir=`mktemp -d`
-for bin in $bins; do
-	for arch in $archs; do
-		sudo cp -R $dir/$bin/bin/$arch $tdir
+img64="$FSDIRARM/aarch-system-${ver}/disks/linaro-minimal-aarch64-arm64-inside.img"
+img32="$FSDIRARM/aarch-system-${ver}/disks/linux-aarch32-ael-armeabi-inside.img"
+if [ ! -e $img64 ] || [ ! -e $img32 ]; then
+	for bin in $bins; do
+		for arch in $archs; do
+			sudo cp -R $dir/$bin/bin/$arch $tdir
+		done
 	done
-done
+	for arch in $archs; do
+		sudo chown -R $USER:$USER $tdir/$arch
+		chmod u+x $tdir/$arch/*
+	done
+fi
 
-for arch in $archs; do
-	sudo chown -R $USER:$USER $tdir/$arch
-	chmod u+x $tdir/$arch/*
-done
-
-#
-#wa create agenda gem5_linux dhrystone execution_time trace-cmd csv -o my_agenda.yaml
-#cd /media/disk2/gem5_tnt/workload-automation/extras
-#sudo docker build -t wa .
-#docker run -it --privileged -v /dev/bus/usb:/dev/bus/usb --volume ${PWD}:/workspace --workdir /workspace wa
-#
-
-# See also:
-# https://workload-automation.readthedocs.io/en/latest/user_information.html#prerequisites
-# https://github.com/ARM-software/devlib
-
-#sudo apt-get install python-pip
-#sudo -H pip install --upgrade pip
-#sudo -H pip install testresources
-#sudo -H pip install --upgrade setuptools
-#sudo chmod -R a+r /usr/local/lib/python2.7/dist-packages
-#sudo find /usr/local/lib/python2.7/dist-packages -type d -exec chmod a+x {} \;
-#sudo -H pip install pexpect
-#sudo -H pip install pyserial
-#sudo -H pip install pyyaml
-#sudo -H pip install docutils
-#sudo -H pip install python-dateutil
-#sudo -H pip install devlib
-#sudo -H pip install pandas
-#sudo -H pip install louie
-#sudo -H pip install wrapt
-#sudo -H pip install requests
-#sudo -H pip install colorama
-#sudo -H pip install future
-#sudo apt-get install python-serial
-#sudo -H pip install nose
-#sudo -H pip install PyDAQmx
-#sudo -H pip install pymongo
-#sudo -H pip install jinja2
-#sudo -H pip install wa
-#sudo -H pip install wa[all]
-
-ver="20180409"
 pushd $tdir > /dev/null 2>&1
-$TOPDIR/disk-util/copy-into-img.sh $FSDIRARM/aarch-system-${ver}/disks/linaro-minimal-aarch64.img arm64
-$TOPDIR/disk-util/copy-into-img.sh $FSDIRARM/aarch-system-${ver}/disks/linux-aarch32-ael.img armeabi
+if [ ! -e $img64 ]; then
+	$TOPDIR/disk-util/copy-into-img.sh $FSDIRARM/aarch-system-${ver}/disks/linaro-minimal-aarch64.img arm64
+fi
+if [ ! -e $img32 ]; then
+	$TOPDIR/disk-util/copy-into-img.sh $FSDIRARM/aarch-system-${ver}/disks/linux-aarch32-ael.img armeabi
+fi
 popd > /dev/null 2>&1
-mv $tdir/linaro-minimal-aarch64-arm64-inside.img $FSDIRARM/aarch-system-${ver}/disks
-mv $tdir/linux-aarch32-ael-armeabi-inside.img $FSDIRARM/aarch-system-${ver}/disks && rm -rf $tdir
-
-
+if [ ! -e $img64 ]; then
+	mv $tdir/linaro-minimal-aarch64-arm64-inside.img $FSDIRARM/aarch-system-${ver}/disks
+fi
+if [ ! -e $img32 ]; then
+	mv $tdir/linux-aarch32-ael-armeabi-inside.img $FSDIRARM/aarch-system-${ver}/disks
+fi
+rm -rf $tdir && echo "Done."
+printf "Disk images in ${Yellow}$FSDIRARM/aarch-system-${ver}/disks${NC}\n"
 
 

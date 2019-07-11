@@ -86,7 +86,6 @@ kernel="${syspath}/binaries/vmlinux.vexpress_gem5_v1_64"
 kernel_opts="--kernel=${kernel}"
 dtb_opts="--dtb=${syspath}/binaries/armv8_gem5_v1_${ncpus}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
-#wa_opts="--workload-automation-vio=/tmp"
 
 sim_name="${target}-${cpu_type}-${ncpus}c-${mem_size}-${currtime}"
 
@@ -113,7 +112,6 @@ export M5_PATH="${syspath}":${M5_PATH}
 time $gem5_elf $gem5_opts \
 	-d $output_dir \
 	$config_script \
-	${wa_opts} \
 	$machine_opts \
 	$cpu_opts \
 	$mem_opts \

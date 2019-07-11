@@ -7,7 +7,7 @@ Before running the scripts below make sure everything else is setup! You're all 
 
 * [**boot_android.sh**](boot_android.sh): boots android.
 * [**boot_linaro.sh**](boot_linaro.sh): boots linaro.
-* [**boot_linaro_big_little.sh**](boot_linaro_big_little.sh): boots linaro with fs_bigLITTLE.py. Note that SimpleMemory is used, so you may want to change the example script fs_bigLITTLE.py.
+* [**boot_linaro_big_little.sh**](boot_linaro_big_little.sh): boots linaro with [fs_bigLITTLE.py]. Note that SimpleMemory is used, so you may want to change the example script [fs_bigLITTLE.py].
 * [**boot_ubuntu.sh**](boot_ubuntu.sh): boots ubuntu (*experimental*). It is necessary to change */etc/fstab* inside the disk, check [boot-ubuntu-fstab](boot-ubuntu-fstab) to get ideas. You may also want to change the kernel command line and/or Ubuntu initialization files.
 * [**build_llvm_test_suite_apps.sh**](build_llvm_test_suite_apps.sh): builds some apps from LLVM test-suite.
 * [**build-parsec.sh**](build-parsec.sh): builds some apps from parsec-3.0 benchmark suite.
@@ -30,6 +30,8 @@ Before running the scripts below make sure everything else is setup! You're all 
 * **[boot-linux-aarch64.sh]**: convenience script for booting Linux.
 * **[boot-linux-aarch32.sh]**: convenience script for booting Linux.
 * **[wa-setup.sh]**: creates disk images with applications inside (bw_mem, dhrystone, hackbench, lat_mem_rd, memcpy, rt-app, stress-ng, sysbench).
+* **[boot-linux-starter-fs.sh]**: convenience script for booting Linux with [starter_fs.py].
+* **[boot-linux-fs-big-little.sh]**: convenience script for booting Linux with [fs_bigLITTLE.py]. Note that SimpleMemory is used, so you may want to change the example script [fs_bigLITTLE.py].
 
 #### **Run the scripts.**
 
@@ -199,3 +201,5 @@ See also: [gen_arm_fs_files.py]
 [boot-linux-aarch64.sh]: boot-linux-aarch64.sh
 [boot-linux-aarch32.sh]: boot-linux-aarch32.sh
 [wa-setup.sh]: wa-setup.sh
+[fs_bigLITTLE.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/arm/fs_bigLITTLE.py
+[starter_fs.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/arm/starter_fs.py

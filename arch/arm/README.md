@@ -203,3 +203,5 @@ See also: [gen_arm_fs_files.py]
 [wa-setup.sh]: wa-setup.sh
 [fs_bigLITTLE.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/arm/fs_bigLITTLE.py
 [starter_fs.py]: https://gem5.googlesource.com/public/gem5/+/refs/heads/master/configs/example/arm/starter_fs.py
+[boot-linux-starter-fs.sh]: boot-linux-starter-fs.sh
+[boot-linux-fs-big-little.sh]: boot-linux-fs-big-little.sh

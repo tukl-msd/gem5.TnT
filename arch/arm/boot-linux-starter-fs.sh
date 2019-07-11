@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2019, University of Kaiserslautern
+# Copyright (c) 2018, University of Kaiserslautern
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -60,6 +60,9 @@ if [ "$#" = "1" ]; then
 	img="$1"
 else
 	img="$imgdir/linaro-minimal-aarch64.img"
+	if [[ ! -e $img ]]; then
+		$TOPDIR/get_essential_fs.sh
+	fi
 fi
 
 if [ ! -e "$img" ]; then
@@ -70,18 +73,17 @@ fi
 
 disk_opts="--disk-image=$img"
 
-target="boot-linux-aarch64"
-config_script="configs/example/fs.py"
-ncpus="1"
-cpu_clk="4GHz"
-machine_opts="--machine-type=VExpress_GEM5_V1"
-#cpu_type="TimingSimpleCPU"
-cpu_type="AtomicSimpleCPU"
-cpu_opts="--cpu-type=${cpu_type} --num-cpu=$ncpus --cpu-clock=${cpu_clk}"
+target="boot-lin-starter-fs"
+config_script="configs/example/arm/starter_fs.py"
+ncpus="2"
+
+#cpu_type="hpi"
+#cpu_type="atomic"
+cpu_type="minor"
+cpu_opts="--cpu=${cpu_type} --num-cores=$ncpus"
 mem_size="8GB"
 mem_opts="--mem-size=${mem_size}"
-cache_opts="--caches --l2cache"
-#kernel="$ROOTDIR/gem5/vmlinux_aarch64"
+
 kernel="${syspath}/binaries/vmlinux.vexpress_gem5_v1_64"
 kernel_opts="--kernel=${kernel}"
 dtb_opts="--dtb=${syspath}/binaries/armv8_gem5_v1_${ncpus}cpu.dtb"
@@ -112,10 +114,8 @@ export M5_PATH="${syspath}":${M5_PATH}
 time $gem5_elf $gem5_opts \
 	-d $output_dir \
 	$config_script \
-	$machine_opts \
 	$cpu_opts \
 	$mem_opts \
-	$cache_opts \
 	$kernel_opts \
 	$dtb_opts \
 	$disk_opts \

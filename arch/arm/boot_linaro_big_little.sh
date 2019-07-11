@@ -63,11 +63,11 @@ bcpus="2"
 lcpus="2"
 #cputype="timing"
 cputype="atomic"
-cpu_options="--cpu-type=${cputype} --big-cpus ${bcpus} --little-cpus ${lcpus}"
-cache_options="--caches"
-disk_options="--disk=$img"
-kernel="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
-dtb="--dtb=${sysdir}/binaries/armv8_gem5_v1_big_little_${bcpus}_${lcpus}.dtb"
+cpu_opts="--cpu-type=${cputype} --big-cpus ${bcpus} --little-cpus ${lcpus}"
+cache_opts="--caches"
+disk_opts="--disk=$img"
+kernel_opts="--kernel=${sysdir}/binaries/vmlinux.vexpress_gem5_v1_64"
+dtb_opts="--dtb=${sysdir}/binaries/armv8_gem5_v1_big_little_${bcpus}_${lcpus}.dtb"
 
 sim_name="${target}_${cputype}_${bcpus}b_${lcpus}l_${currtime}"
 
@@ -77,18 +77,19 @@ printf '#!/bin/bash\n' > $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf '/sbin/m5 -h\n' >> $bootscript
 printf '/bin/bash\n' >> $bootscript
-bootscript_options="--bootscript=$ROOTDIR/gem5/$bootscript"
+script_opts="--bootscript=$ROOTDIR/gem5/$bootscript"
 
 output_dir="${sim_name}"
 mkdir -p ${output_dir}
 logfile=${output_dir}/gem5.log
 export M5_PATH="$FSDIRARM/aarch-system-${sysver}":${M5_PATH}
-$gem5_elf -d $output_dir \
+time $gem5_elf -d $output_dir \
 	$config_script \
-	$cpu_options \
-	$cache_options \
+	$cpu_opts \
+	$cache_opts \
 	$tlm_options \
-	$kernel $dtb \
-	$disk_options \
-	$bootscript_options 2>&1 | tee $logfile
+	$kernel_opts \
+	$dtb_opts \
+	$disk_opts \
+	$script_opts 2>&1 | tee $logfile
 popd

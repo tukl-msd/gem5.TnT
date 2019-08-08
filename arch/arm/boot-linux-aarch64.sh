@@ -46,21 +46,22 @@ sysver="20180409"
 syspath="$FSDIRARM/aarch-system-${sysver}"
 imgdir="${syspath}/disks"
 
-usage="Usage: $(basename "$0") {-h | [DISK]}
+usage="Usage: $(basename "$0") {-h | DISK NUM_CPUS MEM_SIZE_GB}
 Boot Linux aarch64. Optionally, a DISK image can be specified.
 	-h    display this help and exit
-	DISK  raw disk image file (.img)"
+	DISK  raw disk image file (.img)
+	NUM_CPUS  number of CPUS
+	MEM_SIZE_GB memory size in GiB"
 
 if [ "$1" = "-h" ]; then
 	echo "$usage"
 	exit 0
+elif [ "$#" != "3" ]; then
+	echo "$usage"
+	exit 1
 fi
 
-if [ "$#" = "1" ]; then
-	img="$1"
-else
-	img="$imgdir/linaro-minimal-aarch64.img"
-fi
+img="$1"
 
 if [ ! -e "$img" ]; then
 	printf "\n${Red}Error. File \"$img\" not found.${NC}\n\n"
@@ -72,13 +73,13 @@ disk_opts="--disk-image=$img"
 
 target="boot-linux-aarch64"
 config_script="configs/example/fs.py"
-ncpus="1"
+ncpus="$2"
 cpu_clk="4GHz"
 machine_opts="--machine-type=VExpress_GEM5_V1"
-#cpu_type="TimingSimpleCPU"
-cpu_type="AtomicSimpleCPU"
+cpu_type="TimingSimpleCPU"
+#cpu_type="AtomicSimpleCPU"
 cpu_opts="--cpu-type=${cpu_type} --num-cpu=$ncpus --cpu-clock=${cpu_clk}"
-mem_size="8GB"
+mem_size="${3}GB"
 mem_opts="--mem-size=${mem_size}"
 cache_opts="--caches --l2cache"
 #kernel="$ROOTDIR/gem5/vmlinux_aarch64"

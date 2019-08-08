@@ -86,6 +86,7 @@ kernel="${syspath}/binaries/vmlinux.vexpress_gem5_v1_64"
 kernel_opts="--kernel=${kernel}"
 dtb_opts="--dtb=${syspath}/binaries/armv8_gem5_v1_${ncpus}cpu.dtb"
 gem5_opts="--remote-gdb-port=0"
+#tlm_opts="--tlm-memory=transactor"
 
 sim_name="${target}-${cpu_type}-${ncpus}c-${mem_size}-${currtime}"
 
@@ -115,6 +116,7 @@ time $gem5_elf $gem5_opts \
 	$machine_opts \
 	$cpu_opts \
 	$mem_opts \
+	$tlm_opts \
 	$cache_opts \
 	$kernel_opts \
 	$dtb_opts \

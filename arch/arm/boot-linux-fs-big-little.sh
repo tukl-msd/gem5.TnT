@@ -71,12 +71,12 @@ if [ ! -e "$img" ]; then
 	exit 1
 fi
 
-target="boot-lin-fs-big-little"
+target="boot-linux-fs-big-little"
 config_script="configs/example/arm/fs_bigLITTLE.py"
 bcpus="2"
 lcpus="2"
-#cpu_type="timing"
-cpu_type="atomic"
+cputype="timing"
+#cputype="atomic"
 cpu_opts="--cpu-type=${cputype} --big-cpus ${bcpus} --little-cpus ${lcpus}"
 cache_opts="--caches"
 disk_opts="--disk=$img"
@@ -84,6 +84,8 @@ kernel="${syspath}/binaries/vmlinux.vexpress_gem5_v1_64"
 kernel_opts="--kernel=${kernel}"
 dtb_opts="--dtb=${syspath}/binaries/armv8_gem5_v1_big_little_${bcpus}_${lcpus}.dtb"
 gem5_opts="--remote-gdb-port=0"
+# FIXME: this doesn't work
+#tlm_opts="--tlm-memory=transactor"
 
 sim_name="${target}-${cpu_type}-${bcpus}b-${lcpus}l-${currtime}"
 
@@ -98,7 +100,7 @@ printf "echo \"Greetings from gem5.TnT!\"\n" >> $bootscript
 printf "echo \"Executing $bootscript now\"\n" >> $bootscript
 printf '/sbin/m5 -h\n' >> $bootscript
 printf '/bin/bash\n' >> $bootscript
-script_opt="--script=$ROOTDIR/gem5/$bootscript"
+script_opts="--bootscript=$ROOTDIR/gem5/$bootscript"
 
 output_dir="${sim_name}"
 mkdir -p ${output_dir}
@@ -108,10 +110,11 @@ time $gem5_elf $gem5_opts \
 	-d $output_dir \
 	$config_script \
 	$cpu_opts \
+	$tlm_opts \
 	$cache_opts \
 	$kernel_opts \
 	$dtb_opts \
 	$disk_opts \
-	$script_opt 2>&1 | tee $logfile
+	$script_opts 2>&1 | tee $logfile
 
 popd

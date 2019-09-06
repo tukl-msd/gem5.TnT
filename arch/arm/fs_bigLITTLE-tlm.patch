@@ -1,0 +1,39 @@
+diff --git a/configs/example/arm/fs_bigLITTLE.py b/configs/example/arm/fs_bigLITTLE.py
+index 7d66c03..5a1a790 100644
+--- a/configs/example/arm/fs_bigLITTLE.py
++++ b/configs/example/arm/fs_bigLITTLE.py
+@@ -113,11 +113,14 @@ class Ex5LittleCluster(devices.CpuCluster):
+         super(Ex5LittleCluster, self).__init__(system, num_cpus, cpu_clock,
+                                          cpu_voltage, *cpu_config)
+ 
+-def createSystem(caches, kernel, bootscript, disks=[]):
++def createSystem(caches, kernel, bootscript, disks=[], tlm=False):
+     sys = devices.SimpleSystem(caches, default_mem_size,
+                                kernel=SysPaths.binary(kernel),
+                                readfile=bootscript)
+ 
++    if tlm:
++        sys.physmem = SimpleMemory()
++
+     sys.mem_ctrls = [ SimpleMemory(range=r, port=sys.membus.master)
+                       for r in sys.mem_ranges ]
+ 
+@@ -171,6 +174,8 @@ def addOptions(parser):
+                         help="Number of big CPUs to instantiate")
+     parser.add_argument("--little-cpus", type=int, default=1,
+                         help="Number of little CPUs to instantiate")
++    parser.add_argument("--tlm-memory", type=str,
++                        help="use external port for SystemC TLM cosimulation")
+     parser.add_argument("--caches", action="store_true", default=False,
+                         help="Instantiate caches")
+     parser.add_argument("--last-cache-level", type=int, default=2,
+@@ -206,7 +211,8 @@ def build(options):
+     system = createSystem(options.caches,
+                           options.kernel,
+                           options.bootscript,
+-                          disks=disks)
++                          disks=disks,
++                          tlm=options.tlm_memory)
+ 
+     root.system = system
+     system.boot_osflags = " ".join(kernel_cmd)

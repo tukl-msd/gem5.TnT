@@ -69,7 +69,6 @@ instdep() {
 	parted
 	kpartx
 	csh
-	lsb-core
 	xtightvncviewer
 	diod
 	libncurses5-dev
